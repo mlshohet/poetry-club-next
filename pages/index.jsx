@@ -1,47 +1,38 @@
 import { Fragment } from 'react';
+import Head from 'next/head';
 
 import FeaturedPosts from '../components/home-page/featured-posts';
 import Hero from '../components/home-page/hero';
 
-const DUMMY_POSTS = [
-	{
-		slug: 'getting-started', 
-		title:'Getting Started', 
-		image:'getting-started.png', 
-		excerpt: 'NextJS is a react blah blah fuck you', 
-		date: '2022-02-10'
-	},
-	{
-		slug: 'getting-started2', 
-		title:'Getting Started', 
-		image:'getting-started.png', 
-		excerpt: 'NextJS is a react blah blah fuck you', 
-		date: '2022-02-10'
-	},
-	{
-		slug: 'getting-started3', 
-		title:'Getting Started', 
-		image:'getting-started.png', 
-		excerpt: 'NextJS is a react blah blah fuck you', 
-		date: '2022-02-10'
-	},
-	{
-		slug: 'getting-started4', 
-		title:'Getting Started', 
-		image:'getting-started.png', 
-		excerpt: 'NextJS is a react blah blah fuck you', 
-		date: '2022-02-10'
-	}
-];
+import { getFeaturedPosts } from '../lib/posts-util';
 
-function HomePage() {
+
+function HomePage(props) {
 
 	return (
 		<Fragment>
+			<Head>
+				<title>Blog</title>
+				<meta 
+					name="description"
+					content="Posts about shite"
+				/>
+			</Head>
 			<Hero />
-			<FeaturedPosts posts={DUMMY_POSTS} />
+			<FeaturedPosts posts={props.posts} />
 		</Fragment>
 	);
+};
+
+export async function getStaticProps() {
+	const featuredPosts = getFeaturedPosts();
+
+	return {
+		props: {
+			posts: featuredPosts
+		},
+		revalidate: 60
+	};
 };
 
 export default HomePage;
