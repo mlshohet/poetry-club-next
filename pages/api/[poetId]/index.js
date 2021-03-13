@@ -12,7 +12,7 @@ const handler = async (req, res) => {
 
 		try {
 				client = await MongoClient.connect(
-					'mongodb+srv://<db>:<password>@cluster0.qvis4.mongodb.net/apostrophe-poetry?retryWrites=true&w=majority'
+					''
 				);
 
 			const db = client.db();
@@ -48,7 +48,7 @@ const handler = async (req, res) => {
 			let client;
 			try {
 				client = await MongoClient.connect(
-						'mongodb+srv://<db>:<password>@cluster0.qvis4.mongodb.net/apostrophe-poetry?retryWrites=true&w=majority');
+						'');
 			
 				const db = client.db();
 				const poets = db.collection("poets");

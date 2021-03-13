@@ -11,7 +11,7 @@ const handler = async (req, res) => {
 
 		try {
 				client = await MongoClient.connect(
-					'mongodb+srv://<db-name>:<password>@cluster0.qvis4.mongodb.net/apostrophe-poetry?retryWrites=true&w=majority'
+					''
 				);
 
 			const db = client.db();
