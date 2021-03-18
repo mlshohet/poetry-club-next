@@ -5,15 +5,20 @@ import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'dr
 import classes from './submission-form.module.css';
 import Notification from '../ui/notification';
 
-function MyEditor() {
-	console.log("My Editor");
+function TextEditor() {
+
+	const focused = useRef();
+	useEffect(() => focused.current.focus(), []);
+
+	const [isBActive, setIsBActive] = useState(false);
+	const [isIActive, setIsIActive] = useState(false);
+	const [isUActive, setIsUActive] = useState(false);
 	const [editorState, setEditorState] = useState(
 		() => EditorState.createEmpty(),
 	);
 
 	function handleKeyCommand(command, editorState) {
 		const newState = RichUtils.handleKeyCommand(editorState, command);
-		console.log('Handlekeycomman');
 		if (newState) {
 			setEditorState(newState);
 			return 'handled';
@@ -21,12 +26,23 @@ function MyEditor() {
 		return 'not-handled';
 	};
 
-	function onBoldClickHandler(e) {
-		console.log("Bold click!");
+	function onStyleClickHandler(e) {
+		const style = e.target.value;
 		e.preventDefault();
-		const newState = RichUtils.toggleInlineStyle(editorState, 'BOLD');
-		const currentStyle = editorState.getCurrentInlineStyle();
-		console.log(currentStyle);
+		let newState;
+		if (style === "B") {
+			setIsBActive(!isBActive);
+			newState = RichUtils.toggleInlineStyle(editorState, 'BOLD');
+		} else if (style == "I") {
+			setIsIActive(!isIActive);
+			newState = RichUtils.toggleInlineStyle(editorState, 'ITALIC');
+		} else if (style == "U") {
+			setIsUActive(!isUActive);
+			newState = RichUtils.toggleInlineStyle(editorState, 'UNDERLINE');
+		} else {
+			newState = editorState;
+		}
+		
 		setEditorState(newState);
 	};
 
@@ -34,9 +50,45 @@ function MyEditor() {
 		<Fragment>
 			<div className={classes.editorContainer}>
 				<div className={classes.buttonsContainer}>
-					<button onMouseDown={onBoldClickHandler}
+					<button 
+						style={{"fontWeight": "bold"}}
+						className = {
+							isBActive ?
+							classes.active :
+							classes.buttonStyle
+						}
+						value="B"
+						onMouseDown={onStyleClickHandler} 
 					>
-						BOLD
+	
+							B
+					</button>
+					<button
+						style={{"fontStyle": "italic"}}
+						className = {
+							isIActive?
+							classes.active :
+							classes.buttonStyle
+						}
+						value="I" 
+						onMouseDown={onStyleClickHandler}
+					>
+	
+							I
+
+					</button>
+					<button 
+						style={{"textDecoration": "underline"}}
+						className = {
+							isUActive?
+							classes.active :
+							classes.buttonStyle
+						}
+						value="U"
+						onMouseDown={onStyleClickHandler}
+					>
+			
+							U
 					</button>
 				</div>
 				<div className={classes.editorMain}>
@@ -44,11 +96,12 @@ function MyEditor() {
 					<Editor 
 						editorState={editorState} 
 						onChange={setEditorState}
+						ref={focused}
 						handleKeyCommand={handleKeyCommand}
 					/>
 				</div>
 				<div className={classes.actions}>
-					<button type="button">Publish</button>
+					<button className={classes.buttonStylePublish}>Publish</button>
 				</div>
 			</div>
 		</Fragment>
@@ -153,6 +206,6 @@ function SubmissionForm() {
 	}
 }
 
-export default MyEditor;
+export default TextEditor;
 
 

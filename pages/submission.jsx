@@ -1,12 +1,13 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 
 //import SubmissionForm from '../components/submission/submission-form';
 
-const DraftEditor = dynamic(() => import('../components/submission/submission-form-draft'), { ssr: false });
+const TextEditor = dynamic(() => import('../components/submission/submission-form-draft'), { ssr: false });
 
 function SubmissionPage() {
+
 	console.log("Submissin Page started");
 	return (
 		<Fragment>
@@ -18,7 +19,7 @@ function SubmissionPage() {
 				/>
 				<meta charset="utf-8" />
 			</Head>
-			<DraftEditor />
+			<TextEditor />
 		</Fragment>
 	
 	);

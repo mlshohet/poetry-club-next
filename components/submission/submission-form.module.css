@@ -1,17 +1,50 @@
-.editorMain {
-  background-color: lightgray;
-  width: 80vw;
-  height: 100vh;
-  font-size: 1.5rem;
-  padding: 1.2rem;
+.editorContainer {
+  margin: 4rem;
+  display: flex;
+  flex-direction: column;
 }
 
-.editorContainer {
+.buttonsContainer {
+  background-color: lightgray;
   display: flex;
-  width: 100%;
-  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0.3rem;
+}
+
+.buttonStyle {
+  margin-left: 1rem;
+  display: flex;
   justify-content: center;
   align-items: center;
+  background-color: lightgray;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid gray;
+}
+
+.buttonStylePublish {
+  background-color: whitesmoke;
+  height: 2rem;
+  border: 1px solid gray;
+}
+
+.active {
+  margin-left: 1rem;
+  color: lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid black;
+  background-color: black;
+}
+
+.editorMain {
+  background-color: whitesmoke;
+  font-size: 1.5rem;
+  padding: 1.2rem;
+  height: 15rem;
 }
 
 .contact {
