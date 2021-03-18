@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "draft-js": "^0.11.7",
     "gray-matter": "^4.0.2",
     "mongodb": "^3.6.4",
     "next": "10.0.6",

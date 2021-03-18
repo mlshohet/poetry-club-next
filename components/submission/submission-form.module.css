@@ -1,3 +1,19 @@
+.editorMain {
+  background-color: lightgray;
+  width: 80vw;
+  height: 100vh;
+  font-size: 1.5rem;
+  padding: 1.2rem;
+}
+
+.editorContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .contact {
   margin: var(--size-8) auto;
   border-radius: 6px;

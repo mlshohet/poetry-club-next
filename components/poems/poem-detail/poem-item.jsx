@@ -7,7 +7,7 @@ function PoemItem(props) {
 
 	const { title, text, date, slug } = props.poem;
 
-	const poemText = text.replace(/\\n/g, \<p>/);
+	// const poemText = text.replace(/\\n/g);
 
 	// const formattedDate =  new Date(date).toLocaleDateString('en-US', {
 	// 	day: 'numeric',
@@ -23,7 +23,7 @@ function PoemItem(props) {
 				<a>
 					<div>
 						<h3>{title}</h3>
-						<span>{poemText}</span>
+						<span>{text}</span>
 					</div>
 				</a>
 			</Link>			
