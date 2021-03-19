@@ -12,7 +12,7 @@
 }
 
 .buttonStyle {
-  margin-left: 1rem;
+  margin-left: 0.8rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,7 +29,7 @@
 }
 
 .active {
-  margin-left: 1rem;
+  margin-left: 0.8rem;
   color: lightgray;
   display: flex;
   justify-content: center;
@@ -45,6 +45,13 @@
   font-size: 1.5rem;
   padding: 1.2rem;
   height: 15rem;
+}
+
+.output {
+  white-space: pre-line;
+  text-align: left;
+  margin: 10px;
+  height: 150px;
 }
 
 .contact {

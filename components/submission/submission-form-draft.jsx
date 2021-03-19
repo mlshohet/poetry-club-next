@@ -10,12 +10,53 @@ function TextEditor() {
 	const focused = useRef();
 	useEffect(() => focused.current.focus(), []);
 
-	const [isBActive, setIsBActive] = useState(false);
 	const [isIActive, setIsIActive] = useState(false);
-	const [isUActive, setIsUActive] = useState(false);
 	const [editorState, setEditorState] = useState(
 		() => EditorState.createEmpty(),
 	);
+
+	function getContent() {
+
+		const block = editorState.getCurrentContent();
+  
+		const rawJS = convertToRaw(block);
+		const text = rawJS.blocks;
+
+		let lineArr;
+		let finalText = '<p>';
+
+		text.map(line => {
+
+			lineArr = line.text.split('');
+			lineArr.map((letter, i) => {
+				if (letter === "<") {
+					lineArr.splice(i+1, 0, "&zwnj;");
+				}
+			});
+
+			if (line.inlineStyleRanges.length !== 0) {
+				line.inlineStyleRanges.map(style => {
+						const { offset, length } = style;
+						lineArr.splice(offset, 0, '<i>');
+						lineArr.splice(offset + length + 1, 0, '</i>');
+					}
+				);
+
+				finalText = finalText.concat(lineArr.join('')+'\n');
+			} else {
+				finalText = finalText.concat(lineArr.join('')+'\n');
+			}
+		});
+
+		const parser = new DOMParser();
+		const htmlDoc = parser.parseFromString(finalText, "text/html");
+		const outputDiv = document.getElementById("output"); // id of where to append the children
+		const p = htmlDoc.querySelectorAll("p"); // children of the first paragraph in the HTML doc of text
+		for (let node of p) {
+			outputDiv.appendChild(node);
+		}
+		console.log("Text ", finalText);
+	}
 
 	function handleKeyCommand(command, editorState) {
 		const newState = RichUtils.handleKeyCommand(editorState, command);
@@ -50,19 +91,6 @@ function TextEditor() {
 		<Fragment>
 			<div className={classes.editorContainer}>
 				<div className={classes.buttonsContainer}>
-					<button 
-						style={{"fontWeight": "bold"}}
-						className = {
-							isBActive ?
-							classes.active :
-							classes.buttonStyle
-						}
-						value="B"
-						onMouseDown={onStyleClickHandler} 
-					>
-	
-							B
-					</button>
 					<button
 						style={{"fontStyle": "italic"}}
 						className = {
@@ -77,19 +105,6 @@ function TextEditor() {
 							I
 
 					</button>
-					<button 
-						style={{"textDecoration": "underline"}}
-						className = {
-							isUActive?
-							classes.active :
-							classes.buttonStyle
-						}
-						value="U"
-						onMouseDown={onStyleClickHandler}
-					>
-			
-							U
-					</button>
 				</div>
 				<div className={classes.editorMain}>
 					
@@ -101,19 +116,22 @@ function TextEditor() {
 					/>
 				</div>
 				<div className={classes.actions}>
-					<button className={classes.buttonStylePublish}>Publish</button>
+					<button 
+						className={classes.buttonStylePublish}
+						onClick={getContent}
+					>
+						Publish
+					</button>
+					
+				</div>
+				<div id="output" className={classes.output}
+				>
+			
 				</div>
 			</div>
+			
 		</Fragment>
 		);
-};
-
-const MyInput = () => {
-  const [value, setValue] = useState('');
-  const onChange = (event) => setValue(event.target.value);
-
-
-  return <input value={value} onChange={onChange} />;
 };
 
 async function getData(id, slug) {
