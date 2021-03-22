@@ -1,22 +1,28 @@
 import MongoClient from 'mongodb';
 
-const handler = async (req, res) => {
+async function handler(req, res) {
+
+	const uname = req.query.poetId;
 
 	if (req.method === "GET") {
-
-		let uname = req.query.poetId;
 		console.log("Uname:", uname);
-		
 
 		let client;
 
 		try {
-				client = await MongoClient.connect(
-					''
-				);
+			client = await MongoClient.connect(
+				''
+			);
+		} catch (err) {
+			res.status(400).json({
+				message: "Could not connect to database"
+			});
+			return;
+		}
+
+		try {
 
 			const db = client.db();
-
 			let poets;
 			if (uname === 'all') {
 				const cursor = await db.collection("poets").find({});
@@ -28,47 +34,55 @@ const handler = async (req, res) => {
 			res.status(201).json({
 				poets: poets
 			});
-	
 
 		} catch (error) {
-			res.status(400).json({
+			res.status(500).json({
 				message: "Something went wrong"
 			});
 		}
-
-		await client.close();
 	}
 
 	if (req.method === "POST") {
+			
+			const { text, date, poemId } = req.body;
+			const poemDocument = { text, date, poemId };
 
-			const uname = req.query.poetId;
-			const { title, text, date } = req.body;
-			const poemDocument = { title, text, date };
+			if (!text || text === {}) {
+				res.status(422).json({ message: 'Invalid input' });
+				return;
+			}
 
 			let client;
+			let result;
+
 			try {
 				client = await MongoClient.connect(
 						'');
-			
+			} catch (err) {
+				res.status(400).json({
+					message: "Could not connect to database"
+				});
+				return;
+			}
+
+			try {
 				const db = client.db();
 				const poets = db.collection("poets");
 				const query = { userName: uname };
 				const updateDocument = { $push: { "poems": poemDocument }};
-
-				const result = await poets.updateOne(query, updateDocument);
+				result = await poets.updateOne(query, updateDocument);
+				res.status(201).json({
+					message: 'Successfully stored poem',
+					poem: poemDocument
+				});
 			} catch (error) {
 				res.status(400).json({
 					message: "Something went wrong"
-				})
-			}
-
-			res.status(201).json({
-					message: 'Successfully stored poem',
-					userMessage: poemDocument
 				});
-
-			await client.close();
+			}
 	};
+
+			client.close();
 }
 
 export default handler;

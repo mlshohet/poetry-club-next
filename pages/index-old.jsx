@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import Head from 'next/head';
 
-//import FeaturedPoets from '../components/home-page/featured-posts';
+import FeaturedPosts from '../components/home-page/featured-posts';
 import Hero from '../components/home-page/hero';
 
 import { getFeaturedPosts } from '../lib/posts-util';
@@ -12,14 +12,14 @@ function HomePage(props) {
 	return (
 		<Fragment>
 			<Head>
-				<title>Noontide Poetry Club</title>
+				<title>Blog</title>
 				<meta 
 					name="description"
-					content="Noontide Poetry Club"
+					content="Posts about shite"
 				/>
 			</Head>
 			<Hero />
-		
+			<FeaturedPosts posts={props.posts} />
 		</Fragment>
 	);
 };

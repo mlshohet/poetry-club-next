@@ -1,9 +1,25 @@
+.gridContainer {
+	display: flex;
+	justify-content: center;
+	background-color: whitesmoke;
+}
+
 .grid {
   list-style: none;
-  margin: 1rem;
+  width: 40rem;
+  margin: 0 0 3rem 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-  gap: 1.5rem;
+  grid-template-rows: repeat(auto-fill, minmax(2rem, 1fr));
   align-content: center;
+  background-color: whitesmoke;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+
+}
+
+.name {
+	text-align: center;
+	background-color: white;
+	padding: 1.7rem;
+	margin: 0;
 }

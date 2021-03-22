@@ -10,16 +10,63 @@ function TextEditor() {
 	const focused = useRef();
 	useEffect(() => focused.current.focus(), []);
 
+	const [poetId, setPoetId] = useState('wbyeats');
+
 	const [isIActive, setIsIActive] = useState(false);
 	const [editorState, setEditorState] = useState(
 		() => EditorState.createEmpty(),
 	);
 
+	async function submissionHandler(poetId) {
+		event.preventDefault();
+		
+		const submission = editorState.getCurrentContent();
+		const rawJS = convertToRaw(submission);
+		console.log("Raw: ", rawJS);
+		const poemId = rawJS.blocks[0].key
+
+		const date = new Date().toLocaleDateString('en-US', {
+					day: 'numeric',
+					month: 'long',
+					year: 'numeric' 
+		});
+
+		console.log("Poet id from submission:", poetId);
+		
+		try {
+			const response = await fetch(`http://localhost:3000/api/${poetId}`, {
+				method: 'POST',
+				body: JSON.stringify({
+					text: rawJS,
+					date: date,
+					poemId: poemId,
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				},
+			});
+
+			const data = await response.json();
+			console.log("Response from post: ", data.poem);
+
+			if (!response.ok) {
+				throw new Error("Something went wrong");
+				return;
+			}
+			
+			
+			setEditorState(() => EditorState.createEmpty());
+	
+		} catch (error) {
+			throw new Error(error);
+		}
+	};
+
 	function getContent() {
 
-		const block = editorState.getCurrentContent();
+		const submission = editorState.getCurrentContent();
   
-		const rawJS = convertToRaw(block);
+		const rawJS = convertToRaw(submission);
 		const text = rawJS.blocks;
 
 		let lineArr;
@@ -118,7 +165,7 @@ function TextEditor() {
 				<div className={classes.actions}>
 					<button 
 						className={classes.buttonStylePublish}
-						onClick={getContent}
+						onClick={() => submissionHandler(poetId)}
 					>
 						Publish
 					</button>
@@ -133,96 +180,6 @@ function TextEditor() {
 		</Fragment>
 		);
 };
-
-async function getData(id, slug) {
-	const response = await fetch(`/api/${id}/${slug}`);
-	const data = await response.json();
-	if (!response.ok) {
-		throw new Error("Something went wrong");
-	}
-	
-	return data;
-};
-
-async function sendSubmissionData(poetId, submissionData) {
-	console.log("Poet id from submission:", poetId);
-	const response = await fetch(`http://localhost:3000/api/${poetId}`, {
-			method: 'POST',
-			body: JSON.stringify(submissionData),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
-
-	const data = await response.json();
-	if (!response.ok) {
-		throw new Error(data.message || "Something went wrong");
-	}
-};
-
-function SubmissionForm() {
-
-	const [enteredTitle, setEnteredTitle] = useState('');
-	const [enteredPoem, setEnteredPoem] = useState('');
-
-	const [requestStatus, setRequestStatus] = useState(); //pending, success, error
-	const [requestError, setRequestError] = useState();
-
-	useEffect(() => {
-		if (requestStatus === 'success' || requestStatus === 'error') {
-			const timer = setTimeout(() => {
-				setRequestStatus(null);
-				setRequestError(null);
-			}, 3000);
-
-			return () => clearTimeout(timer);
-		}
-	}, [requestStatus]);
-
-	async function submissionHandler(event) {
-		event.preventDefault();
-
-		setRequestStatus('pending');
-		try	{
-			const response =  await sendSubmissionData(
-				'wbyeats',
-					{
-						title: enteredTitle,
-						text: enteredPoem,
-						date: new Date().toLocaleDateString('en-US', {
-										day: 'numeric',
-										month: 'long',
-										year: 'numeric'
-								})
-					}
-			);
-			console.log("Respoonse:", response);
-			setRequestStatus('success');
-			setEnteredTitle('');
-			setEnteredPoem('');
-		} catch (error) {
-			setRequestError(error.message);
-			setRequestStatus('error');
-			throw new Error(error);
-		}
-	};
-
-	async function getPoemHandler(event) {
-		event.preventDefault();
-		setRequestStatus('pending');
-		try	{
-			const response =  await getData('604969c3c414695f8ddc4759', enteredTitle);
-			const returnedPoem = response.poem;
-			console.log("Returned poem: ",returnedPoem);
-			setEnteredPoem(returnedPoem.text);
-			setRequestStatus('success');
-			setEnteredTitle('');
-		} catch (error) {
-			setRequestError(error.message);
-			setRequestStatus('error');
-		}
-	}
-}
 
 export default TextEditor;
 

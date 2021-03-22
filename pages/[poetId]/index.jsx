@@ -1,7 +1,6 @@
 import { Fragment } from 'react';
 
 import PoemsGrid from '../../components/poems/poem-detail/poems-grid';
-import classes from './poet.module.css';
 
 import { getPoet } from '../../lib/poets.utils';
 
@@ -18,13 +17,14 @@ function PoetPage(props) {
 			</Fragment>
 		);
 	}
+
 	return (
 		<div>
-			<h1 className={classes.name}>
-				{name.first} {name.last}
-			</h1>
 			<div>
-				<PoemsGrid key={new Date()} poems={poems}/>
+				<PoemsGrid 
+					key={poems.poemId}
+					name={name}
+					poems={poems}/>
 			</div>
 		</div>
 	);
@@ -41,15 +41,13 @@ export async function getStaticProps(context) {
 	
 	const name = data.poets.name;
 	console.log("Poet name: ", name);
-	const poems = data.poets.poems;
+	const poems = data.poets.poems.reverse();
 
 	return {
 		props: {
 			name: name,
 			poems: poems,
 		},
-
-		revalidate: 1800
 	};
 };
 

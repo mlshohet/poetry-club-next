@@ -4,7 +4,7 @@ function Logo() {
 
 	return (
 		<div className="classes.logo">
-			MIKE'S BLOG
+			NOONTIDE POETRY CLUB
 		</div>
 	);
 };

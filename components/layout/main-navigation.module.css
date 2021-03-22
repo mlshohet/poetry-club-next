@@ -1,14 +1,14 @@
-.header {
+.mainHeader {
   width: 100%;
-  height: 6rem;
-  background-color: var(--color-grey-900);
+  height: 5.5rem;
+  background-color: #880808;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 10%;
 }
 
-.header ul {
+.mainHeader ul {
   list-style: none;
   display: flex;
   align-items: baseline;
@@ -16,27 +16,27 @@
   padding: 0;
 }
 
-.header li {
+.mainHeader li {
   margin: 0 var(--size-4);
 }
 
-.header a {
-  color: var(--color-grey-100);
-  font-size: var(--size-4);
+.mainHeader a {
+  color: white;
+  font-size: 0.8rem;
 }
 
-.header a:hover,
-.header a:active,
-.header a.active {
-  color: var(--color-grey-200);
+.mainHeader a:hover,
+.mainHeader a:active,
+.mainHeader a.active {
+  color: var(--color-grey-50);
 }
 
 @media (min-width: 768px) {
-  .header ul {
+  .mainHeader ul {
     gap: 0.5rem;
   }
 
-  .header a {
+  .mainHeader a {
     font-size: var(--size-5);
   }
 }

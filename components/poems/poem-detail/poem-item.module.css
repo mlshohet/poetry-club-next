@@ -35,3 +35,24 @@
 .content p {
   line-height: var(--size-6);
 }
+
+.outputContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: white;
+  padding: 3rem;
+}
+
+.output {
+  font-size: 1.3rem;
+  white-space: pre-line;
+  margin: 2rem;
+}
+
+.outputDate {
+  white-space: pre-line;
+  font-size: 0.8rem;
+  font-style: italic;;
+  margin: 0 2rem;
+}

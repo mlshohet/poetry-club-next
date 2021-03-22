@@ -1,10 +1,10 @@
 import MongoClient, { ObjectID } from 'mongodb';
 
-const handler = async (req, res) => {
+async function handler(req, res) {
 
 	if (req.method === "GET") {
 
-		const { poetId, poem } = req.query;
+		const { poetId, poemId } = req.query;
 		console.log("poem tite: ", poem);
 
 		let client;
@@ -36,8 +36,6 @@ const handler = async (req, res) => {
 				message: "Something went wrong"
 			});
 		}
-
-		
 
 		await client.close();
 	}

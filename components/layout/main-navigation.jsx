@@ -5,7 +5,7 @@ import classes from './main-navigation.module.css';
 
 function MainNavigation() {
 	return (
-		<header className={classes.header}>
+		<header className={classes.mainHeader}>
 			<Link href="/">
 				<a>
 					<Logo />
@@ -17,14 +17,14 @@ function MainNavigation() {
 						<Link
 							href="/posts"
 						>
-							Posts
+							JOIN
 						</Link>
 					</li>
 					<li>
 						<Link
 							href="/contact"
 						>
-							Contact
+							LOGIN
 						</Link>
 					</li>
 				</ul>
