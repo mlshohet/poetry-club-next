@@ -11,11 +11,9 @@ function Hero() {
 				<div className={classes.title}>Stevie Smith </div>
 			</div>
 			<div className={classes.blurb}>
-				<p>Stevie Smith is an immanent poet of the English language and one of the 20th century most revered.
-				She combines word-play and economy of style with irony-laden commentary on social institutions and human behavior. 
-				</p>
-				<br />
-				<p>
+				<p>Stevie Smith is an illustrious virtuoso of the English language and one of the 20th century most revered and beloved poets.
+				She combines effortless word-play and economy of style with irony-laden commentary on social institutions and human behavior. 
+				
 					Her work revolutionaized the form and advanced it into
 					a new age.
 				</p>

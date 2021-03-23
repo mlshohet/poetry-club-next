@@ -3,11 +3,10 @@ import MongoClient from 'mongodb';
 async function handler(req, res) {
 
 	const uname = req.query.poetId;
+	let client;
 
 	if (req.method === "GET") {
 		console.log("Uname:", uname);
-
-		let client;
 
 		try {
 			client = await MongoClient.connect(
@@ -52,7 +51,6 @@ async function handler(req, res) {
 				return;
 			}
 
-			let client;
 			let result;
 
 			try {
@@ -82,7 +80,7 @@ async function handler(req, res) {
 			}
 	};
 
-			client.close();
+			await client.close();
 }
 
 export default handler;

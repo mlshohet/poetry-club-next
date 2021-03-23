@@ -12,7 +12,7 @@ function PoemsGrid(props) {
 
 			<div className={classes.grid}>
 				<h1 className={classes.name}>
-					{name.first} {name.last}
+					{name}
 				</h1>
 					{ 
 					poems.map(poem =>

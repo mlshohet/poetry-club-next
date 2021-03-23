@@ -1,0 +1,19 @@
+.latest {
+  padding: 0.5rem 3rem;
+  max-width: 80rem;
+  margin: var(--size-8) auto;
+  background-color: whitesmoke;
+}
+
+.latest .title {
+	font-size: 1.8rem;
+	
+  color: var(--color-grey-800);
+  text-align: left;
+}
+
+@media (min-width: 768px) {
+  .latest h2 {
+    font-size: var(--size-16);
+  }
+}

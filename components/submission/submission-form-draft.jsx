@@ -10,7 +10,7 @@ function TextEditor() {
 	const focused = useRef();
 	useEffect(() => focused.current.focus(), []);
 
-	const [poetId, setPoetId] = useState('wbyeats');
+	const [poetId, setPoetId] = useState('tseliot');
 
 	const [isIActive, setIsIActive] = useState(false);
 	const [editorState, setEditorState] = useState(
@@ -58,7 +58,7 @@ function TextEditor() {
 			setEditorState(() => EditorState.createEmpty());
 	
 		} catch (error) {
-			throw new Error(error);
+			throw new Error("Submission failed!");
 		}
 	};
 

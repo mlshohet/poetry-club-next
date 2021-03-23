@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 
 import PoemsGrid from '../../components/poems/poem-detail/poems-grid';
 
-import { getPoet } from '../../lib/poets.utils';
+import { getPoet } from '../../lib/poets-utils';
 
 function PoetPage(props) {
 	const { name, poems } = props;
@@ -56,11 +56,11 @@ export async function getStaticPaths() {
 	const poets = data.poets;
 	console.log("Poets from getStaticPaths: ", poets );
 
-	const poetNames = poets.map(poet => poet.userName);
+	const poetUserNames = poets.map(poet => poet.userName);
 
-	const pathsWithParams = poetNames.map(poetName => ({
+	const pathsWithParams = poetUserNames.map(poetUserName => ({
 		params: {
-			poetId: poetName
+			poetId: poetUserName
 		}
 	}));
 

@@ -24,7 +24,7 @@ async function handler(req, res) {
 
 		try {
 			client = await MongoClient.connect(
-				'mongodb+srv://mongo-mike:gDVOsghGwTNbbw3j@cluster0.qvis4.mongodb.net/next-blog?retryWrites=true&w=majority', 
+				'', 
 				{ useUnifiedTopology: true }
 			);
 		} catch (error) {

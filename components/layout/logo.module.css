@@ -1,9 +1,12 @@
 .logo {
-  text-transform: uppercase;
-  font-size: var(--size-5);
-  font-weight: bold;
-  font-family: 'Oswald', sans-serif;
-  color: var(--color-grey-50);
+  margin: 0;
+}
+
+.logo img {
+  object-fit: cover;
+  object-position: top;
+  width: 0.5rem;
+  height: 0.5rem;
 }
 
 @media (min-width: 768px) {

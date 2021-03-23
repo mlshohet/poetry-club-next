@@ -15,7 +15,7 @@
   height: auto;
   overflow: hidden;
   background-color: white;
-  box-shadow: -5px 5px white;
+  box-shadow: -3px 3px white;
 }
 
 .image img {
@@ -33,7 +33,7 @@
 }
 
 .featured .caption {
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-style: italic
 }
 

@@ -1,14 +1,12 @@
 import { Fragment } from 'react';
 import Head from 'next/head';
 
-//import FeaturedPoets from '../components/home-page/featured-posts';
+import FeaturedPoets from '../components/home-page/featured-poets';
 import Hero from '../components/home-page/hero';
 
-import { getFeaturedPosts } from '../lib/posts-util';
-
+import { getFeaturedPoets } from '../lib/poets-utils';
 
 function HomePage(props) {
-
 	return (
 		<Fragment>
 			<Head>
@@ -19,19 +17,20 @@ function HomePage(props) {
 				/>
 			</Head>
 			<Hero />
+			<FeaturedPoets poets={props.poets} />
 		
 		</Fragment>
 	);
 };
 
 export async function getStaticProps() {
-	const featuredPosts = getFeaturedPosts();
+	const featuredPoets = await getFeaturedPoets();
 
 	return {
 		props: {
-			posts: featuredPosts
+			poets: featuredPoets
 		},
-		revalidate: 60
+		revalidate: 600
 	};
 };
 

@@ -1,0 +1,75 @@
+.poet {
+  border: 2px solid lightgray;
+  color: black;
+  display: grid;
+  grid-template-columns: 12rem 20rem;
+  grid-template-rows: 10rem, 20fr;
+  grid-gap: 1rem;
+  background-color: white;
+}
+
+.poet a {
+  color: black;
+}
+
+.image {
+  grid-column: 1 / 2;
+  grid-row: 1 / 4;
+  width: 100%;
+  max-height: 20rem;
+  overflow: hidden;
+}
+
+.image img {
+  object-fit: cover;
+  object-position: top;
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  padding: var(--size-4);
+}
+
+.content h3 {
+  margin: var(--size-2) 0;
+  font-size: var(--size-6);
+}
+
+.content time {
+  font-style: italic;
+  color: var(--color-grey-300);
+}
+
+.content p {
+  line-height: var(--size-6);
+}
+
+.outputContainer {
+  display: flex;
+  width: 45%;
+  flex-direction: column;
+  justify-content: flex-start;
+  border: 1px solid gray;
+  padding: 1.2rem;
+}
+
+.name {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.poem {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  white-space: pre-line;
+}
+
+.outputDate {
+  white-space: pre-line;
+  font-size: 0.8rem;
+  font-style: italic;;
+  margin: 0 2rem;
+}

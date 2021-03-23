@@ -6,25 +6,37 @@ import classes from './main-navigation.module.css';
 function MainNavigation() {
 	return (
 		<header className={classes.mainHeader}>
-			<Link href="/">
-				<a>
-					<Logo />
-				</a>
-			</Link>
+			<div className={classes.head}>
+				<Link href="/">
+					<a>
+						<Logo />
+					</a>
+				</Link>
+				<Link href="/">
+					<div className={classes.titleContainer}>
+						<a className={classes.title}>
+							noontide
+						</a>
+						<a className={classes.secondLine}>
+							poetry club
+						</a>
+					</div>						
+				</Link>
+			</div>
 			<nav>
 				<ul>
 					<li>
 						<Link
-							href="/posts"
+							href="/login"
 						>
-							JOIN
+							Login
 						</Link>
 					</li>
 					<li>
 						<Link
 							href="/contact"
 						>
-							LOGIN
+							Contact
 						</Link>
 					</li>
 				</ul>

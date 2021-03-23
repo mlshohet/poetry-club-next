@@ -12,8 +12,6 @@ function PoemItem(props) {
 	poem.map(line => {
 		poemText = poemText.concat(line.text+'\n');
 	});
-	
-	//const linkPath = `/poems/${slug}`;
 
 	return (
 			<div className={classes.outputContainer}>
