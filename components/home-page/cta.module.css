@@ -1,0 +1,17 @@
+.ctaContainer {
+	display: flex;
+	justify-content: center;
+	background-color: whitesmoke;
+	padding-bottom: 1.2rem;
+
+}
+
+.cta {
+	font-size: 1.2rem;
+	width: 70vw;
+	margin-bottom: 1.2rem;
+	color: whitesmoke;
+	border-radius: 10px 10px 2px 2px;
+	background-color: #880808;
+	padding: 2rem;
+}

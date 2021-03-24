@@ -1,5 +1,7 @@
 import { Fragment } from 'react';
 
+import MainNavigation from '../../components/layout/main-navigation';
+import Footer from '../../components/layout/footer';
 import PoemsGrid from '../../components/poems/poem-detail/poems-grid';
 
 import { getPoet } from '../../lib/poets-utils';
@@ -19,14 +21,16 @@ function PoetPage(props) {
 	}
 
 	return (
-		<div>
+		<Fragment>
+			<MainNavigation />
 			<div>
 				<PoemsGrid 
 					key={poems.poemId}
 					name={name}
 					poems={poems}/>
 			</div>
-		</div>
+			<Footer />
+		</Fragment>
 	);
 };
 

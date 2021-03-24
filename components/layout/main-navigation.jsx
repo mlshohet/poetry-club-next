@@ -3,17 +3,24 @@ import Link from 'next/link';
 import Logo from './logo';
 import classes from './main-navigation.module.css';
 
-function MainNavigation() {
+function MainNavigation(props) {
+	const { home } = props;
 	return (
-		<header className={classes.mainHeader}>
+		<header className={
+				home ? classes.mainHeader : classes.plainHeader
+			}
+		>
 			<div className={classes.head}>
 				<Link href="/">
 					<a>
-						<Logo />
+						<Logo home={home} />
 					</a>
 				</Link>
 				<Link href="/">
-					<div className={classes.titleContainer}>
+					<div className={
+							home ? classes.titleContainer : classes.plainTitleContainer
+						}
+					>
 						<a className={classes.title}>
 							noontide
 						</a>
@@ -29,14 +36,7 @@ function MainNavigation() {
 						<Link
 							href="/login"
 						>
-							Login
-						</Link>
-					</li>
-					<li>
-						<Link
-							href="/contact"
-						>
-							Contact
+							login
 						</Link>
 					</li>
 				</ul>

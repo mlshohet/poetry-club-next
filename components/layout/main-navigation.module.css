@@ -27,12 +27,13 @@
 .mainHeader a {
   color: lightyellow;
   font-size: 0.8rem;
+  border-radius: 100%;
 }
 
 .mainHeader a:hover,
 .mainHeader a:active,
 .mainHeader a.active {
-  color: var(--color-grey-50);
+  color: lightyellow;
 }
 
 .head {
@@ -65,12 +66,81 @@
   font-size: 1.2rem;
 }
 
+.plainHeader {
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: black;
+  font-family: 'Fondamento', cursive;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+}
+
+.plainHeader ul {
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  margin: 0;
+  padding: 0;
+}
+
+.plainHeader li {
+  margin: 0 var(--size-4);
+}
+
+.plainHeader a {
+  color: darkgray;
+  font-size: 0.8rem;
+}
+
+.plainTitleContainer {
+  margin: 0.5rem;
+  display: flex;
+  cursor: pointer;
+  color: darkgray;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.plainHeader a:hover,
+.plainHeader a:active,
+.plainHeader a.active {
+  color: lightgray;
+}
+
+.head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.plainTitleContainer a:hover,
+.plainTitleContainer a:active,
+.plainTitleContainer a.active {
+  color: darkgray;
+}
+
+.plainTitleContainer .title {
+  font-size: 2.4rem;
+}
+.plainTitleContainer .secondLine {
+  margin-top: -0.7rem;
+  font-size: 1.2rem;
+}
+
 @media (min-width: 768px) {
-  .mainHeader ul {
+  .mainHeader ul,
+  .plainHeader ul {
     gap: 0.5rem;
   }
 
-  .mainHeader a {
+  .mainHeader a,
+  .plainHeader a {
     font-size: var(--size-5);
   }
 }

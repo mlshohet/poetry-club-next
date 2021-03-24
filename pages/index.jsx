@@ -1,8 +1,11 @@
 import { Fragment } from 'react';
 import Head from 'next/head';
 
-import FeaturedPoets from '../components/home-page/featured-poets';
+import MainNavigation from '../components/layout/main-navigation';
+import Footer from '../components/layout/footer';
 import Hero from '../components/home-page/hero';
+import FeaturedPoets from '../components/home-page/featured-poets';
+import CTA from '../components/home-page/cta';
 
 import { getFeaturedPoets } from '../lib/poets-utils';
 
@@ -16,9 +19,11 @@ function HomePage(props) {
 					content="Noontide Poetry Club"
 				/>
 			</Head>
+			<MainNavigation home />
 			<Hero />
 			<FeaturedPoets poets={props.poets} />
-		
+			<CTA />
+			<Footer home />
 		</Fragment>
 	);
 };
