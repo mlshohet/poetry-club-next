@@ -1,39 +1,47 @@
+import { Fragment, useState } from 'react';
+
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 
 import classes from './featured-poets-item.module.css';
 
 function FeaturedPoetsItem(props) {
-	const { userName, name, imageUrl, poems } = props;
-	console.log("Name:", name, poems);
+	const { userName, imageUrl, name } = props;
 
-	let poemText = '';
-	poems[0].text.blocks.map(line => {
-		poemText = poemText.concat(line.text+'\n');
-	});
+	const [isVisible, setIsVisible] = useState(false);
+
+	const router = useRouter();
+
+	const handleClick = () => {
+		setIsVisible(true);
+		setTimeout(() => setIsVisible(false), 2000);
+		//router.push(`/${userName}`);
+	}
 
 	return (
-	
-			<Link href={`/${userName}`}>
+		<Fragment>
+		<div onClick={handleClick} >
+		
 				<a>
-					<div className={classes.poet}>
 						<div className={classes.image}>
 							<Image 
 								src={imageUrl}
 								alt={name}
 								width={320}
-								height={550}
+								height={350}
 							/>
 						</div>
-						<div className={classes.name}>
-							<h3>{name}</h3>
-						</div>
-						<div className={classes.poem}>
-							<p>{poemText}</p>
-						</div>
-					</div>
 				</a>
-			</Link>
+
+			
+		</div>
+		<div className={
+					isVisible ? classes.screen : classes.noScreen
+					} 
+				>Loading
+		</div>
+		</Fragment>
 		
 	)
 };

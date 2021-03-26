@@ -4,7 +4,7 @@ function CTA() {
 	return (
 		<div className={classes.ctaContainer}>
 			<h1 className={classes.cta}>
-				Join to publish poems on site, discover other writers, receive newsletters and notifications about workshops, signings and more...
+				Join <span className={classes.noontide}>noontide</span> to publish poems on site and discover other writers.
 			</h1>
 		</div>
 

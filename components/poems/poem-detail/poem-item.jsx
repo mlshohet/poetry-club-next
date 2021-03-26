@@ -1,6 +1,4 @@
-import { Fragment, useEffect } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
+import { Fragment } from 'react';
 
 import classes from './poem-item.module.css';
 
@@ -14,6 +12,7 @@ function PoemItem(props) {
 	});
 
 	return (
+		<Fragment>
 			<div className={classes.outputContainer}>
 				<div 
 					className={classes.output}
@@ -25,6 +24,7 @@ function PoemItem(props) {
 					{date}
 				</div>
 			</div>
+		</Fragment>
 	);
 };
 

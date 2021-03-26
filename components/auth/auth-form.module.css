@@ -1,0 +1,76 @@
+.auth {
+  margin: 3rem auto;
+  max-width: 25rem;
+  border-radius: 10px;
+  background-color: #880808;
+  background-image: radial-gradient(circle 15rem at 85% 12%, rgb(238, 75, 43, 0.3) 99.9%, #880808);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  padding: 1.4rem;
+}
+
+.auth h1 {
+  text-align: center;
+  color: white;
+}
+
+.control {
+  margin-bottom: 0.5rem;
+  width: 100%;
+  text-align: left;
+}
+
+.control label {
+  font-size: 0.8rem;
+  display: block;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.control input {
+  font: inherit;
+  background-color: whitesmoke;
+  color: black;
+  border-radius: 4px;
+  width: 75%;
+  border: 1px solid white;
+  text-align: left;
+  padding: 0.5rem;
+}
+
+.control input:focus {
+  outline: 0;
+  border: 1px solid yellow;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.actions button {
+  cursor: pointer;
+  font: inherit;
+  color: #ffb3b3;
+  background-color: #880808;
+  border: none;
+}
+
+.actions button:hover,
+.actions button:focus,
+.actions button:active,
+.actions button.active {
+  outline: none;
+}
+
+.actions .toggle {
+  margin-top: 1rem;
+  background-color: transparent;
+  color: #ffb3b3;
+  border: none;
+}
+
+.actions .toggle:hover {
+  background-color: transparent;
+  color:  #ffcccc;
+}

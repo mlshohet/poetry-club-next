@@ -1,3 +1,7 @@
+.noFooter {
+	display: none;
+}
+
 .footer {
 	display: flex;
 	justify-content: center;

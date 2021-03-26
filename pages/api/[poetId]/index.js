@@ -38,6 +38,8 @@ async function handler(req, res) {
 			res.status(500).json({
 				message: "Something went wrong"
 			});
+			client.close();
+			return;
 		}
 	}
 
@@ -77,6 +79,8 @@ async function handler(req, res) {
 				res.status(400).json({
 					message: "Something went wrong"
 				});
+				client.close();
+				return;
 			}
 	};
 

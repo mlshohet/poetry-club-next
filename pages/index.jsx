@@ -2,7 +2,6 @@ import { Fragment } from 'react';
 import Head from 'next/head';
 
 import MainNavigation from '../components/layout/main-navigation';
-import Footer from '../components/layout/footer';
 import Hero from '../components/home-page/hero';
 import FeaturedPoets from '../components/home-page/featured-poets';
 import CTA from '../components/home-page/cta';
@@ -19,21 +18,21 @@ function HomePage(props) {
 					content="Noontide Poetry Club"
 				/>
 			</Head>
-			<MainNavigation home />
 			<Hero />
 			<FeaturedPoets poets={props.poets} />
 			<CTA />
-			<Footer home />
 		</Fragment>
 	);
 };
 
 export async function getStaticProps() {
+	const home = true;
 	const featuredPoets = await getFeaturedPoets();
 
 	return {
 		props: {
-			poets: featuredPoets
+			poets: featuredPoets,
+			home: home
 		},
 		revalidate: 600
 	};

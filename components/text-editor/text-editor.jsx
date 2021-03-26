@@ -1,4 +1,6 @@
 import { Fragment, useState, useEffect, useRef } from 'react';
+
+import { useSession } from 'next-auth/client';
 import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 
 
@@ -6,9 +8,8 @@ import classes from './submission-form.module.css';
 import Notification from '../ui/notification';
 
 function TextEditor() {
-
 	const focused = useRef();
-	useEffect(() => focused.current.focus(), []);
+	useEffect(() => focused.current.focus(), [focused]);
 
 	const [poetId, setPoetId] = useState('tseliot');
 
@@ -16,6 +17,8 @@ function TextEditor() {
 	const [editorState, setEditorState] = useState(
 		() => EditorState.createEmpty(),
 	);
+
+
 
 	async function submissionHandler(poetId) {
 		event.preventDefault();
@@ -94,15 +97,6 @@ function TextEditor() {
 				finalText = finalText.concat(lineArr.join('')+'\n');
 			}
 		});
-
-		const parser = new DOMParser();
-		const htmlDoc = parser.parseFromString(finalText, "text/html");
-		const outputDiv = document.getElementById("output"); // id of where to append the children
-		const p = htmlDoc.querySelectorAll("p"); // children of the first paragraph in the HTML doc of text
-		for (let node of p) {
-			outputDiv.appendChild(node);
-		}
-		console.log("Text ", finalText);
 	}
 
 	function handleKeyCommand(command, editorState) {
@@ -138,20 +132,6 @@ function TextEditor() {
 		<Fragment>
 			<div className={classes.editorContainer}>
 				<div className={classes.buttonsContainer}>
-					<button
-						style={{"fontStyle": "italic"}}
-						className = {
-							isIActive?
-							classes.active :
-							classes.buttonStyle
-						}
-						value="I" 
-						onMouseDown={onStyleClickHandler}
-					>
-	
-							I
-
-					</button>
 				</div>
 				<div className={classes.editorMain}>
 					

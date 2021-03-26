@@ -1,7 +1,10 @@
+.noHeader {
+  display: none;
+}
+
 .mainHeader {
   top: 0;
   left: 0;
-  width: 100%;
   background-image: radial-gradient(circle 25rem at 99% -15%, rgb(238, 75, 43, 0.3) 99.9%, #880808);
   background-color: #880808;
   font-family: 'Fondamento', cursive;
@@ -34,6 +37,22 @@
 .mainHeader a:active,
 .mainHeader a.active {
   color: lightyellow;
+}
+
+.mainHeader button {
+  font-size: var(--size-5);
+  color: lightyellow;
+  background-color: #880808;
+  border: none;
+  padding: 0.4rem 1.2rem;
+  border-radius: 50px;
+}
+
+.mainHeader button:hover,
+.mainHeader button:focus,
+.mainHeader button:active,
+.mainHeader button.active {
+  outline: none;
 }
 
 .head {
@@ -70,7 +89,6 @@
   top: 0;
   left: 0;
   width: 100%;
-  color: black;
   font-family: 'Fondamento', cursive;
   border-bottom: 1px solid lightgray;
   display: flex;
@@ -113,12 +131,6 @@
   color: lightgray;
 }
 
-.head {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
 .plainTitleContainer a:hover,
 .plainTitleContainer a:active,
 .plainTitleContainer a.active {
@@ -131,6 +143,15 @@
 .plainTitleContainer .secondLine {
   margin-top: -0.7rem;
   font-size: 1.2rem;
+}
+
+.plainHeader button {
+  font-size: var(--size-5);
+  color: darkgray;
+  background-color: lightgray;
+  border: none;
+  padding: 0.4rem 1.2rem;
+  border-radius: 50px;
 }
 
 @media (min-width: 768px) {

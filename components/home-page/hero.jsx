@@ -20,7 +20,7 @@ function Hero() {
 				<br />
 				<p>
 		
-					Read some of Stevie Smith's poems on Noontide and then make sure to buy a collection.
+					Read some of Stevie Smith's poems on <span className={classes.noontide}>noontide</span> and then make sure to buy a collection.
 				</p>
 			</div>
 			<div className={classes.image}>

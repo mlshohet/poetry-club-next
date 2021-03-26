@@ -2,7 +2,6 @@
 	display: flex;
 	justify-content: center;
 	background-color: whitesmoke;
-	padding-bottom: 1.2rem;
 
 }
 
@@ -14,4 +13,11 @@
 	border-radius: 10px 10px 2px 2px;
 	background-color: #880808;
 	padding: 2rem;
+	text-align: center;
+}
+
+.noontide {
+	font-size: 1.5rem;
+	font-family: 'Fondamento', cursive;
+	color: lightyellow;
 }

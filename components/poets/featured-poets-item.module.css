@@ -1,23 +1,27 @@
-.poet {
-  border: 2px solid lightgray;
-  color: black;
-  display: grid;
-  grid-template-columns: 12rem 20rem;
-  grid-template-rows: 10rem, 20fr;
-  grid-gap: 1rem;
+.screen {
+  top: 0;
+  left: 0;
+  opacity: 100%;
+  position: fixed;
+  height: 5000px;
+  width: 100%;
   background-color: white;
+  z-index: 10;
+  transition: opacity 500ms linear;
 }
 
-.poet a {
-  color: black;
+.noScreen {
+  opacity: 0;
+
 }
 
 .image {
-  grid-column: 1 / 2;
-  grid-row: 1 / 4;
-  width: 100%;
-  max-height: 20rem;
+  cursor: pointer;
+  max-height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
   overflow: hidden;
+  margin: 1.2rem;
 }
 
 .image img {
@@ -27,49 +31,7 @@
   height: 100%;
 }
 
-.content {
-  padding: var(--size-4);
+.image:hover {
+  opacity: 0.8;
 }
 
-.content h3 {
-  margin: var(--size-2) 0;
-  font-size: var(--size-6);
-}
-
-.content time {
-  font-style: italic;
-  color: var(--color-grey-300);
-}
-
-.content p {
-  line-height: var(--size-6);
-}
-
-.outputContainer {
-  display: flex;
-  width: 45%;
-  flex-direction: column;
-  justify-content: flex-start;
-  border: 1px solid gray;
-  padding: 1.2rem;
-}
-
-.name {
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-.poem {
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-  white-space: pre-line;
-}
-
-.outputDate {
-  white-space: pre-line;
-  font-size: 0.8rem;
-  font-style: italic;;
-  margin: 0 2rem;
-}

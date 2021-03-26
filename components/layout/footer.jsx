@@ -3,11 +3,13 @@ import classes from './footer.module.css';
 
 function Footer(props) {
 
-	const { home } = props;
+	const { home, auth } = props;
 
 	return (
 		<footer className={
-				home ? classes.footer : classes.plainFooter
+				auth ? classes.noFooter :
+					home ? classes.footer : 
+						classes.plainFooter
 			}
 		>
 			<div className={classes.footerText}>

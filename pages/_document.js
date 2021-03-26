@@ -9,6 +9,7 @@ class MyDocument extends Document {
 					<Main />
 					<NextScript />
 					<div id="notifications"></div>
+					<script> </script>
 				</body>
 			</Html>
 		);

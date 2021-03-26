@@ -1,13 +1,23 @@
 import Link from 'next/link';
+import { useSession, signOut } from 'next-auth/client';
 
 import Logo from './logo';
 import classes from './main-navigation.module.css';
 
 function MainNavigation(props) {
-	const { home } = props;
+	const [session, loading] = useSession();
+
+	function logoutHandler() {
+		signOut();
+	}
+
+	const { home, auth } = props;
+	
 	return (
 		<header className={
-				home ? classes.mainHeader : classes.plainHeader
+				auth ? classes.noHeader :
+					home ? classes.mainHeader : 
+							classes.plainHeader
 			}
 		>
 			<div className={classes.head}>
@@ -32,13 +42,27 @@ function MainNavigation(props) {
 			</div>
 			<nav>
 				<ul>
-					<li>
-						<Link
-							href="/login"
-						>
-							login
-						</Link>
-					</li>
+					{
+						!session && (
+							<li>
+								<Link href="/auth">login</Link>
+							</li>
+						)
+					}
+          			{
+          				session && (
+          					<li>
+            					<Link href='/profile'>profile</Link>
+          					</li>
+          				)
+          			}
+          			{ 
+          				session &&  (
+	          				<li>
+		            			<button onClick={logoutHandler}>logout</button>
+		         			</li>
+          				)
+          			}
 				</ul>
 			</nav>
 		</header>
@@ -46,3 +70,6 @@ function MainNavigation(props) {
 };
 
 export default MainNavigation;
+
+
+
