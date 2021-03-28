@@ -1,14 +1,20 @@
 .bookItemContainer {
 	display: flex;
-	width: 25vw;
-	height: 25rem;
+	width: 15rem;
+	height: 22rem;
+	background-color: white;
 	flex-direction: column;
 	justify-content: center;
 	margin: 1rem;
 	padding: 0.8rem;
 	align-items: center;
 	border-radius: 5px;
-	box-shadow: 1px 3px 6px gray;
+	box-shadow: 3px 2px 12px #CCC;
+}
+
+.image {
+	width: 5rem;
+	height: 7rem;
 }
 
 .image img {
@@ -19,11 +25,9 @@
 }
 
 .details {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+	font-size: 1rem;
 	padding: 1.2rem;
+	text-align: center;
 }
 
 .details .detailsItem {

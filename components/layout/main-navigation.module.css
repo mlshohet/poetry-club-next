@@ -5,7 +5,7 @@
 .mainHeader {
   top: 0;
   left: 0;
-  background-image: radial-gradient(circle 25rem at 99% -15%, rgb(238, 75, 43, 0.3) 99.9%, #880808);
+  background-image: radial-gradient(circle 20rem at 99% -2%, rgb(238, 75, 43, 0.3) 99.9%, #880808);
   background-color: #880808;
   font-family: 'Fondamento', cursive;
   display: flex;

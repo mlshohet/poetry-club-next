@@ -1,7 +1,4 @@
 import { Fragment } from 'react';
-
-import MainNavigation from '../../components/layout/main-navigation';
-import Footer from '../../components/layout/footer';
 import PoemsGrid from '../../components/poems/poem-detail/poems-grid';
 
 import { getPoet } from '../../lib/poets-utils';
@@ -9,6 +6,12 @@ import { getPoet } from '../../lib/poets-utils';
 function PoetPage(props) {
 	const { name, poems } = props;
 	console.log("Prosps:", props);
+
+	if (!name || !poems) {
+		return (
+			<h1>Loading</h1>
+		);
+	}
 
 	return (
 		<Fragment>
@@ -29,8 +32,8 @@ export async function getStaticProps(context) {
 	
 	const data = await getPoet(poetId);
 	
-	const name = data.poets.name;
-	const poems = data.poets.poems.reverse();
+	const name = data.poet.name;
+	const poems = data.poet.poems.reverse();
 
 	return {
 		props: {
@@ -42,7 +45,7 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
 	const data = await getPoet("all");
-	const poets = data.poets;
+	const poets = data.poet;
 
 	const poetUserNames = poets.map(poet => poet.userName);
 
@@ -54,7 +57,7 @@ export async function getStaticPaths() {
 
 	return {
 		paths: pathsWithParams,
-		fallback: false
+		fallback: true
 	};
 };
 

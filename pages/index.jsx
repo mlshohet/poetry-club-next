@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import Head from 'next/head';
 
 import MainNavigation from '../components/layout/main-navigation';
@@ -9,13 +9,14 @@ import CTA from '../components/home-page/cta';
 import { getFeaturedPoets } from '../lib/poets-utils';
 
 function HomePage(props) {
+
 	return (
 		<Fragment>
 			<Head>
 				<title>Noontide Poetry Club</title>
 				<meta 
 					name="description"
-					content="Noontide Poetry Club"
+					content="Noontide Poetry Club, Poetry Community"
 				/>
 			</Head>
 			<Hero />
@@ -28,13 +29,13 @@ function HomePage(props) {
 export async function getStaticProps() {
 	const home = true;
 	const featuredPoets = await getFeaturedPoets();
+	console.log("from Static props on page");
 
 	return {
 		props: {
 			poets: featuredPoets,
 			home: home
 		},
-		revalidate: 600
 	};
 };
 

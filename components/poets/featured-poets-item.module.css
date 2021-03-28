@@ -3,16 +3,18 @@
   left: 0;
   opacity: 100%;
   position: fixed;
-  height: 5000px;
+  height: 1500px;
   width: 100%;
   background-color: white;
   z-index: 10;
-  transition: opacity 500ms linear;
+  transition: opacity 100ms linear;
 }
 
 .noScreen {
+  top: 0;
+  left: 0;
+  position: fixed;
   opacity: 0;
-
 }
 
 .image {

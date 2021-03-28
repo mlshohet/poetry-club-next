@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/client';
 
@@ -12,6 +13,10 @@ function MainNavigation(props) {
 	}
 
 	const { home, auth } = props;
+
+	useEffect(() => {
+		console.log("Header loads");
+	})
 	
 	return (
 		<header className={
@@ -19,15 +24,13 @@ function MainNavigation(props) {
 					home ? classes.mainHeader : 
 							classes.plainHeader
 			}
-		>
-			<div className={classes.head}>
-				<Link href="/">
+		><div className={classes.head}>
+				<Link href='/'>
 					<a>
 						<Logo home={home} />
 					</a>
 				</Link>
-				<Link href="/">
-					<div className={
+				<Link href='/'><div className={
 							home ? classes.titleContainer : classes.plainTitleContainer
 						}
 					>
@@ -36,23 +39,21 @@ function MainNavigation(props) {
 						</a>
 						<a className={classes.secondLine}>
 							poetry club
-						</a>
-					</div>						
-				</Link>
-			</div>
+						</a></div>						
+				</Link></div>
 			<nav>
 				<ul>
 					{
 						!session && (
 							<li>
-								<Link href="/auth">login</Link>
+								<Link href='/auth'><a>login</a></Link>
 							</li>
 						)
 					}
           			{
           				session && (
           					<li>
-            					<Link href='/profile'>profile</Link>
+            					<Link href='/profile'><a>profile</a></Link>
           					</li>
           				)
           			}

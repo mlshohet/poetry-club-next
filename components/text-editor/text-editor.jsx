@@ -1,8 +1,7 @@
 import { Fragment, useState, useEffect, useRef } from 'react';
 
 import { useSession } from 'next-auth/client';
-import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
-
+import { Editor, EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 
 import classes from './submission-form.module.css';
 import Notification from '../ui/notification';
@@ -11,22 +10,40 @@ function TextEditor() {
 	const focused = useRef();
 	useEffect(() => focused.current.focus(), [focused]);
 
-	const [poetId, setPoetId] = useState('tseliot');
+	const [ session, loading ] = useSession();
+	const email = session.user.email;
+
+	// Username from email
+	const userName = email.slice(0, email.indexOf("@"));
+
+
+	const emptyContentState = convertFromRaw({
+	  entityMap: {},
+	  blocks: [
+	    {
+	      text: '',
+	      key: 'foo',
+	      type: 'unstyled',
+	      entityRanges: [],
+	    },
+	  ],
+	});
 
 	const [isIActive, setIsIActive] = useState(false);
 	const [editorState, setEditorState] = useState(
-		() => EditorState.createEmpty(),
+		() => EditorState.createWithContent(emptyContentState),
 	);
 
 
 
-	async function submissionHandler(poetId) {
+	async function textSubmitHandler() {
+
 		event.preventDefault();
 		
 		const submission = editorState.getCurrentContent();
 		const rawJS = convertToRaw(submission);
 		console.log("Raw: ", rawJS);
-		const poemId = rawJS.blocks[0].key
+		const poemId = rawJS.blocks[0].key + Math.random() * 1000;
 
 		const date = new Date().toLocaleDateString('en-US', {
 					day: 'numeric',
@@ -34,98 +51,50 @@ function TextEditor() {
 					year: 'numeric' 
 		});
 
-		console.log("Poet id from submission:", poetId);
-		
+		const poetId = userName;
+		let response;
 		try {
-			const response = await fetch(`http://localhost:3000/api/${poetId}`, {
+			response = await fetch(`http://localhost:3000/api/user/post-poem`, {
 				method: 'POST',
 				body: JSON.stringify({
 					text: rawJS,
-					date: date,
 					poemId: poemId,
+					date: date,
 				}),
 				headers: {
 					'Content-Type': 'application/json'
 				},
 			});
-
-			const data = await response.json();
-			console.log("Response from post: ", data.poem);
-
-			if (!response.ok) {
-				throw new Error("Something went wrong");
-				return;
-			}
-			
-			
-			setEditorState(() => EditorState.createEmpty());
-	
 		} catch (error) {
-			throw new Error("Submission failed!");
+			console.log(error, "Could not connect!");
+
+			return;
 		}
-	};
 
-	function getContent() {
-
-		const submission = editorState.getCurrentContent();
-  
-		const rawJS = convertToRaw(submission);
-		const text = rawJS.blocks;
-
-		let lineArr;
-		let finalText = '<p>';
-
-		text.map(line => {
-
-			lineArr = line.text.split('');
-			lineArr.map((letter, i) => {
-				if (letter === "<") {
-					lineArr.splice(i+1, 0, "&zwnj;");
-				}
-			});
-
-			if (line.inlineStyleRanges.length !== 0) {
-				line.inlineStyleRanges.map(style => {
-						const { offset, length } = style;
-						lineArr.splice(offset, 0, '<i>');
-						lineArr.splice(offset + length + 1, 0, '</i>');
-					}
-				);
-
-				finalText = finalText.concat(lineArr.join('')+'\n');
-			} else {
-				finalText = finalText.concat(lineArr.join('')+'\n');
-			}
-		});
-	}
-
-	function handleKeyCommand(command, editorState) {
-		const newState = RichUtils.handleKeyCommand(editorState, command);
-		if (newState) {
-			setEditorState(newState);
-			return 'handled';
-		}
-		return 'not-handled';
-	};
-
-	function onStyleClickHandler(e) {
-		const style = e.target.value;
-		e.preventDefault();
-		let newState;
-		if (style === "B") {
-			setIsBActive(!isBActive);
-			newState = RichUtils.toggleInlineStyle(editorState, 'BOLD');
-		} else if (style == "I") {
-			setIsIActive(!isIActive);
-			newState = RichUtils.toggleInlineStyle(editorState, 'ITALIC');
-		} else if (style == "U") {
-			setIsUActive(!isUActive);
-			newState = RichUtils.toggleInlineStyle(editorState, 'UNDERLINE');
-		} else {
-			newState = editorState;
-		}
+		let data;
 		
-		setEditorState(newState);
+		try {
+			data = await response.json();
+
+		} catch (error) {
+			console.log(error, "No response!");
+			return;
+		}
+
+		if (!response.ok) {
+			throw new Error("There was no response!");
+			return;
+		}
+
+		setEditorState(() => EditorState.createEmpty());
+		return;
+	};
+
+	function editReceivedText(receivedContent) {
+		setEditorState(() => EditorState.createEmpty());
+
+		const newContentState = convertFromRaw(receivedContent);
+		setEditorState(() => EditorState.createWithContent(newContentState));
 	};
 
 	return (
@@ -139,15 +108,15 @@ function TextEditor() {
 						editorState={editorState} 
 						onChange={setEditorState}
 						ref={focused}
-						handleKeyCommand={handleKeyCommand}
+						editReceivedText={editReceivedText}
 					/>
 				</div>
 				<div className={classes.actions}>
 					<button 
 						className={classes.buttonStylePublish}
-						onClick={() => submissionHandler(poetId)}
+						onClick={textSubmitHandler}
 					>
-						Publish
+						Send
 					</button>
 					
 				</div>

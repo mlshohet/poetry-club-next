@@ -5,7 +5,7 @@ function Logo(props) {
 	const { home } = props;
 
 	const logoPath = "/images/site/sun-logo.png";
-	const logoBWPath = "/images/site/sun-logo-bw.png";
+	const logoBWPath = "/images/site/sun-logo-bw.svg";
 
 	return (
 		<div className="classes.logo">

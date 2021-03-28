@@ -7,11 +7,24 @@ import classes from './user-profile.module.css';
 
 function UserProfile() {
 
+	async function changePasswordHandler(passwordData) {
+		console.log("Passwod data: ", passwordData);
+		const response = await fetch('/api/user/change-password', {
+			method: 'PATCH',
+			body: JSON.stringify(passwordData),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
+
+		const data = await response.json();
+		console.log(data);
+	}
+
   return (
   	<Fragment>
     	<section className={classes.profile}>
-	      <h1>Your User Profile</h1>
-	      <ProfileForm />
+	      <ProfileForm onChangePassword={changePasswordHandler} />
 	      <div className={classes.editor}>
 	       		<TextEditor />
 	      </div>

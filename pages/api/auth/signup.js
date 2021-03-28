@@ -44,7 +44,8 @@ async function handler(req, res) {
 			const result = await db.collection('poets').insertOne({
 				userName: userName,
 				email: email,
-				password: hashedPassword
+				password: hashedPassword,
+				poems: []
 			});
 		} catch (error) {
 			res.status(400).json({
