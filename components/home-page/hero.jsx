@@ -23,7 +23,7 @@ function Hero() {
 				/>
 			</div>
 			<div className={classes.blurb}>
-				<p>Stevie Smith is one of the 20th century's most revered and beloved poets and a virtuoso of the English language.
+				<p>Stevie Smith is one of the 20th century's most beloved and revered poets.
 				She combines effortless word-play and economy of style with irony-laden commentary on social institutions and human behavior. 
 				
 					Her work revolutionaized the form and advanced it into

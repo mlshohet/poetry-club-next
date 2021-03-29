@@ -6,7 +6,8 @@ import { Editor, EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import classes from './submission-form.module.css';
 import Notification from '../ui/notification';
 
-function TextEditor() {
+function TextEditor(props) {
+
 	const focused = useRef();
 	useEffect(() => focused.current.focus(), [focused]);
 
@@ -16,25 +17,7 @@ function TextEditor() {
 	// Username from email
 	const userName = email.slice(0, email.indexOf("@"));
 
-
-	const emptyContentState = convertFromRaw({
-	  entityMap: {},
-	  blocks: [
-	    {
-	      text: '',
-	      key: 'foo',
-	      type: 'unstyled',
-	      entityRanges: [],
-	    },
-	  ],
-	});
-
-	const [isIActive, setIsIActive] = useState(false);
-	const [editorState, setEditorState] = useState(
-		() => EditorState.createWithContent(emptyContentState),
-	);
-
-
+	const [editorState, setEditorState] = useState(props.editorState);
 
 	async function textSubmitHandler() {
 
@@ -90,13 +73,6 @@ function TextEditor() {
 		return;
 	};
 
-	function editReceivedText(receivedContent) {
-		setEditorState(() => EditorState.createEmpty());
-
-		const newContentState = convertFromRaw(receivedContent);
-		setEditorState(() => EditorState.createWithContent(newContentState));
-	};
-
 	return (
 		<Fragment>
 			<div className={classes.editorContainer}>
@@ -105,10 +81,9 @@ function TextEditor() {
 				<div className={classes.editorMain}>
 					
 					<Editor 
-						editorState={editorState} 
+						editorState={props.editorState} 
 						onChange={setEditorState}
 						ref={focused}
-						editReceivedText={editReceivedText}
 					/>
 				</div>
 				<div className={classes.actions}>
@@ -116,13 +91,14 @@ function TextEditor() {
 						className={classes.buttonStylePublish}
 						onClick={textSubmitHandler}
 					>
-						Send
+					{
+						props.isEditMode ? "Edit" : "Send"
+					}
 					</button>
 					
 				</div>
 				<div id="output" className={classes.output}
 				>
-			
 				</div>
 			</div>
 			

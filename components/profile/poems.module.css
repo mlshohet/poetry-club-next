@@ -1,4 +1,44 @@
 .poemsContainer {
 	padding: 1.2rem;
-	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
+
+.buttonContainer {
+	width: 75vw;
+	display: flex;
+	justify-content: center;
+}
+
+.poemsContainer button {
+	padding: 0.2rem 1rem;
+	background-color: whitesmoke;
+	height: 2rem;
+  	border: 1px solid gray;
+}
+
+.poemsContainer .newButton {
+	color: white;
+	background-color: #880808;
+	width: 8rem;
+	height: 5rem;
+	margin-bottom: 1rem;
+}
+
+.editorContainer {
+  margin: 4rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.editorMain {
+  background-color: whitesmoke;
+  font-size: 1.5rem;
+  padding: 1.2rem;
+  height: 15rem;
+}
+
+
+

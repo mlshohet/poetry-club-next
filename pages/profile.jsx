@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { getSession } from 'next-auth/client';
 
+import { TextEditorContextProvider } from '../store/text-editor-context';
 import UserProfile from '../components/profile/user-profile';
 import Poems from '../components/profile/poems';
 
@@ -10,9 +11,9 @@ function ProfilePage(props) {
 	const { user } = props;
 
     return (
-  		<Fragment>
-  			<Poems poet={user} />
-  		</Fragment>
+    	<TextEditorContextProvider >
+	  			<Poems poet={user} />
+  		</TextEditorContextProvider>
   	)
 }
 

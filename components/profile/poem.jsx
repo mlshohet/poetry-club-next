@@ -1,8 +1,7 @@
 import classes from './poem.module.css';
 
 function Poem (props) {
-	const { poem } = props;
-	console.log("Poem", poem, poem.poemId);
+	const { poem, poemId, getPoemId } = props;
 
 	return (
 		<div className={classes.poemContainer}>
@@ -10,7 +9,7 @@ function Poem (props) {
 				<p>{ poem.text.blocks[0].text }</p>
 			</div>
 			<div className={classes.buttonContainer}>
-				<button>Edit</button>
+				<button type="button" onClick={getPoemId}>Edit</button>
 				<button>Delete</button>
 			</div>			
 		</div>
