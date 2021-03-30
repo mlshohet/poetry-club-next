@@ -1,21 +1,13 @@
 import { createContext, useState } from 'react';
 import { Editor, EditorState, Modifier, convertToRaw, convertFromRaw } from 'draft-js';
 
-const emptyContentState = {
-	  entityMap: {},
-	  blocks: [
-	    {
-	      text: '',
-	      key: 'foo',
-	      type: 'unstyled',
-	      entityRanges: [],
-	    },
-	  ],
-	};
-
 const TextEditorContext = createContext({
+	poemId: null,
+	setPoemId: function() {},
 	editorState: null,
+	setEditorState: function(editorState) {},
 	isEditMode: null,
+	setIsEditMode: function(mode) {},
 	editText : function(content) {},
 	newText: function() {}
 });
@@ -24,6 +16,7 @@ export function TextEditorContextProvider(props) {
 	const [editorState, setEditorState] = useState(
 		() => EditorState.createEmpty());
 	const [isEditMode, setIsEditMode] = useState(false);
+	const [poemId, setPoemId] = useState();
 
 	function editTextHandler(content) {
 		const newContentState = convertFromRaw(content);
@@ -34,13 +27,16 @@ export function TextEditorContextProvider(props) {
 
 	function newTextHandler() {
 		const newEditorState = EditorState.createEmpty();
-		setIsEditMode(false);
 		setEditorState(newEditorState);
 	}
 
 	const context = {
+		poemId: poemId,
+		setPoemId: setPoemId,
 		editorState: editorState,
+		setEditorState: setEditorState,
 		isEditMode: isEditMode,
+		setIsEditMode: setIsEditMode,
 		editText: editTextHandler,
 		newText: newTextHandler
 	};

@@ -4,6 +4,7 @@ import classes from './poem-item.module.css';
 
 function PoemItem(props) {
 	const { poem, date } = props;
+	console.log("Poem from poem item: ", poem);
 
 	let poemText = '';
 

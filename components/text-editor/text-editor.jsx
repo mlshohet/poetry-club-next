@@ -1,12 +1,17 @@
-import { Fragment, useState, useEffect, useRef } from 'react';
+import { Fragment, useState, useEffect, useRef, useContext } from 'react';
 
 import { useSession } from 'next-auth/client';
+import { useRouter } from 'next/router';
+
 import { Editor, EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 
+import TextEditorContext from '../../store/text-editor-context';
+
 import classes from './submission-form.module.css';
-import Notification from '../ui/notification';
 
 function TextEditor(props) {
+
+	const router = useRouter();
 
 	const focused = useRef();
 	useEffect(() => focused.current.focus(), [focused]);
@@ -17,9 +22,57 @@ function TextEditor(props) {
 	// Username from email
 	const userName = email.slice(0, email.indexOf("@"));
 
-	const [editorState, setEditorState] = useState(props.editorState);
+	const {editorState, setEditorState, isEditMode, setIsEditMode} = props;
+	
 
-	async function textSubmitHandler() {
+	const textEditorContext = useContext(TextEditorContext);
+	const poemId = textEditorContext.poemId;
+		console.log("Poem Id from call: ", poemId);
+
+	//console.log("What is poem Id?: ",typeof(editorPoemId));
+
+	async function textEditSubmitHandler() {
+
+		event.preventDefault();
+
+		const submission = editorState.getCurrentContent();
+		const rawContent = convertToRaw(submission);
+
+
+		//console.log("Raw contert from edit: ", rawContent);
+
+		let response;
+		let data;
+		try {
+				response = await fetch(`http://localhost:3000/api/user/edit-poem/${poemId}`, {
+				method: 'PATCH',
+				body: JSON.stringify({
+					text: rawContent,
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				},
+			});
+
+			data = await response.json();
+
+			if (!response.ok) {
+				throw new Error("No response on edit!");
+			}
+		} catch (error) {
+			console.log(error, error.message, "Could not edit!");
+			return;
+		}
+
+		console.log("Successfully edited!", data);
+
+		setIsEditMode(false);
+		setEditorState(() => EditorState.createEmpty());
+		router.push('/profile');
+		return;
+	}
+
+	async function textNewSubmitHandler() {
 
 		event.preventDefault();
 		
@@ -69,8 +122,9 @@ function TextEditor(props) {
 			return;
 		}
 
+		console.log("Successfully submitted!", data);
 		setEditorState(() => EditorState.createEmpty());
-		return;
+		router.push('/profile');
 	};
 
 	return (
@@ -81,7 +135,7 @@ function TextEditor(props) {
 				<div className={classes.editorMain}>
 					
 					<Editor 
-						editorState={props.editorState} 
+						editorState={editorState} 
 						onChange={setEditorState}
 						ref={focused}
 					/>
@@ -89,7 +143,11 @@ function TextEditor(props) {
 				<div className={classes.actions}>
 					<button 
 						className={classes.buttonStylePublish}
-						onClick={textSubmitHandler}
+						onClick={
+							isEditMode ?
+							textEditSubmitHandler :
+							textNewSubmitHandler
+						}
 					>
 					{
 						props.isEditMode ? "Edit" : "Send"

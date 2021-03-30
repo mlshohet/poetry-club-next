@@ -7,6 +7,8 @@ async function handler(req, res) {
 	}
 
 	const userName = req.query.poetId;
+	console.log("Uname from api: ", userName);
+	
 
 	let client;
 
@@ -26,7 +28,9 @@ async function handler(req, res) {
 			const cursor = await usersCollection.find({});
 			poet = await cursor.toArray();
 		} else {
-			poet = await usersCollection.findOne({ userName: userName});
+			poet = await usersCollection.findOne({ 
+				$or: [{ userName: userName }, { email: userName }] 
+			});
 		}
 	} catch (error) {
 		res.status(500).json({
