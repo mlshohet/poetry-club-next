@@ -1,20 +1,31 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
+import Head from 'next/head';
+
 import { getSession } from 'next-auth/client';
 
 import { TextEditorContextProvider } from '../store/text-editor-context';
-import UserProfile from '../components/profile/user-profile';
 import Poems from '../components/profile/poems';
 
 import { getPoet } from '../lib/poets-utils';
 
-function ProfilePage(props) {
+function PoemsPage(props) {
 	const { user, session } = props;
 	const poems = user.poems.reverse();
 
     return (
-    	<TextEditorContextProvider >
-	  			<Poems poems={poems} session={session} />
-  		</TextEditorContextProvider>
+    	<Fragment>
+	    	<Head>
+				<title>Submit a Poem</title>
+				<meta 
+					name="description"
+					content="Submit a poem"
+				/>
+				<meta charset="utf-8" />
+			</Head>
+	    	<TextEditorContextProvider >
+		  			<Poems poems={poems} session={session} />
+	  		</TextEditorContextProvider>
+  		</Fragment>
   	)
 }
 
@@ -41,5 +52,5 @@ export async function getServerSideProps(context) {
 	}
 }
 
-export default ProfilePage;
+export default PoemsPage;
 

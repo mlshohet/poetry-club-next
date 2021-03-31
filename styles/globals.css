@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+html {
+  margin: 0;
+}
+
 body {
   --color-grey-50: hsl(265, 55%, 96%);
   --color-grey-100: hsl(265, 19%, 88%);
@@ -44,6 +48,7 @@ body {
   --size-20: 5rem;
   --size-40: 10rem;
 
+  height: 100%;
   margin: 0;
   background-color: white;
   color: #252525;

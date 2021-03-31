@@ -23,10 +23,16 @@
 }
 
 .buttonStylePublish {
+  font: inherit;
+  font-family: 'system-ui';
+  cursor: pointer;
   background-color: whitesmoke;
-  height: 2rem;
   border: 1px solid gray;
+  padding: var(--size-2) var(--size-4);
+  border-radius: 4px;
 }
+
+
 
 .active {
   margin-left: 0.8rem;

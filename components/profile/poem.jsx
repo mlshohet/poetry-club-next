@@ -38,7 +38,7 @@ function Poem (props) {
 
 		console.log("Successfully deleted!", data);
 
-		router.push('/profile');
+		router.replace('/poems');
 	}
 
 

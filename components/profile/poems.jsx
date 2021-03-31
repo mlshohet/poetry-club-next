@@ -1,11 +1,18 @@
 import { Fragment, useContext, useState, useRef, useEffect } from 'react';
 
-import TextEditor from '../text-editor/text-editor';
+//import TextEditor from '../text-editor/text-editor';
 import TextEditorContext from '../../store/text-editor-context';
 
 import Poem from './poem';
 
 import { getPoet } from '../../lib/poets-utils';
+
+import dynamic from 'next/dynamic';
+
+const TextEditor = dynamic(() => 
+	import('../text-editor/text-editor'), 
+	{ ssr: false }
+);
 
 import classes from './poems.module.css';
 
@@ -13,11 +20,13 @@ function Poems(props) {
 
 	const { poems } = props;
 
+
 	const textEditorContext = useContext(TextEditorContext);
+	
 	const editorState = textEditorContext.editorState;
 	const setEditorState = textEditorContext.setEditorState;
 
-	const editorRef = useRef();
+	const scrollRef = useRef();
 
 	const editText = textEditorContext.editText;
 	const newText = textEditorContext.newText;
@@ -25,10 +34,13 @@ function Poems(props) {
 	const isEditMode = textEditorContext.isEditMode;
 	const setIsEditMode = textEditorContext.setIsEditMode;
 
+	const focused = textEditorContext.focused;
+	const setFocused = textEditorContext.setFocused;
+
 	function handleEdit(pid) {
 		const poemToEdit = poems.filter(poem => poem.poemId === pid);
 		editText(poemToEdit[0].text);
-		editorRef.current.scrollIntoView({
+		scrollRef.current.scrollIntoView({
 			behavior: 'smooth',
 			block: 'center',
 			inline: 'center'
@@ -36,8 +48,9 @@ function Poems(props) {
 	};
 
 	function handleNew() {
+		setFocused(!focused);
 		newText();
-		editorRef.current.scrollIntoView({
+		scrollRef.current.scrollIntoView({
 			behavior: 'smooth',
 			block: 'center',
 			inline: 'center'
@@ -68,8 +81,9 @@ function Poems(props) {
 					)
 				}
 				</div>
-				<div ref={editorRef}>
+				<div ref={scrollRef}>
 				<TextEditor
+					key={focused}
 					isEditMode={isEditMode}
 					setIsEditMode={setIsEditMode}
 					editorState={editorState}

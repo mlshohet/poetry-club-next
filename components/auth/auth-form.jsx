@@ -1,5 +1,5 @@
 import { Fragment, useState, useRef } from 'react';
-import { signIn }from 'next-auth/client';
+import { signIn } from 'next-auth/client';
 
 import { useRouter } from 'next/router';
 
@@ -63,6 +63,14 @@ function AuthForm() {
           console.log(result);
       } catch(error) {
           console.log(error);
+      }
+      const result = await signIn('credentials', {
+        redirect: false,
+        email: enteredEmail,
+        password: enteredPassword,
+      });
+      if (!result.error) {
+        router.replace('/');
       }
     }
   }

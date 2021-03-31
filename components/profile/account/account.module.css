@@ -1,0 +1,62 @@
+.accountContainer {
+	height: 45rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 1.2rem;
+}
+
+.accountItemContainer {
+	margin:  1.5rem auto;
+	padding: 0 1.2rem;
+	width: 75vw;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	box-shadow: 1px 1px 4px gray;
+	border-radius: 3px;
+}
+
+.accountItemContainer input {
+	font-size: 1.2rem;
+	width: 90%;
+	padding: 1.2rem;
+	border: none;
+	outline: none;
+}
+
+.accountItemContainer button {
+  font: inherit;
+  font-family: 'system-ui';
+  cursor: pointer;
+  background-color: whitesmoke;
+  border: 1px solid gray;
+  padding: var(--size-2) var(--size-4);
+  border-radius: 4px;
+}
+
+.accountItemContainer p {
+	font-size: 1rem;
+	font-weight: bold;
+}
+
+.buttonContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.danger {
+	font-family: 'system-ui';
+	color: red;
+}
+
+.danger button {
+	color: red;
+}
+
+
+

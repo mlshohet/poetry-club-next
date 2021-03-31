@@ -7,7 +7,7 @@ import { Editor, EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 
 import TextEditorContext from '../../store/text-editor-context';
 
-import classes from './submission-form.module.css';
+import classes from './text-editor.module.css';
 
 function TextEditor(props) {
 
@@ -27,9 +27,6 @@ function TextEditor(props) {
 
 	const textEditorContext = useContext(TextEditorContext);
 	const poemId = textEditorContext.poemId;
-		console.log("Poem Id from call: ", poemId);
-
-	//console.log("What is poem Id?: ",typeof(editorPoemId));
 
 	async function textEditSubmitHandler() {
 
@@ -37,9 +34,6 @@ function TextEditor(props) {
 
 		const submission = editorState.getCurrentContent();
 		const rawContent = convertToRaw(submission);
-
-
-		//console.log("Raw contert from edit: ", rawContent);
 
 		let response;
 		let data;
@@ -68,7 +62,7 @@ function TextEditor(props) {
 
 		setIsEditMode(false);
 		setEditorState(() => EditorState.createEmpty());
-		router.push('/profile');
+		router.replace('/poems');
 		return;
 	}
 
@@ -78,7 +72,6 @@ function TextEditor(props) {
 		
 		const submission = editorState.getCurrentContent();
 		const rawJS = convertToRaw(submission);
-		console.log("Raw: ", rawJS);
 		const poemId = rawJS.blocks[0].key + Math.random() * 1000;
 
 		const date = new Date().toLocaleDateString('en-US', {
@@ -124,7 +117,7 @@ function TextEditor(props) {
 
 		console.log("Successfully submitted!", data);
 		setEditorState(() => EditorState.createEmpty());
-		router.push('/profile');
+		router.replace('/poems');
 	};
 
 	return (

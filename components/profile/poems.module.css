@@ -13,10 +13,13 @@
 }
 
 .poemsContainer button {
-	padding: 0.2rem 1rem;
-	background-color: whitesmoke;
-	height: 2rem;
-  	border: 1px solid gray;
+  font: inherit;
+  font-family: 'system-ui';
+  cursor: pointer;
+  background-color: whitesmoke;
+  border: 1px solid gray;
+  padding: var(--size-2) var(--size-4);
+  border-radius: 4px;
 }
 
 .poemsContainer .newButton {
