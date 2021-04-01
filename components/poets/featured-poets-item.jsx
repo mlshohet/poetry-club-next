@@ -7,7 +7,7 @@ import Image from 'next/image';
 import classes from './featured-poets-item.module.css';
 
 function FeaturedPoetsItem(props) {
-	const { imageUrl, name } = props;
+	const { imageUrl, name, uname } = props;
 
 	const [isVisible, setIsVisible] = useState(false);
 
@@ -19,16 +19,18 @@ function FeaturedPoetsItem(props) {
 	// }
 
 	return (
-
-		<div className={classes.image}>
-			<Image
-				src={imageUrl}
-				alt={name}
-				width={320}
-				height={350}
-			/>
-		</div>
-		
+		<Link href={`${uname}`} >
+			<a>
+				<div className={classes.image}>
+					<Image
+						src={imageUrl}
+						alt={name}
+						width={320}
+						height={350}
+					/>
+				</div>
+			</a>
+		</Link>
 	)
 };
 

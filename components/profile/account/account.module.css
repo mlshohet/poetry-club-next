@@ -58,5 +58,9 @@
 	color: red;
 }
 
+.fileInput {
+	caption-side: none;
+}
+
 
 

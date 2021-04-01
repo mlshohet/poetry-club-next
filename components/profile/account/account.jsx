@@ -1,5 +1,12 @@
-import { useRef } from 'react';
+import ReactDOM from 'react';
+
+import { useState, useRef, useEffect } from 'react';
 import { signOut } from 'next-auth/client';
+
+//import firebase from 'firebase/app';
+import { storage } from '../../../firebase/firebase.utils';
+
+import axios from 'axios';
 
 import classes from './account.module.css';
 
@@ -144,8 +151,47 @@ function Account (props) {
 		signOut({ callbackUrl: 'https://localhost:3000/' });
 	};
 
+	const [selectedFile, setSelectedFile] = useState();
+	const [url, setUrl] = useState();
+	const imageRef = useRef();
+
+	function fileSelectedHandler (event) {
+		setSelectedFile(event.target.files[0]);
+		console.log(event.target.files[0]);
+		console.log("selected file: ", imageRef.current.value);
+	}
+
+	async function imageUploadHandler() {
+		
+		const imageName = selectedFile.name;
+
+		const storageRef = storage.ref();
+		const file = selectedFile;
+		const thisRef = storageRef.child(imageName);
+
+		const profileImgImagesRef = storageRef.child(`images/${imageName}`);
+
+		let snapshot;
+		let imageUrl;
+		try {
+			snapshot = await profileImgImagesRef.put(file);
+			imageUrl = await snapshot.ref.getDownloadURL();
+		} catch (error) {
+			console.log(error, "Could not upload file!");
+		}
+
+		console.log("Finished uploading!");
+		console.log("Image url: ", typeof(imageUrl));
+
+		setUrl(imageUrl);
+	}
+
 	return (
 		<div className={classes.accountContainer}>
+		<div>
+			<p>{url}</p>
+		</div>
+
 			<div className={classes.accountItemContainer}>
         		<input 
         			type='name'
@@ -160,9 +206,18 @@ function Account (props) {
 			</div>
 			<div className={classes.accountItemContainer}>
 				<p>Image</p>
+				<input 
+					className={classes.fileInput}
+					type="file"
+					id="image" 
+					name="image"
+					ref={imageRef}
+					onChange={fileSelectedHandler} 
+				/>
+				<label htmlFor="image">Image</label>
 				<div className={classes.buttonContainer}>
 					<button>Edit</button>
-					<button>Save</button>
+					<button onClick={imageUploadHandler}>Save</button>
 				</div>
 			</div>
 			<div className={classes.accountItemContainer}>

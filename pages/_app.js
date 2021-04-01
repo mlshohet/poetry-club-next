@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-
 import Head from 'next/head';
 import { Provider } from 'next-auth/client';
 
@@ -9,6 +8,12 @@ import '../styles/globals.css'
 import Layout from '../components/layout/layout';
 
 function MyApp({ Component, pageProps, router }) {
+
+	useEffect(() => {
+	    if (process.env.NODE_ENV === 'production') {
+	      analytics();
+	    }
+	  }, [])
 
 	useScrollRestoration(router);
 

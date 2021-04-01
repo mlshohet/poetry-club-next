@@ -3,8 +3,14 @@ import { Fragment } from 'react';
 import classes from './poem-item.module.css';
 
 function PoemItem(props) {
+
 	const { poem, date } = props;
-	console.log("Poem from poem item: ", poem);
+
+	if(!poem) {
+		return (
+			<h1>Loading...</h1>
+		)
+	}
 
 	let poemText = '';
 

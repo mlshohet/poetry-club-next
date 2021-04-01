@@ -4,14 +4,17 @@ import PoemsGrid from '../../components/poems/poem-detail/poems-grid';
 import { getPoet } from '../../lib/poets-utils';
 
 function PoetPage(props) {
-	const { name, poems } = props;
-	console.log("Prosps:", props);
 
-	if (!name || !poems) {
+	if (!props) {
 		return (
 			<h1>Loading</h1>
 		);
 	}
+
+	const { name, poems } = props;
+	console.log("Prosps:", props);
+
+	
 
 	return (
 		<Fragment>
@@ -30,6 +33,7 @@ export async function getStaticProps(context) {
 	const { params } = context;
 	const poetId = params.poetId;
 	
+
 	const data = await getPoet(poetId);
 	
 	const name = data.poet.name;
@@ -44,7 +48,14 @@ export async function getStaticProps(context) {
 };
 
 export async function getStaticPaths() {
-	const data = await getPoet("all");
+	
+	let data;
+	try {
+		data = await getPoet("all");
+	} catch (error) {
+		console.log(error, "Could not get data!");
+	}
+	
 	const poets = data.poet;
 
 	const poetUserNames = poets.map(poet => poet.userName);

@@ -14,9 +14,7 @@ function MainNavigation(props) {
 
 	const { home, auth } = props;
 
-	useEffect(() => {
-		console.log("Header loads");
-	})
+	console.log("Header loads");
 	
 	return (
 		<header className={
@@ -30,17 +28,22 @@ function MainNavigation(props) {
 						<Logo home={home} />
 					</a>
 				</Link>
-				<Link href='/'><div className={
-							home ? classes.titleContainer : classes.plainTitleContainer
-						}
-					>
-						<a className={classes.title}>
-							noontide
-						</a>
-						<a className={classes.secondLine}>
-							poetry club
-						</a></div>						
-				</Link></div>
+				<Link href='/'>
+					<a>
+						<div className={
+								home ? classes.titleContainer : classes.plainTitleContainer
+							}
+						>
+							<div className={classes.title}>
+								noontide
+							</div>
+							<div className={classes.secondLine}>
+								poetry club
+							</div>
+						</div>
+					</a>						
+				</Link>
+			</div>
 			<nav>
 				<ul>
 					{
@@ -53,7 +56,7 @@ function MainNavigation(props) {
           			{
           				session && (
           					<li>
-            					<Link href='/profile'><a>profile</a></Link>
+            					<Link href='/account'><a>profile</a></Link>
           					</li>
           				)
           			}

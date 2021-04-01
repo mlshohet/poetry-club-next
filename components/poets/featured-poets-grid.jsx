@@ -12,21 +12,19 @@ function FeaturedPoetsGrid(props) {
 	const { poets } = props;
 
 	return (
-			<div className={classes.grid}>
-				{
-					poets.map(poet =>
-						(
-							<Link key={poet.imageUrl} href={`/${poet.userName}`}>
-								<a>
-									<FeaturedPoetsItem
-										imageUrl={poet.imageUrl}
-									/>
-								</a>
-							</Link>
-						)
+		<div className={classes.grid}>
+			{
+				poets.map(poet =>
+					(
+						<FeaturedPoetsItem
+							key={poet._id}
+							uname={poet.userName}
+							imageUrl={poet.imageUrl}
+						/>
 					)
-				}
-			</div>
+				)
+			}
+		</div>
 	);
 }
 

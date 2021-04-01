@@ -30,8 +30,6 @@ export async function getServerSideProps(context) {
 		}
 	}
 
-	console.log("Session from account: ", session);
-
 	const email = session.user.email;
 	const userName = email.slice(0, email.indexOf("@"));
 	const user = await getPoet(email);
