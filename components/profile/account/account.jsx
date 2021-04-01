@@ -1,23 +1,27 @@
-import ReactDOM from 'react';
-
 import { useState, useRef, useEffect } from 'react';
 import { signOut } from 'next-auth/client';
 
-//import firebase from 'firebase/app';
-import { storage } from '../../../firebase/firebase.utils';
+import { useRouter } from 'next/router';
 
-import axios from 'axios';
+import Image from 'next/image';
+
+import { storage } from '../../../firebase/firebase.utils';
 
 import classes from './account.module.css';
 
 function Account (props) {
 
 	const { user, session } = props;
-	console.log("User:", user);
+	
+	if (!user) {
+		return<h1>Loading...</h1>
+	}
 
 	if (!user.name) {
 		user.name="Anonymous";
 	}
+
+	const router = useRouter();
 
 	const newNameRef = useRef();
 	const newEmailRef = useRef();
@@ -84,8 +88,6 @@ function Account (props) {
 				}
 			});
 
-			//
-
 			data = await response.json();
 			console.log(data);
 
@@ -108,6 +110,7 @@ function Account (props) {
       		newPassword: enteredNewPassword
     	}
     	
+    	let data;
 		try {
 			const response = await fetch('/api/user/change-password', {
 				method: 'PATCH',
@@ -117,11 +120,17 @@ function Account (props) {
 				}
 			});
 
-			const data = await response.json();
-			console.log(data);
+			data = await response.json();
+
+			if (!response.ok) {
+				throw new Error("Could not change password");
+			}
+	
 		} catch (error) {
-			console.log(error, "Could not change password!");
+			console.log(error, data);
+			return;
 		}
+			console.log(data);
 	}
 
 	async function deleteAccountHandler() {
@@ -145,7 +154,7 @@ function Account (props) {
 			}
 
 		} catch (error) {
-			console.log(error, "Could not delete account!");
+			console.log(error, data);
 		}
 		console.log(data);
 		signOut({ callbackUrl: 'https://localhost:3000/' });
@@ -156,6 +165,7 @@ function Account (props) {
 	const imageRef = useRef();
 
 	function fileSelectedHandler (event) {
+		event.preventDefault();
 		setSelectedFile(event.target.files[0]);
 		console.log(event.target.files[0]);
 		console.log("selected file: ", imageRef.current.value);
@@ -163,7 +173,7 @@ function Account (props) {
 
 	async function imageUploadHandler() {
 		
-		const imageName = selectedFile.name;
+		const imageName = user._id+selectedFile.name;
 
 		const storageRef = storage.ref();
 		const file = selectedFile;
@@ -180,18 +190,52 @@ function Account (props) {
 			console.log(error, "Could not upload file!");
 		}
 
-		console.log("Finished uploading!");
+		console.log("Image uploaded!");
 		console.log("Image url: ", typeof(imageUrl));
 
 		setUrl(imageUrl);
+		return imageUrl;
+	}
+
+	async function imageHandler() {
+		let imageUrl;
+
+		try {
+			imageUrl = await imageUploadHandler();
+		} catch (error) {
+			console.log("Could not get image url!");
+		}
+
+		let data;
+		try {
+			const response = await fetch('/api/user/image-upload', {
+				method: 'PATCH',
+				body: JSON.stringify ({
+					userId: user._id,
+					imageUrl
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
+			data = await response.json();
+			if (!response.ok) {
+				throw new Error("Could not upload image!");
+			}
+		} catch (error) {
+			console.log(error, data);
+			return;
+		}
+
+		setSelectedFile(null);
+		console.log(data);
+		router.replace('/account');
+		return;
 	}
 
 	return (
 		<div className={classes.accountContainer}>
-		<div>
-			<p>{url}</p>
-		</div>
-
 			<div className={classes.accountItemContainer}>
         		<input 
         			type='name'
@@ -205,7 +249,15 @@ function Account (props) {
 				</div>
 			</div>
 			<div className={classes.accountItemContainer}>
-				<p>Image</p>
+				<div className={classes.image}>
+					<Image
+						key={selectedFile}
+						src={user.imageUrl}
+						alt={user.name}
+						width={320}
+						height={350}
+					/>
+				</div>
 				<input 
 					className={classes.fileInput}
 					type="file"
@@ -214,10 +266,9 @@ function Account (props) {
 					ref={imageRef}
 					onChange={fileSelectedHandler} 
 				/>
-				<label htmlFor="image">Image</label>
 				<div className={classes.buttonContainer}>
-					<button>Edit</button>
-					<button onClick={imageUploadHandler}>Save</button>
+					<button onClick={() => imageRef.current.click()}>Edit</button>
+					<button onClick={imageHandler}>Save</button>
 				</div>
 			</div>
 			<div className={classes.accountItemContainer}>

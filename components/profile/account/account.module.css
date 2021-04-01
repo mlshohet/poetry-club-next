@@ -21,7 +21,7 @@
 
 .accountItemContainer input {
 	font-size: 1.2rem;
-	width: 90%;
+	width: 80%;
 	padding: 1.2rem;
 	border: none;
 	outline: none;
@@ -58,8 +58,28 @@
 	color: red;
 }
 
-.fileInput {
-	caption-side: none;
+.image {
+  background-color: #DCDCDC;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+  margin: 1rem 1rem;
+  overflow: hidden;
+}
+
+.image + input {
+	display: none;
+	font-size: 1.2rem;
+	padding: 1.2rem;
+	border: none;
+	outline: none;
+}
+
+.image img {
+  object-fit: cover;
+  object-position: top;
+  width: 100%;
+  height: 100%;
 }
 
 

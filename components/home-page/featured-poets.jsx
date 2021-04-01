@@ -1,4 +1,4 @@
-import FeaturedPoetsGrid from '../poets/featured-poets-grid';
+import FeaturedPoetsGrid from '../featured-poets/featured-poets-grid';
 
 import classes from './featured-poets.module.css';
 
