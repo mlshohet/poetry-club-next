@@ -22,8 +22,8 @@ function PoemsPage(props) {
 				/>
 				<meta charset="utf-8" />
 			</Head>
-	    	<TextEditorContextProvider >
-		  			<Poems poems={poems} session={session} />
+	    	<TextEditorContextProvider>
+		  			<Poems poems={poems} session={session} user={user} />
 	  		</TextEditorContextProvider>
   		</Fragment>
   	)

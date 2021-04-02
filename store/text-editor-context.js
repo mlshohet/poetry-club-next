@@ -2,6 +2,9 @@ import { createContext, useState } from 'react';
 import { Editor, EditorState, Modifier, convertToRaw, convertFromRaw } from 'draft-js';
 
 const TextEditorContext = createContext({
+
+	user: null,
+	setUser: function() {},
 	focused: null,
 	setFocused: function() {},
 	poemId: null,
@@ -20,6 +23,7 @@ export function TextEditorContextProvider(props) {
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [poemId, setPoemId] = useState();
 	const [focused, setFocused] = useState(false);
+	const [user, setUser] = useState();
 
 	function editTextHandler(content) {
 		const newContentState = convertFromRaw(content);
@@ -34,6 +38,8 @@ export function TextEditorContextProvider(props) {
 	}
 
 	const context = {
+		user: user,
+		setUser: setUser,
 		focused: focused,
 		setFocused: setFocused,
 		poemId: poemId,

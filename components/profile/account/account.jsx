@@ -23,6 +23,8 @@ function Account (props) {
 
 	const router = useRouter();
 
+	const [invisible, setInvisible] = useState(false);
+
 	const newNameRef = useRef();
 	const newEmailRef = useRef();
 	const oldPasswordRef = useRef();
@@ -167,6 +169,7 @@ function Account (props) {
 	function fileSelectedHandler (event) {
 		event.preventDefault();
 		setSelectedFile(event.target.files[0]);
+		setInvisible(true);
 		console.log(event.target.files[0]);
 		console.log("selected file: ", imageRef.current.value);
 	}
@@ -227,7 +230,7 @@ function Account (props) {
 			console.log(error, data);
 			return;
 		}
-
+		setInvisible(false);
 		setSelectedFile(null);
 		console.log(data);
 		router.replace('/account');
@@ -236,27 +239,16 @@ function Account (props) {
 
 	return (
 		<div className={classes.accountContainer}>
-			<div className={classes.accountItemContainer}>
-        		<input 
-        			type='name'
-        			id='name'
-        			placeholder={user.name}
-        			ref={newNameRef}
-        		/>
-				<div className={classes.buttonContainer}>
-					<button onClick={() => onEdit(newNameRef)}>Edit</button>
-					<button onClick={changeNameHandler}>Save</button>
-				</div>
-			</div>
-			<div className={classes.accountItemContainer}>
+		<div className={classes.accountItemContainer}>
 				<div className={classes.image}>
-					<Image
-						key={selectedFile}
-						src={user.imageUrl}
-						alt={user.name}
-						width={320}
-						height={350}
+					{ 
+						invisible ? '' : user.imageUrl && <Image
+							src={user.imageUrl}
+							alt={user.name}
+							width={320}
+							height={350}
 					/>
+				}
 				</div>
 				<input 
 					className={classes.fileInput}
@@ -271,6 +263,19 @@ function Account (props) {
 					<button onClick={imageHandler}>Save</button>
 				</div>
 			</div>
+			<div className={classes.accountItemContainer}>
+        		<input 
+        			type='name'
+        			id='name'
+        			placeholder={user.name}
+        			ref={newNameRef}
+        		/>
+				<div className={classes.buttonContainer}>
+					<button onClick={() => onEdit(newNameRef)}>Edit</button>
+					<button onClick={changeNameHandler}>Save</button>
+				</div>
+			</div>
+			
 			<div className={classes.accountItemContainer}>
 				<input 
         			type='email'
@@ -287,7 +292,7 @@ function Account (props) {
 				<input 
         			type='password'
         			id='old-password'
-        			placeholder="password"
+        			placeholder="old password"
         			ref={oldPasswordRef}
         		/>
         		<input 
@@ -302,10 +307,7 @@ function Account (props) {
 				</div>
 			</div>
 			<div className={`${classes.accountItemContainer} ${classes.danger}`}>
-				<p>Delete Profile</p>
-				<div className={classes.buttonContainer}>
-				<button className="delete" onClick={deleteAccountHandler}>Delete</button>
-				</div>
+				<p onClick={deleteAccountHandler}>Delete Profile</p>
 			</div>
 		</div>
 	);

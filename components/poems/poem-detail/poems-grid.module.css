@@ -20,3 +20,32 @@
 	padding: 1.7rem;
 	margin: 0;
 }
+
+.linksContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	background-color: white;
+}
+
+.linksContainer ul {
+
+	background-color: white;
+	list-style: none;
+	display: flex;
+	align-items: baseline;
+	margin: 0;
+	padding: 0;
+}
+
+.linksContainer li {
+	cursor: pointer;
+	display: inline-block;
+	margin: 1.2rem;
+}
+
+
+
+
+

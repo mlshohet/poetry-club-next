@@ -1,11 +1,8 @@
 import { Fragment, useContext, useState, useRef, useEffect } from 'react';
 
-//import TextEditor from '../text-editor/text-editor';
 import TextEditorContext from '../../store/text-editor-context';
 
 import Poem from './poem';
-
-import { getPoet } from '../../lib/poets-utils';
 
 import dynamic from 'next/dynamic';
 
@@ -16,12 +13,16 @@ const TextEditor = dynamic(() =>
 
 import classes from './poems.module.css';
 
-function Poems(props) {
+function Poems({ poems, user }) {
 
-	const { poems } = props;
+	console.log("User: ", user);
 
 
 	const textEditorContext = useContext(TextEditorContext);
+
+	const setUser = textEditorContext.setUser;
+
+	setUser(user);
 	
 	const editorState = textEditorContext.editorState;
 	const setEditorState = textEditorContext.setEditorState;

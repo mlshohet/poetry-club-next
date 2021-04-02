@@ -1,48 +1,54 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
+
+import { useSession } from 'next-auth/client';
+
+
 import PoemsGrid from '../../components/poems/poem-detail/poems-grid';
 
 import { getPoet } from '../../lib/poets-utils';
 
-function PoetPage(props) {
+function PoetPage({ poet, poemsSorted }) {
 
-	if (!props) {
+	if (!poet) {
 		return (
 			<h1>Loading</h1>
 		);
 	}
 
-	const { name, poems } = props;
-	console.log("Prosps:", props);
-
-	
-
 	return (
 		<Fragment>
 			<div>
-				<PoemsGrid 
-					key={poems.poemId}
-					name={name}
-					poems={poems}/>
+		
+				<PoemsGrid poet={poet} poems={poemsSorted} />
+	
 			</div>
-
 		</Fragment>
 	);
 };
 
 export async function getStaticProps(context) {
+
 	const { params } = context;
+
 	const poetId = params.poetId;
 	
+	let data;
 
-	const data = await getPoet(poetId);
+	try {
+		data = await getPoet(poetId);
+	} catch (error) {
+		console.log(error);
+		return;
+	}
 	
-	const name = data.poet.name;
-	const poems = data.poet.poems.reverse();
+	const poet = data.poet;
+	const poems = poet.poems;
+	const poemsSorted = poems.reverse();
 
 	return {
 		props: {
-			name,
-			poems,
+			poet,
+			poemsSorted,
 		},	
 	};
 };
