@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/client';
+import { useRouter } from 'next/router';
 
 import Logo from './logo';
 import classes from './main-navigation.module.css';
@@ -8,8 +9,16 @@ import classes from './main-navigation.module.css';
 function MainNavigation(props) {
 	const [session, loading] = useSession();
 
-	function logoutHandler() {
-		signOut();
+	const router = useRouter();
+
+	async function logoutHandler() {
+		const result = await signOut({ 
+			redirect: false,
+			callbackUrl: 'https://localhost:3000/'
+		});
+		if (result) {
+			router.push(result.url);
+		}
 	}
 
 	const { home, auth } = props;

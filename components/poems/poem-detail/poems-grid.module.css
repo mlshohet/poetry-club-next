@@ -14,34 +14,7 @@
 
 }
 
-.readingList {
-	width: 100%;
-	background-color: white;
-	margin: 3rem 0rem;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: center;
-}
 
-.readingListItem {
-	margin-left: 1.8rem;
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	align-items: center;
-}
-
-.itemName {
-	font-size: 1.5rem;
-	font-weight: bold;
-}
-
-.name {
-	text-align: center;
-	background-color: white;
-	padding: 1.7rem;
-	margin: 0;
-}
 
 .linksContainer {
 	display: flex;
@@ -53,8 +26,8 @@
 
 .linksContainer ul {
 	list-style: none;
-	color: #6495ED;
 	font-weight: bold;
+	color: #6495ED;
 	background-color: white;
 	display: flex;
 	align-items: baseline;
@@ -75,6 +48,34 @@
 .linksContainer .active {
 	color: #0047AB;
 	cursor: auto;
+}
+
+.readingList {
+	width: 100%;
+	background-color: white;
+	margin: 3rem 0rem;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.readingListItem {
+	margin-left: 1.8rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.itemName {
+	font-size: 1.5rem;
+}
+
+.name {
+	text-align: center;
+	background-color: white;
+	padding: 1.7rem;
+	margin: 0;
 }
 
 

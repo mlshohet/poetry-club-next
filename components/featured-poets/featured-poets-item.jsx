@@ -13,7 +13,7 @@ function FeaturedPoetsItem(props) {
 	const router = useRouter();
 
 	return (
-		<Link href={`${uname}`} >
+		<Link href={`/${uname}`} >
 			<a>
 				<div className={classes.image}>
 					<Image

@@ -15,16 +15,22 @@ function PoemsGrid({ poet, poems }) {
 		return <h1>Loading</h1>
 	}
 
-	const { name, _id } = poet;
+	console.log("Poet: ", poet);
+	const { name, _id, readingList } = poet;
+	const pageReadingList = readingList;
+	console.log("Item readoding list: ", pageReadingList);
 
 	const [data, setData] = useState();
-	const [readingListPoets, setReadingListPoets] = useState();
+	const [pageReadingListPoets, setPageReadingListPoets] = useState();
 	const [isInReadingList, setIsInReadingList] = useState(false);
 	const [showReadingList, setShowReadingList] = useState(false);
+
+	const [isSession, setIsSession] = useState(false);
 
 	useEffect(() => {
 		return getSession().then(session => {
 			if (session) {
+				setIsSession(true);
 				getPoet(session.user.email).then(data => {
 					if (data) {
 						const userReadingList = data.poet.readingList;
@@ -41,17 +47,16 @@ function PoemsGrid({ poet, poems }) {
 		});
 	}, []);
 
-
-	if (!data) {
-		return <h1>Loading</h1>
+	if (isSession && !data) {
+		return <h1> Loading </h1>
 	}
-	const readingList = data.poet.readingList;
+	//const userReadingList = data.poet.readingList;
 
 	async function getReadingListPoets() {
 
 		let data;
 		try {
-			const response = await fetch(`/api/get-reading-list/${readingList}`);
+			const response = await fetch(`/api/get-reading-list/${pageReadingList}`);
 
 			data = await response.json();
 
@@ -66,7 +71,7 @@ function PoemsGrid({ poet, poems }) {
 
 		console.log("Data from reading list: ", data);
 
-		setReadingListPoets(data);
+		setPageReadingListPoets(data.readingList);
 		setShowReadingList(true)
 		return;
 	}
@@ -123,7 +128,7 @@ function PoemsGrid({ poet, poems }) {
 		return data;
 	}
 
-	return (
+		return (
 		<div className={classes.gridContainer}>
 
 			<div className={classes.grid}>
@@ -167,14 +172,16 @@ function PoemsGrid({ poet, poems }) {
 				{
 					showReadingList && <div>
 					{
-						readingListPoets && 
+						pageReadingList.length > 0 && 
 						<div className={classes.readingList}>
 							{
-								readingListPoets.readingList.map(poet =>
+								pageReadingListPoets.map(poet =>
 								 	(
-								 		<div className={classes.readingListItem}>
-									 		<ReadingListItem
-										 		key={poet._id}
+								 		<div 
+								 			key={poet._id}
+								 			className={classes.readingListItem}
+								 		>
+									 		<ReadingListItem 	
 										 		imageUrl={poet.imageUrl}
 										 		name={poet.name}
 										 		uname={poet.userName}
@@ -204,6 +211,7 @@ function PoemsGrid({ poet, poems }) {
 			</div>
 		</div>
 	);
+	
 };
 
 export default PoemsGrid;
