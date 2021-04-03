@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 import { useSession } from 'next-auth/client';
 
@@ -8,8 +8,10 @@ import PoemsGrid from '../../components/poems/poem-detail/poems-grid';
 import { getPoet } from '../../lib/poets-utils';
 
 function PoetPage({ poet, poemsSorted }) {
+	const [isLoading, setIsLoading] = useState(false);
 
 	if (!poet) {
+		setIsLoading(true);
 		return (
 			<h1>Loading</h1>
 		);
@@ -29,6 +31,7 @@ function PoetPage({ poet, poemsSorted }) {
 export async function getStaticProps(context) {
 
 	const { params } = context;
+	console.log("Params: ", context);
 
 	const poetId = params.poetId;
 	
@@ -74,7 +77,7 @@ export async function getStaticPaths() {
 
 	return {
 		paths: pathsWithParams,
-		fallback: true
+		fallback: false
 	};
 };
 

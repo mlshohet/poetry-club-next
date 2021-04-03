@@ -30,7 +30,8 @@
 }
 
 .linksContainer ul {
-
+	color: #0047AB;
+	font-weight: bold;
 	background-color: white;
 	list-style: none;
 	display: flex;
@@ -43,6 +44,10 @@
 	cursor: pointer;
 	display: inline-block;
 	margin: 1.2rem;
+}
+
+.linksContainer li:hover {
+	color: #6495ED;
 }
 
 

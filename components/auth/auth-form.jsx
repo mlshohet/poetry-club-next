@@ -8,6 +8,7 @@ import classes from './auth-form.module.css';
 
 async function createUser(email, password) {
   console.log("in create User function");
+
   const response = await fetch('/api/auth/signup', {
     method: 'POST',
     body: JSON.stringify({
@@ -55,7 +56,7 @@ function AuthForm() {
       });
 
       if (!result.error) {
-        router.replace('/');
+        router.back();
       }
     } else {
       try {
