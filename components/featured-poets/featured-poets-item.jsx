@@ -9,14 +9,8 @@ import classes from './featured-poets-item.module.css';
 function FeaturedPoetsItem(props) {
 	const { imageUrl, name, uname } = props;
 
-	const [isVisible, setIsVisible] = useState(false);
 
 	const router = useRouter();
-
-	// const handleClick = () => {
-	
-	// 	router.push(`/${userName}`);
-	// }
 
 	return (
 		<Link href={`${uname}`} >

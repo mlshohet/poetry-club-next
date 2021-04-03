@@ -3,6 +3,7 @@ import { connectToDatabase } from '../../../lib/db';
 async function handler(req, res) {
 
 	if (req.method !== "GET") {
+		res.status(400).json({ message: "Invalid request" });
 		return;
 	}
 
@@ -20,16 +21,17 @@ async function handler(req, res) {
 		return;
 	}
 
-	const usersCollection = client.db().collection('poets');
+	const collection = client.db().collection('poets');
+	
 	let poet;
 
 	try {
 		if (userName === 'all') {
-			const cursor = await usersCollection.find({});
+			const cursor = await collection.find({});
 			poet = await cursor.toArray();
 		} else {
-			poet = await usersCollection.findOne({ 
-				$or: [{ userName: userName }, { email: userName }] 
+			poet = await collection.findOne({ 
+				$or: [{ userName: userName }, { email: userName }]
 			});
 		}
 	} catch (error) {

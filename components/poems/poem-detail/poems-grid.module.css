@@ -9,9 +9,31 @@
   width: 40rem;
   margin: 0 0 3rem 0;
   padding: 0;
-  background-color: whitesmoke;
+  background-color: white;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 
+}
+
+.readingList {
+	width: 100%;
+	background-color: white;
+	margin: 3rem 0rem;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.readingListItem {
+	margin-left: 1.8rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.itemName {
+	font-size: 1.5rem;
+	font-weight: bold;
 }
 
 .name {
@@ -30,10 +52,10 @@
 }
 
 .linksContainer ul {
-	color: #0047AB;
+	list-style: none;
+	color: #6495ED;
 	font-weight: bold;
 	background-color: white;
-	list-style: none;
 	display: flex;
 	align-items: baseline;
 	margin: 0;
@@ -46,8 +68,13 @@
 	margin: 1.2rem;
 }
 
-.linksContainer li:hover {
-	color: #6495ED;
+.linksContainer li:active {
+	color: #0047AB;
+}
+
+.linksContainer .active {
+	color: #0047AB;
+	cursor: auto;
 }
 
 

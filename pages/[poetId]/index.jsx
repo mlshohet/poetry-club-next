@@ -31,7 +31,6 @@ function PoetPage({ poet, poemsSorted }) {
 export async function getStaticProps(context) {
 
 	const { params } = context;
-	console.log("Params: ", context);
 
 	const poetId = params.poetId;
 	
