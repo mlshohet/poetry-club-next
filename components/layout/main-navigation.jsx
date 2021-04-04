@@ -12,13 +12,7 @@ function MainNavigation(props) {
 	const router = useRouter();
 
 	async function logoutHandler() {
-		const result = await signOut({ 
-			redirect: false,
-			callbackUrl: 'https://localhost:3000/'
-		});
-		if (result) {
-			router.push(result.url);
-		}
+		signOut();
 	}
 
 	const { home, auth } = props;

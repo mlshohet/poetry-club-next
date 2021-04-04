@@ -11,45 +11,63 @@ import classes from './poems-grid.module.css';
 
 function PoemsGrid({ poet, poems }) {
 
-	if (!poet) {
-		return <h1>Loading</h1>
-	}
-
-	console.log("Poet: ", poet);
 	const { name, _id, readingList } = poet;
 	const pageReadingList = readingList;
-	console.log("Item readoding list: ", pageReadingList);
 
 	const [data, setData] = useState();
 	const [pageReadingListPoets, setPageReadingListPoets] = useState();
 	const [isInReadingList, setIsInReadingList] = useState(false);
 	const [showReadingList, setShowReadingList] = useState(false);
+	const [isSelf, setIsSelf] = useState(false);
 
 	const [isSession, setIsSession] = useState(false);
 
 	useEffect(() => {
-		return getSession().then(session => {
+		getSession().then(session => {
 			if (session) {
 				setIsSession(true);
 				getPoet(session.user.email).then(data => {
 					if (data) {
-						const userReadingList = data.poet.readingList;
-						const inReadingList = userReadingList.filter((poetId) => poetId === _id ).length;
-						if (inReadingList > 0) {
-							setIsInReadingList(true)
-							setData(data);
-						} else {
-							setData(data)
-						}
+						setData(data);
+					} else {
+						setData(data);
 					}
 				})
 			}
 		});
+
+		return () => {
+			console.log("What the fuck?");
+		}
 	}, []);
+
+	function cleanState() {
+		setShowReadingList(false);
+		setIsSelf(false);
+	};
 
 	if (isSession && !data) {
 		return <h1> Loading </h1>
 	}
+	console.log("Data ", data);
+	console.log("Poet on page: ", poet);
+
+	// if (isSession && data) {
+	// 	if (_id === data.poet._id) {
+	//  		setIsSelf(true);
+	//  	}
+	// }
+	
+	// const userReadingList = data.poet.readingList;
+						
+	// const inReadingList = userReadingList.filter(poetId => poetId === _id).length;
+	// if (inReadingList > 0 ) {
+	// 	setIsInReadingList(true)
+	// 	setData(data);
+	// } else {
+	// 	setData(data);
+	// }
+
 	//const userReadingList = data.poet.readingList;
 
 	async function getReadingListPoets() {
@@ -77,6 +95,7 @@ function PoemsGrid({ poet, poems }) {
 	}
 
 	async function onAddHandler() {
+		
 		let data;
 		try {
 			const response = await fetch('api/user/reading-list-add', {
@@ -158,7 +177,7 @@ function PoemsGrid({ poet, poems }) {
 						Reading List
 					</li>
 					{
-						data && 
+						!isSelf &&
 						<li> 
 							{
 								!isInReadingList ?
@@ -173,7 +192,7 @@ function PoemsGrid({ poet, poems }) {
 					showReadingList && <div>
 					{
 						pageReadingList.length > 0 && 
-						<div className={classes.readingList}>
+						<div onClick={() => setShowReadingList(false)} className={classes.readingList}>
 							{
 								pageReadingListPoets.map(poet =>
 								 	(
