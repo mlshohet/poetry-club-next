@@ -1,0 +1,46 @@
+.profileContainer {
+	position: absolute;
+	display: flex;
+	border: 1px solid #880808;
+	background-color: whitesmoke;
+	top: 13vh;
+	right: 14vw;
+	z-index: 10;
+	justify-content: center;
+	align-items: center;
+	margin: 1.2rem;
+	border-radius: 3px;
+}
+
+.profileContainer ul {
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	padding: 0;
+}
+
+.profileContainer li {
+	cursor: pointer;
+	margin: 1.2rem 1rem;
+	font-size: 0.9rem;
+}
+
+.profileContainer a {
+	font-family: 'Shippori Mincho';
+	font-size: 0.9rem;
+	color: #880808;
+}
+
+.profileItem a:hover {
+	color: #880808;
+}
+
+.logout {
+	color: #880808;
+	font-family: 'Shippori Mincho';
+	font-size: 0.9rem;
+}
+
+

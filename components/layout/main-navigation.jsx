@@ -1,31 +1,37 @@
-import { useEffect } from 'react';
+import { useState, useContext } from 'react';
+
 import Link from 'next/link';
-import { useSession, signOut } from 'next-auth/client';
-import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/client';
 
 import Logo from './logo';
+import ProfileDropdown from '../profile/profile-dropdown';
+
+import ProfileDropdownContext from '../../store/profile-dropdown-context';
+
 import classes from './main-navigation.module.css';
 
 function MainNavigation(props) {
 	const [session, loading] = useSession();
 
-	const router = useRouter();
+	const profileDropdownContext = useContext(ProfileDropdownContext);
+	
+	const profileHidden = profileDropdownContext.profile;
+	const showProfileDropdown = profileDropdownContext.showProfile;
+	const hideProfileDropdown = profileDropdownContext.hideProfile;
 
-	async function logoutHandler() {
-		signOut();
-	}
+
 
 	const { home, auth } = props;
-
-	console.log("Header loads");
 	
 	return (
-		<header className={
+		<header
+			className={
 				auth ? classes.noHeader :
 					home ? classes.mainHeader : 
 							classes.plainHeader
 			}
-		><div className={classes.head}>
+		>
+			<div className={classes.head}>
 				<Link href='/'>
 					<a>
 						<Logo home={home} />
@@ -47,31 +53,37 @@ function MainNavigation(props) {
 					</a>						
 				</Link>
 			</div>
-			<nav>
-				<ul>
-					{
-						!session && (
-							<li>
-								<Link href='/auth'><a>login</a></Link>
-							</li>
-						)
-					}
-          			{
-          				session && (
-          					<li>
-            					<Link href='/account'><a>profile</a></Link>
-          					</li>
-          				)
-          			}
-          			{ 
-          				session &&  (
-	          				<li>
-		            			<button onClick={logoutHandler}>logout</button>
-		         			</li>
-          				)
-          			}
-				</ul>
+			<nav 
+				className={
+					home ? 
+					classes.navigation : 
+					classes.plainNav
+			}
+			>
+				{
+					!session && (
+						<div>
+							<Link href='/auth'><a>login</a></Link>
+						</div>
+					)
+				}
+      			{
+      				session && (
+		      				<div  
+		      					onClick={
+		      						profileHidden ?
+		      						showProfileDropdown :
+		      						hideProfileDropdown
+		      					}
+		      				>
+	        						<a>profile</a>
+	      					</div>
+      				)
+      			}
 			</nav>
+			{
+				!profileHidden && <ProfileDropdown />
+			}
 		</header>
 	);
 };

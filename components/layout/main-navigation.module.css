@@ -15,56 +15,30 @@
   padding: 1rem;
 }
 
-.mainHeader ul {
-  list-style: none;
-  display: flex;
-  align-items: baseline;
-  margin: 0;
-  padding: 0;
-}
-
-.mainHeader li {
-  margin: 0 var(--size-4);
-}
-
-.mainHeader a {
+.navigation a {
+  cursor: pointer;
   color: lightyellow;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   border-radius: 100%;
+  user-select: none;
 }
 
-.mainHeader a:hover,
-.mainHeader a:active,
-.mainHeader a.active {
+.navigation a:hover,
+.navigation a:active,
+.navigation a.active {
   color: lightyellow;
-}
-
-.mainHeader button {
-  font-size: var(--size-5);
-  color: lightyellow;
-  background-color: #880808;
-  border: none;
-  padding: 0.4rem 1.2rem;
-  border-radius: 50px;
-}
-
-.mainHeader button:hover,
-.mainHeader button:focus,
-.mainHeader button:active,
-.mainHeader button.active {
-  outline: none;
 }
 
 .head {
   display: flex;
   flex-direction: row;
   align-items: center;
+  user-select: none;
 }
 
 .titleContainer {
   margin: 0.5rem;
   display: flex;
-  cursor: pointer;
   color: lightyellow;
   flex-direction: column;
   justify-content: center;
@@ -90,29 +64,13 @@
   left: 0;
   width: 100%;
   font-family: 'Fondamento', cursive;
+  color: darkgray;
   border-bottom: 1px solid lightgray;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
   padding: 1rem;
-}
-
-.plainHeader ul {
-  list-style: none;
-  display: flex;
-  align-items: baseline;
-  margin: 0;
-  padding: 0;
-}
-
-.plainHeader li {
-  margin: 0 var(--size-4);
-}
-
-.plainHeader a {
-  color: darkgray;
-  font-size: 0.8rem;
 }
 
 .plainTitleContainer {
@@ -125,15 +83,30 @@
   align-items: center;
 }
 
-.plainHeader a:hover,
-.plainHeader a:active,
-.plainHeader a.active {
+.plainNav a {
+  cursor: pointer;
+  user-select: none;
+  font-size: 1.2rem;
+}
+
+.plainNav a:hover,
+.plainNav a:active,
+.plainNav a.active,
+.plainNav a:visited:hover {
   color: lightgray;
+}
+
+.plainNav a:visited {
+  color: darkgray;
 }
 
 .plainTitleContainer a:hover,
 .plainTitleContainer a:active,
 .plainTitleContainer a.active {
+  color: darkgray;
+}
+
+.plainTitleContainer a.visited {
   color: darkgray;
 }
 
@@ -143,25 +116,4 @@
 .plainTitleContainer .secondLine {
   margin-top: -0.7rem;
   font-size: 1.2rem;
-}
-
-.plainHeader button {
-  font-size: var(--size-5);
-  color: darkgray;
-  background-color: lightgray;
-  border: none;
-  padding: 0.4rem 1.2rem;
-  border-radius: 50px;
-}
-
-@media (min-width: 768px) {
-  .mainHeader ul,
-  .plainHeader ul {
-    gap: 0.5rem;
-  }
-
-  .mainHeader a,
-  .plainHeader a {
-    font-size: var(--size-5);
-  }
 }

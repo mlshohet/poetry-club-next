@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import Head from 'next/head';
 import { Provider } from 'next-auth/client';
 
+import { ProfileDropdownContextProvider } from '../store/profile-dropdown-context';
+
 import useScrollRestoration from '../lib/useScrollRestoration';
 
 import '../styles/globals.css'
@@ -19,6 +21,7 @@ function MyApp({ Component, pageProps, router }) {
 
   	return (
   		<Provider session={pageProps.session}>
+  		<ProfileDropdownContextProvider>
 		  	<Layout 
 		  		home={pageProps.home}
 		  		auth={pageProps.auth}
@@ -31,6 +34,7 @@ function MyApp({ Component, pageProps, router }) {
 		  		</Head>
 		  		<Component {...pageProps} />
 		  	</Layout>
+		  </ProfileDropdownContextProvider>
 		</Provider>
   	);
 };
