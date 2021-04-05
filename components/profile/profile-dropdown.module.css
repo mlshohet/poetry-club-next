@@ -1,15 +1,15 @@
 .profileContainer {
 	position: absolute;
 	display: flex;
-	border: 1px solid #880808;
-	background-color: whitesmoke;
+	background-color: white;
 	top: 13vh;
 	right: 14vw;
 	z-index: 10;
 	justify-content: center;
 	align-items: center;
 	margin: 1.2rem;
-	border-radius: 3px;
+	border: 1px solid darkgray;
+	border-radius: 4px;
 }
 
 .profileContainer ul {
@@ -28,17 +28,20 @@
 }
 
 .profileContainer a {
+	color: #202020;
 	font-family: 'Shippori Mincho';
 	font-size: 0.9rem;
-	color: #880808;
+
 }
 
-.profileItem a:hover {
-	color: #880808;
+.profileItem a:hover,
+.profileItem a:visited,
+ {
+	color: #202020;
 }
 
 .logout {
-	color: #880808;
+	color: #202020;
 	font-family: 'Shippori Mincho';
 	font-size: 0.9rem;
 }

@@ -15,14 +15,7 @@ import classes from './poems.module.css';
 
 function Poems({ poems, user }) {
 
-	console.log("User: ", user);
-
-
 	const textEditorContext = useContext(TextEditorContext);
-
-	const setUser = textEditorContext.setUser;
-
-	setUser(user);
 	
 	const editorState = textEditorContext.editorState;
 	const setEditorState = textEditorContext.setEditorState;
@@ -77,6 +70,7 @@ function Poems({ poems, user }) {
 								key={poem.poemId}
 								poem={poem}
 								handleEdit={handleEdit}
+								handleNew={handleNew}
 							/>
 						)
 					)

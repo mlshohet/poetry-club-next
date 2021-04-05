@@ -7,10 +7,13 @@ import TextEditorContext from '../../store/text-editor-context';
 import classes from './poem.module.css';
 
 function Poem (props) {
-	const { poem, handleEdit } = props;
+	const { poem, handleEdit, handleNew } = props;
 
 	const textEditorContext = useContext(TextEditorContext);
 	const setContextPoemId = textEditorContext.setPoemId;
+
+	const resetTextEditor = textEditorContext.newText;
+	const setEditMode = textEditorContext.setIsEditMode;
 
 	const router = useRouter();
 
@@ -36,8 +39,9 @@ function Poem (props) {
 			return;
 		}
 
+		resetTextEditor();
+		setEditMode(false);
 		console.log("Successfully deleted!", data);
-
 		router.replace('/poems');
 	}
 

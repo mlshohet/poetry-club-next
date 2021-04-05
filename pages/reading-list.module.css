@@ -1,0 +1,25 @@
+.readingListContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.readingList {
+	background-color: white;
+	margin: 3rem auto;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.readingListItem {
+	margin-left: 1.8rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.itemName {
+	font-size: 1.5rem;
+}

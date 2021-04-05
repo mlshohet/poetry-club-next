@@ -54,11 +54,9 @@ function TextEditor(props) {
 				throw new Error("No response on edit!");
 			}
 		} catch (error) {
-			console.log(error, error.message, "Could not edit!");
+			console.log(error, data);
 			return;
 		}
-
-		console.log("Successfully edited!", data);
 
 		setIsEditMode(false);
 		setEditorState(() => EditorState.createEmpty());
@@ -80,8 +78,8 @@ function TextEditor(props) {
 					year: 'numeric' 
 		});
 
-		const poetId = userName;
 		let response;
+		let data;
 		try {
 			response = await fetch(`http://localhost:3000/api/user/post-poem`, {
 				method: 'POST',
@@ -94,24 +92,15 @@ function TextEditor(props) {
 					'Content-Type': 'application/json'
 				},
 			});
-		} catch (error) {
-			console.log(error, "Could not connect!");
 
-			return;
-		}
+			data = response.json();
 
-		let data;
-		
-		try {
-			data = await response.json();
+			if (!response.ok) {
+				throw new Error("Could not submit!")
+			}
 
 		} catch (error) {
-			console.log(error, "No response!");
-			return;
-		}
-
-		if (!response.ok) {
-			throw new Error("There was no response!");
+			console.log(error, data);
 			return;
 		}
 
@@ -147,9 +136,6 @@ function TextEditor(props) {
 					}
 					</button>
 					
-				</div>
-				<div id="output" className={classes.output}
-				>
 				</div>
 			</div>
 			

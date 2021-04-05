@@ -9,8 +9,7 @@ import Poems from '../components/profile/poems';
 import { getPoet } from '../lib/poets-utils';
 
 function PoemsPage(props) {
-	const { user, session } = props;
-	const poems = user.poems.reverse();
+	const { user, session, poems } = props;
 
     return (
     	<Fragment>
@@ -47,8 +46,10 @@ export async function getServerSideProps(context) {
 	const userName = email.slice(0, email.indexOf("@"));
 	const user = await getPoet(email);
 
+	const poems = user.poet.poems.reverse();
+
 	return {
-		props: { session, user: user.poet }
+		props: { session, user: user.poet, poems: poems }
 	}
 }
 

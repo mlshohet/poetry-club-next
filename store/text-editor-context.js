@@ -3,8 +3,6 @@ import { Editor, EditorState, Modifier, convertToRaw, convertFromRaw } from 'dra
 
 const TextEditorContext = createContext({
 
-	user: null,
-	setUser: function() {},
 	focused: null,
 	setFocused: function() {},
 	poemId: null,
@@ -14,7 +12,7 @@ const TextEditorContext = createContext({
 	isEditMode: null,
 	setIsEditMode: function(mode) {},
 	editText : function(content) {},
-	newText: function() {}
+	newText: function() {},
 });
 
 export function TextEditorContextProvider(props) {
@@ -24,6 +22,7 @@ export function TextEditorContextProvider(props) {
 	const [poemId, setPoemId] = useState();
 	const [focused, setFocused] = useState(false);
 	const [user, setUser] = useState();
+
 
 	function editTextHandler(content) {
 		const newContentState = convertFromRaw(content);
@@ -37,9 +36,11 @@ export function TextEditorContextProvider(props) {
 		setEditorState(newEditorState);
 	}
 
+	function resetEditMode() {
+		setIsEditMode(false);
+	}
+
 	const context = {
-		user: user,
-		setUser: setUser,
 		focused: focused,
 		setFocused: setFocused,
 		poemId: poemId,
@@ -49,7 +50,7 @@ export function TextEditorContextProvider(props) {
 		isEditMode: isEditMode,
 		setIsEditMode: setIsEditMode,
 		editText: editTextHandler,
-		newText: newTextHandler
+		newText: newTextHandler,
 	};
 
 	return (
