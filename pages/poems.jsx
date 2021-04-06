@@ -11,6 +11,12 @@ import { getPoet } from '../lib/poets-utils';
 function PoemsPage(props) {
 	const { user, session, poems } = props;
 
+	if (!user) {
+		return (
+			<h1> Loading </h1>
+		)
+	}
+
     return (
     	<Fragment>
 	    	<Head>
@@ -44,9 +50,17 @@ export async function getServerSideProps(context) {
 
 	const email = session.user.email;
 	const userName = email.slice(0, email.indexOf("@"));
-	const user = await getPoet(email);
+		
+	let user;
+	try {
+		user = await getPoet(email);
+	} catch (error) {
+		console.log(error, "Failed to get user");
+	}
 
+	console.log(user);
 	const poems = user.poet.poems.reverse();
+
 
 	return {
 		props: { session, user: user.poet, poems: poems }

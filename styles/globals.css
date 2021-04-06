@@ -8,6 +8,7 @@
 
 html {
   margin: 0;
+  height: 100%;
 }
 
 body {
@@ -53,6 +54,10 @@ body {
   background-color: white;
   color: #252525;
   font-family: 'Shippori Mincho', serif;
+}
+
+#__next {
+  height: 100%;
 }
 
 h1,

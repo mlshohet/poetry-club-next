@@ -5,7 +5,11 @@ import ProfileDropdownContext from '../../store/profile-dropdown-context';
 
 import Footer from './footer';
 
+import classes from './layout.module.css';
+
 function Layout(props) {
+
+	const { auth, home } = props;
 
 	const profileDropdownContext = useContext(ProfileDropdownContext);
 	
@@ -13,16 +17,19 @@ function Layout(props) {
 	const hideProfileDropdown = profileDropdownContext.hideProfile;
 
 	return (
-		<Fragment >
-			<div onClick={
-				!profileHidden ? hideProfileDropdown : null
-			}
-			>
+		<Fragment>
 				<MainNavigation 
-					home={props.home}
-					auth={props.auth}
+					home={home} 
+					auth={auth}
 				/>
-				<main onClick={hideProfileDropdown}>
+				<main
+					className={
+						auth ? classes.auth :
+						classes.layout
+					}
+					onClick={
+					!profileHidden ? hideProfileDropdown : null
+				}>
 					{props.children}
 				</main>
 				<Footer
@@ -30,7 +37,6 @@ function Layout(props) {
 					home={props.home}
 					auth={props.auth}
 				/>
-			</div>
 		</Fragment>
 	);
 };

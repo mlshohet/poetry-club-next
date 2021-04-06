@@ -11,6 +11,7 @@ import ProfileDropdownContext from '../../store/profile-dropdown-context';
 import classes from './main-navigation.module.css';
 
 function MainNavigation(props) {
+
 	const [session, loading] = useSession();
 
 	const profileDropdownContext = useContext(ProfileDropdownContext);
@@ -19,12 +20,13 @@ function MainNavigation(props) {
 	const showProfileDropdown = profileDropdownContext.showProfile;
 	const hideProfileDropdown = profileDropdownContext.hideProfile;
 
-
-
 	const { home, auth } = props;
 	
 	return (
 		<header
+			onClick={
+				!profileHidden ? hideProfileDropdown : null
+			}
 			className={
 				auth ? classes.noHeader :
 					home ? classes.mainHeader : 
@@ -59,18 +61,13 @@ function MainNavigation(props) {
 					classes.navigation : 
 					classes.plainNav
 			}
-			>
-				{
+			>{
 					!session && (
-						<div>
-							<Link href='/auth'><a>login</a></Link>
-						</div>
+						<div><Link href='/auth'><a>login</a></Link></div>
 					)
-				}
-      			{
+				}{
       				session && (
-		      				<div  
-		      					onClick={
+		      				<div onClick={
 		      						profileHidden ?
 		      						showProfileDropdown :
 		      						hideProfileDropdown

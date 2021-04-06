@@ -2,12 +2,12 @@
 	position: absolute;
 	display: flex;
 	background-color: white;
-	top: 13vh;
+	top: 16vh;
 	right: 14vw;
 	z-index: 10;
 	justify-content: center;
 	align-items: center;
-	margin: 1.2rem;
+	padding: 1rem 1.5rem;
 	border: 1px solid darkgray;
 	border-radius: 4px;
 }
@@ -23,14 +23,13 @@
 
 .profileContainer li {
 	cursor: pointer;
-	margin: 1.2rem 1rem;
-	font-size: 0.9rem;
+	margin: 0.5rem 0.5rem;
+
 }
 
 .profileContainer a {
 	color: #202020;
 	font-family: 'Shippori Mincho';
-	font-size: 0.9rem;
 
 }
 
@@ -43,7 +42,9 @@
 .logout {
 	color: #202020;
 	font-family: 'Shippori Mincho';
-	font-size: 0.9rem;
 }
 
+.horizontalRule {
+	width:100%;
+}
 

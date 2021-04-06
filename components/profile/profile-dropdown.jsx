@@ -1,21 +1,47 @@
-import { useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
-import { signOut } from 'next-auth/client';
+import { useSession, signOut } from 'next-auth/client';
 
 import ProfileDropdownContext from '../../store/profile-dropdown-context';
 
 import Link from 'next/link';
 
+import { useRouter } from 'next/router';
+
+import { getPoet } from '../../lib/poets-utils';
+
 import classes from './profile-dropdown.module.css';
 
 function ProfileDropdown (props) {
 
+	const [data, setData] = useState();
+	const [session, loading] = useSession();
+
 	const profileDropdownContext = useContext(ProfileDropdownContext);
 	const hideProfileDropdown = profileDropdownContext.hideProfile;
 
+	const router = useRouter();
+
+	const email = session.user.email;
+
+	useEffect(
+		async () => {
+			const currentUser = await getPoet(email);
+				if (currentUser) {
+					const userName = currentUser.poet.userName;
+					setData(userName);
+				}
+			}, []);
+
+	if (!data) {
+		return null;
+	}
+
+	console.log("Data: ", data);
+
 	async function logoutHandler() {
-		hideProfileDropdown;
-		const result = await signOut();
+		const result = await signOut({ redirect: false, callbackUrl: "localhost:3000/" });
+		router.push(result.url);
 	}
 
 	return (
@@ -46,12 +72,23 @@ function ProfileDropdown (props) {
 						Account
 					</Link>
 				</li>
-				<li className={classes.profileItem}>
+				<li 
+					className={classes.profileItem}
+					onClick={hideProfileDropdown}
+				>
+					<Link href={`/${data}`}>
+						Go to page
+					</Link>
+				</li>
+				<div className={classes.horizontalRule} >
+				<hr ></hr>
+				</div>
+				<li className={classes.profileItem} onClick={hideProfileDropdown}>
 					<div 
 						className={classes.logout}
 						onClick ={logoutHandler}
 					>
-						Logout
+						Sign Out
 					</div>
 				</li>
 			</ul>

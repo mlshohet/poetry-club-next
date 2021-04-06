@@ -3,6 +3,12 @@
 	flex-direction: column;
 }
 
+.auth {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
 .header {
 	grid-area: header;
 }

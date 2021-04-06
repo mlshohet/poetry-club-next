@@ -3,13 +3,13 @@
   flex-direction: column;
   justify-content: flex-start;
   background-color: white;
-  padding: 3rem;
+  padding: 2.3rem;
 }
 
 .output {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   white-space: pre-line;
-  margin: 2rem;
+  margin: 1.2rem;
 }
 
 .outputDate {

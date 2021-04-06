@@ -17,6 +17,10 @@ function TextEditor(props) {
 	useEffect(() => focused.current.focus(), [focused]);
 
 	const [ session, loading ] = useSession();
+
+	if (!session || loading) {
+		return <h1> Loading </h1>
+	}
 	const email = session.user.email;
 
 	// Username from email
@@ -34,6 +38,11 @@ function TextEditor(props) {
 
 		const submission = editorState.getCurrentContent();
 		const rawContent = convertToRaw(submission);
+
+		if (!submission.hasText()) {
+			console.log("There's no text");
+			return;
+		}
 
 		let response;
 		let data;
@@ -69,6 +78,12 @@ function TextEditor(props) {
 		event.preventDefault();
 		
 		const submission = editorState.getCurrentContent();
+
+		if (!submission.hasText()) {
+			console.log("There's no text");
+			return;
+		}
+
 		const rawJS = convertToRaw(submission);
 		const poemId = rawJS.blocks[0].key + Math.random() * 1000;
 
@@ -109,6 +124,74 @@ function TextEditor(props) {
 		router.replace('/poems');
 	};
 
+	const MAX_LENGTH = 1500;
+
+	function handleBeforeInput() {
+		const currentContent = editorState.getCurrentContent()
+		const currentContentLength = currentContent.getPlainText('').length;
+		const selectedTextLength = getLengthOfSelectedText();
+
+		if (currentContentLength - selectedTextLength >= MAX_LENGTH) {
+			alert("Reached maximum length allowed.");
+			return 'handled';
+		}
+	};
+
+	function getLengthOfSelectedText() {
+		const currentSelection = editorState.getSelection();
+		const isCollapsed = currentSelection.isCollapsed();
+
+		let length = 0;
+
+		if (!isCollapsed) {
+			const currentContent = editorState.getCurrentContent();
+			const startKey = currentSelection.getStartKey();
+			const endKey = currentSelection.getEndKey();
+			const startBlock = currentContent.getBlockForKey(startKey);
+
+			const startAndEndBlockSame = startKey === endKey;
+
+			const startBlockTextLength = startBlock.getLength();
+			
+			const startSelectedTextLength = startBlockTextLength - curentSelection.getStartOffset();
+			const endSelectedTextLength = currentSelection.getEndOffset();
+
+			const keyAfterEnd = currentContent.getKeyAfter(endKey);
+
+			if (startAndEndBlockSame) {
+				length += currentSelection.getEndOffset() - currentSelection.getStartOffset();	
+			} else {
+				let currentKey = startKey;
+
+				while (currentKey && currentKey !== keyAfterEnd) {
+					if (currentKey === startKey) {
+						length += startSelectedTextLength + 1;
+					} else if (currentKey === endKey) {
+						length += endSelectedTextLength;
+					} else {
+						length += currentContent.getBlockForKey(currentKey).getLength() + 1;
+					}
+
+					currentKey = currentContent.getKeyAfter(currentKey);
+				};
+			}
+		}
+
+		return length;
+	};
+
+	function handlePastedText(pastedText) {
+		const currentContent = editorState.getCurrentContent();
+		const currentContentLength = currentContent.getPlainText('').length;
+		const selectedTextLength = getLengthOfSelectedText();
+
+		if (currentContentLength + pastedText.length - selectedTextLength > MAX_LENGTH) {
+			alert("Reached maximum length allowed.");
+			return 'handled';
+		}
+	};
+
+
 	return (
 		<Fragment>
 			<div className={classes.editorContainer}>
@@ -120,6 +203,8 @@ function TextEditor(props) {
 						editorState={editorState} 
 						onChange={setEditorState}
 						ref={focused}
+						handleBeforeInput={handleBeforeInput}
+						handlePastedText={handlePastedText}
 					/>
 				</div>
 				<div className={classes.actions}>

@@ -78,7 +78,16 @@ function AuthForm() {
 
   return (
     <Fragment>
+    <div className={classes.authContainer}>
       <section className={classes.auth}>
+        <div className={classes.titleContainer}>
+              <div className={classes.title}>
+                noontide
+              </div>
+              <div className={classes.secondLine}>
+                poetry club
+              </div>
+        </div>
         <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
         <form
           onSubmit={submitHandler}
@@ -114,6 +123,10 @@ function AuthForm() {
           </div>
         </form>
       </section>
+
+
+      </div>
+   
     </Fragment>
   );
 }
