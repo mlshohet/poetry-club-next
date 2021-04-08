@@ -9,12 +9,13 @@ import { getPoet } from '../../lib/poets-utils';
 import classes from './auth-form.module.css';
 
 
-async function createUser(email, password) {
+async function createUser(name, email, password) {
   console.log("in create User function");
 
   const response = await fetch('/api/auth/signup', {
     method: 'POST',
     body: JSON.stringify({
+      name,
       email,
       password
     }),
@@ -34,6 +35,7 @@ async function createUser(email, password) {
 }
 
 function AuthForm() {
+  const nameInputRef = useRef();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
@@ -47,6 +49,10 @@ function AuthForm() {
   async function submitHandler(event) {
     event.preventDefault();
 
+    let enteredName;
+    if (!isLogin) {
+        enteredName = nameInputRef.current.value;
+    }
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
 
@@ -67,7 +73,7 @@ function AuthForm() {
       
     } else {
       try {
-          const result = await createUser(enteredEmail, enteredPassword);
+          const result = await createUser(enteredName, enteredEmail, enteredPassword);
           console.log(result);
       } catch(error) {
           console.log(error);
@@ -101,7 +107,19 @@ function AuthForm() {
         <form
           onSubmit={submitHandler}
 
-        >
+        > {
+            !isLogin && (
+                <div className={classes.control}>
+                  <label htmlFor='name'>Name</label>
+                  <input 
+                    type='name' 
+                    id='name' 
+                    required 
+                    ref={nameInputRef}
+                  />
+                </div>
+            )
+          }
           <div className={classes.control}>
             <label htmlFor='email'>Email</label>
             <input 

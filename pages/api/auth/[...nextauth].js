@@ -19,6 +19,7 @@ export default NextAuth({
 				if(!user) {
 					client.close();
 					throw new Error('No profile found!');
+					return;
 				}
 
 				const isValid = await verifyPassword(credentials.password, user.password);
@@ -26,7 +27,7 @@ export default NextAuth({
 				if (!isValid) {
 					client.close();
 					throw new Error("Wrong credentials!");
-
+					return;
 				}
 
 				// Returns an object for a web token and for the final authorization

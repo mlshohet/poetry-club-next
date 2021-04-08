@@ -221,12 +221,12 @@ export async function getStaticProps(context) {
 
 	const { params } = context;
 
-	const poetId = params.poetId;
+	const id = params.poetId;
 	
 	let data;
 
 	try {
-		data = await getPoet(poetId);
+		data = await getPoet(id);
 	} catch (error) {
 		console.log(error);
 		return;
@@ -255,11 +255,12 @@ export async function getStaticPaths() {
 	
 	const poets = data.poet;
 
-	const poetUserNames = poets.map(poet => poet.userName);
+	const poetSlugs = poets.map(poet => poet.slug);
+	console.log("Slugs: ",poetSlugs);
 
-	const pathsWithParams = poetUserNames.map(poetUserName => ({
+	const pathsWithParams = poetSlugs.map(poetSlug => ({
 		params: {
-			poetId: poetUserName
+			poetId: poetSlug
 		}
 	}));
 

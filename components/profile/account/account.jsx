@@ -246,7 +246,7 @@ function Account (props) {
 							src={user.imageUrl}
 							alt={user.name}
 							width={320}
-							height={350}
+							height={320}
 					/>
 				}
 				</div>

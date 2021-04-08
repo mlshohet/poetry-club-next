@@ -11,6 +11,7 @@ export function ProfileDropdownContextProvider(props) {
 	const [profileHidden, setProfileHidden] = useState(true);
 
 	function showProfileDropdown() {
+		console.log("Profile context firing");
 		setProfileHidden(false);
 	}
 

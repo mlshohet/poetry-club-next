@@ -25,12 +25,13 @@ function ProfileDropdown (props) {
 	const email = session.user.email;
 
 	useEffect(() => {
+		console.log("useEffect firing");
 		async function getCurrentUser()
 		{
 			const currentUser = await getPoet(email);
 				if (currentUser) {
-					const userName = currentUser.poet.userName;
-					setData(userName);
+					const slug = currentUser.poet.slug;
+					setData(slug);
 				}
 		}
 		getCurrentUser();

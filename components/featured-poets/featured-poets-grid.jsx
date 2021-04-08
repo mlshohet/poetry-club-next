@@ -18,7 +18,7 @@ function FeaturedPoetsGrid(props) {
 					(
 						<FeaturedPoetsItem
 							key={poet._id}
-							uname={poet.userName}
+							slug={poet.slug}
 							imageUrl={poet.imageUrl}
 						/>
 					)

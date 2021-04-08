@@ -9,11 +9,9 @@ import Loading from '../loading';
 import classes from './featured-poets-item.module.css';
 
 function FeaturedPoetsItem(props) {
-	const { imageUrl, name, uname } = props;
+	const { imageUrl, name, slug } = props;
 
 	const [screen, setScreen] = useState(false);
-
-	const href = `/${uname}`;
 
 	const router = useRouter();
 
@@ -25,17 +23,14 @@ function FeaturedPoetsItem(props) {
 	}
 
 	return (
-
-		
-	
 		<div className={classes.image}>
-		<Link href={href}>
+		<Link href={`/${slug}`}><a>
 					<Image
 						src={imageUrl}
 						alt={name}
 						width={320}
-						height={350}
-					/>
+						height={320}
+					/></a>
 			</Link>
 		</div>
 	)

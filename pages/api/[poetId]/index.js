@@ -7,8 +7,8 @@ async function handler(req, res) {
 		return;
 	}
 
-	const userName = req.query.poetId;
-	console.log("Uname from api: ", userName);
+	const id = req.query.poetId;
+	console.log("ID from api: ", id);
 	
 
 	let client;
@@ -26,12 +26,12 @@ async function handler(req, res) {
 	let poet;
 
 	try {
-		if (userName === 'all') {
+		if (id === 'all') {
 			const cursor = await collection.find({});
 			poet = await cursor.toArray();
 		} else {
 			poet = await collection.findOne({ 
-				$or: [{ userName: userName }, { email: userName }]
+				$or: [{ slug: id }, { email: id }]
 			});
 		}
 	} catch (error) {
