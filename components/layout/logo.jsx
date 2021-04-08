@@ -11,11 +11,11 @@ function Logo(props) {
 		<div className="classes.logo">
 			<Image 
 				src={
-					home ? logoPath : logoBWPath 
+					logoPath
 				}
 				alt="Noontide Poetry Club Logo"
-				width={120}
-				height={120}
+				width={50}
+				height={50}
 			/>
 		</div>
 	);

@@ -124,7 +124,7 @@ function TextEditor(props) {
 		router.replace('/poems');
 	};
 
-	const MAX_LENGTH = 1500;
+	const MAX_LENGTH = 10000;
 
 	function handleBeforeInput() {
 		const currentContent = editorState.getCurrentContent()

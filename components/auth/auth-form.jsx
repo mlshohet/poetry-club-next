@@ -1,7 +1,10 @@
-import { Fragment, useState, useRef } from 'react';
+import { Fragment, useState, useRef} from 'react';
 import { signIn } from 'next-auth/client';
 
 import { useRouter } from 'next/router';
+import Link from 'next/link';
+
+import { getPoet } from '../../lib/poets-utils'; 
 
 import classes from './auth-form.module.css';
 
@@ -28,8 +31,7 @@ async function createUser(email, password) {
 
   console.log("data: ",data);
   return data;
-} 
-
+}
 
 function AuthForm() {
   const emailInputRef = useRef();
@@ -48,16 +50,21 @@ function AuthForm() {
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
 
+    let result;
     if (isLogin) {
-      const result = await signIn('credentials', {
+      result = await signIn('credentials', {
         redirect: false,
         email: enteredEmail,
         password: enteredPassword,
       });
 
+      console.log("result: ", result);
+
       if (!result.error) {
+
         router.back();
       }
+      
     } else {
       try {
           const result = await createUser(enteredEmail, enteredPassword);
@@ -81,12 +88,14 @@ function AuthForm() {
     <div className={classes.authContainer}>
       <section className={classes.auth}>
         <div className={classes.titleContainer}>
+          <Link href='/'><a>
               <div className={classes.title}>
                 noontide
               </div>
               <div className={classes.secondLine}>
                 poetry club
-              </div>
+              </div></a>
+          </Link>
         </div>
         <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
         <form
@@ -123,8 +132,6 @@ function AuthForm() {
           </div>
         </form>
       </section>
-
-
       </div>
    
     </Fragment>

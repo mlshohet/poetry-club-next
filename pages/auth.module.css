@@ -1,0 +1,15 @@
+.screen {
+  top: 0;
+  left: 0;
+  position: fixed;
+  height: 1500px;
+  width: 100%;
+  background-color: white;
+  z-index: 10;
+  animation: fade 1000ms linear;
+}
+
+@keyframes fade {
+  0% { opacity: 100; }
+  100% { opacity: 0; }
+}

@@ -18,7 +18,7 @@ function Account (props) {
 	}
 
 	if (!user.name) {
-		user.name="Anonymous";
+		user.name="Unknown";
 	}
 
 	const router = useRouter();

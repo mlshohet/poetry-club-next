@@ -24,14 +24,17 @@ function ProfileDropdown (props) {
 
 	const email = session.user.email;
 
-	useEffect(
-		async () => {
+	useEffect(() => {
+		async function getCurrentUser()
+		{
 			const currentUser = await getPoet(email);
 				if (currentUser) {
 					const userName = currentUser.poet.userName;
 					setData(userName);
 				}
-			}, []);
+		}
+		getCurrentUser();
+	}, [email]);
 
 	if (!data) {
 		return null;
@@ -40,6 +43,7 @@ function ProfileDropdown (props) {
 	console.log("Data: ", data);
 
 	async function logoutHandler() {
+
 		const result = await signOut({ redirect: false, callbackUrl: "localhost:3000/" });
 		router.push(result.url);
 	}

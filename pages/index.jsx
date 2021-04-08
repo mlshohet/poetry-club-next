@@ -24,6 +24,7 @@ function HomePage({ poets }) {
 					content="Noontide Poetry Club, Poetry Community"
 				/>
 			</Head>
+			
 			<Hero />
 			<FeaturedPoets poets={poets} />
 			<CTA />

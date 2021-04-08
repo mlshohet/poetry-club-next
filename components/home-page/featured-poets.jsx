@@ -5,9 +5,6 @@ import classes from './featured-poets.module.css';
 function FeaturedPoets(props) {
 	const {poets} = props;
 
-	if(!poets) {
-		return <h1>Loading...</h1>
-	}
 
 	return (
 		<div className={classes.featuredContainer}>
@@ -15,6 +12,15 @@ function FeaturedPoets(props) {
 				<h1 className={classes.title}>
 						Featured		
 				</h1>
+				<FeaturedPoetsGrid 
+					poets={poets}
+				/>
+				<FeaturedPoetsGrid 
+					poets={poets}
+				/>
+				<FeaturedPoetsGrid 
+					poets={poets}
+				/>
 				<FeaturedPoetsGrid 
 					poets={poets}
 				/>

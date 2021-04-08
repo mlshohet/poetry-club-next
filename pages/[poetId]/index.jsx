@@ -4,6 +4,7 @@ import { getSession } from 'next-auth/client';
 
 import PoemItem from '../../components/poems/poem-detail/poem-item';
 import ReadingListItem from '../../components/featured-poets/featured-poets-item';
+import Loading from '../../components/loading';
 
 import { getPoet } from '../../lib/poets-utils';
 
@@ -18,15 +19,15 @@ function PoetPage({ poet, poemsSorted }) {
 	const [pageReadingListPoets, setPageReadingListPoets] = useState();
 	const [isInReadingList, setIsInReadingList] = useState(false);
 	const [showReadingList, setShowReadingList] = useState(false);
-	const [isSelf, setIsSelf] = useState();
+	const [isSelf, setIsSelf] = useState(false);
 
-	const [isSession, setIsSession] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 
-	useEffect(
-		async () => {
+	useEffect(() => { 
+		async function getActiveSession() {
 			const session = await getSession();
 			if (session) {
-				setIsSession(true);
+				setIsLoading(false);
 				const user = await getPoet(session.user.email);
 				setData(user);
 
@@ -43,13 +44,17 @@ function PoetPage({ poet, poemsSorted }) {
 				} else {
 					setIsInReadingList(false);
 				}
+			} else {
+				setIsLoading(false);
 			}
-
+		}
+		setShowReadingList(false);
+		getActiveSession();
 	}, [email]);
 
 
-	if (isSession && !data) {
-		return <h1> Loading </h1>
+	if (isLoading) {
+		return <Loading />
 	}
 
 	async function getReadingListPoets() {
@@ -129,7 +134,6 @@ function PoetPage({ poet, poemsSorted }) {
 
 		return (
 		<div className={classes.gridContainer}>
-
 			<div className={classes.grid}>
 				<h1 className={classes.name}>
 					{name}
@@ -173,7 +177,7 @@ function PoetPage({ poet, poemsSorted }) {
 					showReadingList && <div>
 					{
 						pageReadingList.length > 0 && 
-						<div onClick={() => setShowReadingList(false)} className={classes.readingList}>
+						<div className={classes.readingList}>
 							{
 								pageReadingListPoets.map(poet =>
 								 	(
@@ -267,8 +271,3 @@ export async function getStaticPaths() {
 
 
 export default PoetPage;
-
-
-
-
-

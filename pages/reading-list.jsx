@@ -11,8 +11,8 @@ import classes from './reading-list.module.css';
 function ReadingList() {
 	const [data, setData] = useState();
 	
-	useEffect(
-		async () => {
+	useEffect(() => {
+		async function getReadingList() {
 			const session = await getSession();
 			if (session) {
 				const email = session.user.email;
@@ -26,7 +26,8 @@ function ReadingList() {
 					}
 				}
 			}
-			
+		};
+		getReadingList();
 	}, []);
 
 	if (!data) {

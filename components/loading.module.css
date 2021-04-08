@@ -1,0 +1,21 @@
+.loaderContainer {
+	height: 300vh;
+ 	width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  animation: fade 500ms linear;
+}
+
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fade {
+  0% { opacity: 100; }
+  100% { opacity: 100; }
+}
+

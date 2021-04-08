@@ -20,8 +20,9 @@ function MyApp({ Component, pageProps, router }) {
 	useScrollRestoration(router);
 
   	return (
-  		<Provider session={pageProps.session}>
+
   		<ProfileDropdownContextProvider>
+  		<Provider session={pageProps.session}>
 		  	<Layout 
 		  		home={pageProps.home}
 		  		auth={pageProps.auth}
@@ -32,10 +33,12 @@ function MyApp({ Component, pageProps, router }) {
 		  				content="width=device-width, initial-scale=1.0"
 		  			/>
 		  		</Head>
+		  		
 		  		<Component {...pageProps} />
+		  	
 		  	</Layout>
+		  	</Provider>
 		  </ProfileDropdownContextProvider>
-		</Provider>
   	);
 };
 

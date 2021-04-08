@@ -76,6 +76,7 @@ button.toggle {
 }
 
 .titleContainer {
+  cursor: pointer;
   font-family: 'Fondamento', cursive;
   margin: 0.5rem;
   display: flex;
@@ -83,6 +84,7 @@ button.toggle {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  user-select: none;
 }
 
 .titleContainer .title {
@@ -92,6 +94,21 @@ button.toggle {
 .titleContainer .secondLine {
   margin-top: -0.7rem;
   font-size: 1.2rem;
+}
+
+.titleContainer a {
+  text-align: center;
+  cursor: pointer;
+  color: lightyellow;
+  font-size: 1.2rem;
+  border-radius: 100%;
+  user-select: none;
+}
+
+.titleContainer a:hover,
+.titleContainer a:active,
+.titleContainer a.active {
+  color: lightyellow;
 }
 
 

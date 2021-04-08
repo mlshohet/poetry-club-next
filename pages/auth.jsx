@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { getSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 
 import AuthForm from '../components/auth/auth-form';
+
+import classes from './auth.module.css';
 
 function AuthPage(props) {
 
@@ -21,10 +23,12 @@ function AuthPage(props) {
 	}, [router]);
 
 	if (isLoading) {
-		return <h3>Loading...</h3>
-	} 
-	
-	return <AuthForm />;
+		return null;
+	}
+
+	return ( 
+		<AuthForm /> 
+	);
 }
 
 export async function getStaticProps() {
