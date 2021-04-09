@@ -3,6 +3,8 @@ import { useState, useContext } from 'react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/client';
 
+import MenuIcon from '@material-ui/icons/Menu';
+
 import Logo from './logo';
 import ProfileDropdown from '../profile/profile-dropdown';
 
@@ -63,9 +65,11 @@ function MainNavigation(props) {
 			}
 			>{
 					!session && (
-						<div><Link href='/auth'><a>login</a></Link></div>
+						<Link href='/auth'><a><div className={classes.login}>login</div></a></Link>
 					)
-				}{
+				}
+				<div className={classes.profile}>
+				{
       				session && (
 		      				<div onClick={
 		      						profileHidden ?
@@ -77,6 +81,22 @@ function MainNavigation(props) {
 	      					</div>
       				)
       			}
+      			</div>
+      			<div className={classes.profileIcon}>
+				{
+      				session && (
+		      				<div onClick={
+		      						profileHidden ?
+		      						showProfileDropdown :
+		      						hideProfileDropdown
+		      					}
+		      				>
+	        						<a><MenuIcon /></a>
+	      					</div>
+      				)
+      			}
+      			</div>
+
 			</nav>
 			{
 				!profileHidden && <ProfileDropdown />

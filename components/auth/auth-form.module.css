@@ -1,27 +1,27 @@
 .authContainer {
   background-image: url("../../public/images/site/sun-logo-bw.svg");
   background-repeat: no-repeat;
-  background-size: 86rem;
-  background-position: 0;
+  background-size: 55rem;
+  background-position: bottom -12rem right 50%;
   display: flex;
-  flex-direction: row;;
+  flex-direction: column;
+  justify-content: flex-start;
   height: 100%;
 }
 
 .auth {
-  height: 100%;
   min-width: 30vw;
   background-color: #880808;
-  padding: 3rem 1.4rem;
+  padding: 0.5rem;
 }
 
 .auth h1 {
   color: white;
+  margin-bottom: 0.5rem;
 }
 
 .control {
   margin-bottom: 0.5rem;
-  width: 100%;
   text-align: left;
 }
 
@@ -34,6 +34,7 @@
 
 .control input {
   font: inherit;
+  width: 100%;
   font-size: 0.8rem;
   border-radius: 1px;
   border: 3px solid white;
@@ -57,7 +58,6 @@
   font: inherit;
   color: #ffb3b3;
   background-color: #880808;
-  margin-top: 1rem;
   border: none;
   outline: none;
 }
@@ -111,6 +111,34 @@ button.toggle {
   color: lightyellow;
 }
 
+@media (min-width: 40rem) {
+  .authContainer {
+    background-image: url("../../public/images/site/sun-logo-bw.svg");
+    background-repeat: no-repeat;
+    background-size: 86rem;
+    background-position: 0;
+    display: flex;
+    flex-direction: row;;
+    height: 100%;
+  }
+
+  .auth {
+    height: 100%;
+    min-width: 30vw;
+    background-color: #880808;
+    padding: 3rem 1.4rem;
+  }
+
+  .actions button {
+    cursor: pointer;
+    font: inherit;
+    color: #ffb3b3;
+    background-color: #880808;
+    margin-top: 1rem;
+    border: none;
+    outline: none;
+  }
+}
 
 
 

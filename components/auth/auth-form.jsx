@@ -103,17 +103,16 @@ function AuthForm() {
               </div></a>
           </Link>
         </div>
-        <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
         <form
           onSubmit={submitHandler}
 
         > {
             !isLogin && (
                 <div className={classes.control}>
-                  <label htmlFor='name'>Name</label>
                   <input 
                     type='name' 
-                    id='name' 
+                    id='name'
+                    placeholder='Name'
                     required 
                     ref={nameInputRef}
                   />
@@ -121,19 +120,21 @@ function AuthForm() {
             )
           }
           <div className={classes.control}>
-            <label htmlFor='email'>Email</label>
+
             <input 
               type='email' 
                id='email' 
+               placeholder='Email'
                required 
                ref={emailInputRef}
             />
           </div>
           <div className={classes.control}>
-            <label htmlFor='password'>Password</label>
+   
             <input 
               type='password'
               id='password'
+              placeholder='Password'
               required
               ref={passwordInputRef}
             />

@@ -5,14 +5,14 @@
 .mainHeader {
   top: 0;
   left: 0;
-  background-image: radial-gradient(circle 20rem at 99% -2%, rgb(238, 75, 43, 0.3) 99.9%, #880808);
+  background-image: radial-gradient(circle 9rem at 105% 10%, rgb(238, 75, 43, 0.3) 99.9%, #880808);
   background-color: #880808;
   font-family: 'Fondamento', cursive;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 .navigation a {
@@ -52,11 +52,15 @@
 }
 
 .titleContainer .title {
-  font-size: 2.4rem;
+  font-size: 2.0rem;
 }
 .titleContainer .secondLine {
   margin-top: -0.7rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
+}
+
+.profile {
+  display: none;
 }
 
 .plainHeader {
@@ -68,7 +72,7 @@
   border-bottom: 1px solid lightgray;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   padding: 1rem;
 }
@@ -116,4 +120,44 @@
 .plainTitleContainer .secondLine {
   margin-top: -0.7rem;
   font-size: 1.2rem;
+}
+
+.login {
+  font-size: 1rem;
+  
+  padding: 0.3rem 0.9rem;
+  border-radius: 25px;
+}
+
+.login:hover,
+.login:active {
+  background-color: #880808;
+}
+
+@media (min-width: 40rem) {
+
+  .mainHeader {
+    background-image: radial-gradient(circle 10rem at 80% -2%, rgb(238, 75, 43, 0.3) 99.9%, #880808);
+    justify-content: space-around;
+    padding: 1rem;
+
+  }
+
+  .titleContainer .title {
+    font-size: 2.4rem;
+  }
+
+  .titleContainer .secondLine {
+    margin-top: -0.7rem;
+    font-size: 1.2rem;
+  }
+
+  .profileIcon {
+    display: none;
+  }
+
+  .profile {
+    display: block;
+  }
+
 }
