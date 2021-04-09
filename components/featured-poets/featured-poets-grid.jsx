@@ -12,6 +12,7 @@ function FeaturedPoetsGrid(props) {
 	const { poets } = props;
 
 	return (
+		<div className={classes.gridContainer}>
 		<div className={classes.grid}>
 			{
 				poets.map(poet =>
@@ -24,6 +25,7 @@ function FeaturedPoetsGrid(props) {
 					)
 				)
 			}
+		</div>
 		</div>
 	);
 }

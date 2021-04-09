@@ -30,6 +30,7 @@ function FeaturedPoetsItem(props) {
 						alt={name}
 						width={320}
 						height={320}
+						layout="responsive"
 					/></a>
 			</Link>
 		</div>

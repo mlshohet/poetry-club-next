@@ -1,12 +1,24 @@
 .grid {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: wrap;
+  	list-style: none;
+	  margin: 0;
+	  padding: 0;
+	  display: grid;
+	  grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
+	  align-content: center;
 }
 
-.name {
-  text-align: left;
-  color: gray;
+@media (min-width: 40rem) {
+	.grid {
+	  display: flex;
+	  flex-direction: row;
+	  justify-content: flex-start;
+	  align-items: center;
+	  flex-wrap: wrap;
+	}
+
+	.name {
+	  text-align: left;
+	  color: gray;
+	}
+
 }

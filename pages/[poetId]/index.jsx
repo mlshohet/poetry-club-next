@@ -188,7 +188,7 @@ function PoetPage({ poet, poemsSorted }) {
 									 		<ReadingListItem 	
 										 		imageUrl={poet.imageUrl}
 										 		name={poet.name}
-										 		uname={poet.userName}
+										 		slug={poet.slug}
 											/>
 											<div className={classes.itemName}>{poet.name}</div>
 										</div>

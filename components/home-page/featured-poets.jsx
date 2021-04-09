@@ -8,7 +8,7 @@ function FeaturedPoets(props) {
 
 	return (
 		<div className={classes.featuredContainer}>
-			<section className={classes.featured}>
+	
 				<h1 className={classes.title}>
 						Featured		
 				</h1>
@@ -24,7 +24,7 @@ function FeaturedPoets(props) {
 				<FeaturedPoetsGrid 
 					poets={poets}
 				/>
-			</section>
+
 		</div>
 	)
 }

@@ -1,11 +1,8 @@
 .bookShop {
-  grid-column: 1 / 4;
-  grid-row: 4;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   background-color: white;
-  padding: 15px;
 }

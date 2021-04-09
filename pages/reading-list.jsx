@@ -17,6 +17,7 @@ function ReadingList() {
 			if (session) {
 				const email = session.user.email;
 				const currentUser = await getPoet(email);
+				console.log("email from Reading list: ", email, currentUser);
 				if (currentUser) {
 					const readingList = currentUser.poet.readingList;
 					console.log("Reading list: ", readingList);
@@ -48,7 +49,7 @@ function ReadingList() {
 									key={poet._id}
 									name={poet.name}
 									imageUrl={poet.imageUrl}
-									uname={poet.userName}
+									slug={poet.slug}
 								/>
 								<div className={classes.itemName}>{poet.name}</div>
 							</div>

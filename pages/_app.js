@@ -32,6 +32,11 @@ function MyApp({ Component, pageProps, router }) {
 		  				name="viewport" 
 		  				content="width=device-width, initial-scale=1.0"
 		  			/>
+		  			<title>Noontide Poetry Club</title>
+		  			<link 
+		  				href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      					rel="stylesheet"
+      				/>
 		  		</Head>
 		  		
 		  		<Component {...pageProps} />

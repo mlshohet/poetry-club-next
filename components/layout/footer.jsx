@@ -1,4 +1,7 @@
-import Image from 'next/image';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import TwitterIcon from '@material-ui/icons/Twitter';
+
 import classes from './footer.module.css';
 
 function Footer(props) {
@@ -15,29 +18,13 @@ function Footer(props) {
 			<div className={classes.footerText}>
 				<ul className={classes.socialLinks}>
 					<li className={classes.icon}>
-						<Image 
-							src="/images/site/social/facebook.png"
-							alt="facebook icon"
-							width={32}
-							height={32}
-						/>
+						<FacebookIcon />
 					</li>
 					<li className={classes.icon}>
-						<Image 
-							src="/images/site/social/instagram.png"
-							alt="facebook icon"
-							width={32}
-							height={32}
-						/>
-					
+						<InstagramIcon />
 					</li>
 					<li className={classes.icon}>
-						<Image 
-								src="/images/site/social/twitter.png"
-								alt="facebook icon"
-								width={32}
-								height={32}
-							/>
+						<TwitterIcon />
 					</li>
 				</ul>
 				<p>

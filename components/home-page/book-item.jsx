@@ -15,9 +15,9 @@ function BookItem(props) {
 				/>
 			</div>
 			<div className={classes.details}>
-				<div className={classes.detailsItem}>{title}</div>
-				<div className={classes.price}>${price}</div>
-				<div className={classes.detailsItem}>{shopName}</div>
+				<p>{title}</p>
+				<p style={{ fontWeight: 'bold'}}>${price}</p>
+				<p>{shopName}</p>
 			</div>
 		</div>
 	);

@@ -1,18 +1,34 @@
 .featuredContainer {
-	background-color: whitesmoke;
-}
-.featured {
-	width: 80vw;
 	display: flex;
-	justify-content: flex-start;
-	align-items: flex-start;
 	flex-direction: column;
-  	padding: 1rem 0;
-  	margin: 0 auto;
+	justify-content: center;
+	padding: 1.2rem;
+	text-align: center;
 }
 
-.featured h1 {
-	text-align: left;
-	font-size: 1.5rem;
+.featuredContainer h1 {
+	font-size: 1rem;
 	color: #888;
+}
+
+@media (min-width: 40rem) {
+	.featuredContainer {
+			background-color: whitesmoke;
+	}
+	.featured {
+		width: 80vw;
+		display: flex;
+		justify-content: flex-start;
+		align-items: flex-start;
+		flex-direction: column;
+	  	padding: 1rem 0;
+	  	margin: 0 auto;
+	}
+
+	.featured h1 {
+		text-align: left;
+		font-size: 1.5rem;
+		color: #888;
+	}
+
 }

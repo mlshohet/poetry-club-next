@@ -41,6 +41,7 @@ export async function getStaticProps(context) {
 			poets: featuredPoets,
 			home: home
 		},
+		revalidate: 1000000000
 	};
 };
 

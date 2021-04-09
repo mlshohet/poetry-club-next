@@ -14,22 +14,11 @@
   100% { opacity: 100; }
 }
 
-.noScreen {
-  top: 0;
-  left: 0;
-  position: fixed;
-  opacity: 0;
-}
-
 .image {
-  display: inline;
-  color: black;
   cursor: pointer;
-  max-height: 5rem;
-  width: 5rem;
   border-radius: 50%;
   overflow: hidden;
-  margin: 1.2rem;
+  margin: 0.5rem;
 }
 
 .image img {
@@ -41,5 +30,18 @@
 
 .image:hover {
   opacity: 0.8;
+}
+
+@media (min-width: 40rem) {
+  .image {
+    display: inline;
+    color: black;
+    cursor: pointer;
+    max-height: 5rem;
+    width: 5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 1.2rem;
+  }
 }
 
