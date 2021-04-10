@@ -48,12 +48,11 @@ export async function getServerSideProps(context) {
 		};
 	}
 
-	const email = session.user.email;
-	const userName = email.slice(0, email.indexOf("@"));
+	const userId = session.user.userId;
 		
 	let user;
 	try {
-		user = await getPoet(email);
+		user = await getPoet(userId);
 	} catch (error) {
 		console.log(error, "Failed to get user");
 	}

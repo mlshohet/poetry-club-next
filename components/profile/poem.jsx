@@ -2,6 +2,8 @@ import { useContext } from 'react';
 
 import { useRouter } from 'next/router';
 
+import DeleteIcon from '@material-ui/icons/Delete';
+
 import TextEditorContext from '../../store/text-editor-context';
 
 import classes from './poem.module.css';
@@ -53,12 +55,12 @@ function Poem (props) {
 
 	return (
 		<div className={classes.poemContainer}>
-			<div>
-				<p>{ poem.text.blocks[0].text }</p>
+			<div className={classes.poem}>
+				<p classes={classes.ellipsis}>{ poem.text.blocks[0].text }</p>
 			</div>
 			<div className={classes.buttonContainer}>
 				<button onClick={handleEditPoem}>Edit</button>
-				<button onClick={deleteSubmitHandler}>Delete</button>
+				<div className={classes.delete} onClick={deleteSubmitHandler}><DeleteIcon /></div>
 			</div>			
 		</div>
 	);

@@ -65,7 +65,18 @@ function MainNavigation(props) {
 			}
 			>{
 					!session && (
-						<Link href='/auth'><a><div className={classes.login}>login</div></a></Link>
+						<Link href='/auth'>
+							<a>
+								<div  
+									className={
+										home ? 
+										classes.login :
+										classes.plainLogin
+									}
+								>login
+								</div>
+							</a>
+						</Link>
 					)
 				}
 				<div className={classes.profile}>

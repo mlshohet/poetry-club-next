@@ -2,13 +2,14 @@
 	position: absolute;
 	display: flex;
 	background-color: white;
-	top: 16vh;
-	right: 14vw;
+	top: 10vh;
+	right: 2vw;
 	z-index: 10;
 	justify-content: center;
 	align-items: center;
 	border: 1px solid darkgray;
 	border-radius: 4px;
+	padding: 0.5rem;
 }
 
 .profileContainer ul {
@@ -22,6 +23,10 @@
 
 .profileContainer li {
 	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
 	cursor: pointer;
 	padding: 0.5rem 1rem;
 }
@@ -52,5 +57,17 @@
 
 .horizontalRule {
 	width:100%;
+}
+
+.icon {
+	margin-right: 1rem;
+}
+
+@media (min-width: 40rem) {
+
+	.profileContainer {
+		top: 12vh;
+		right: 14vw;
+	}
 }
 

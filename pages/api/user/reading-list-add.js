@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import { getSession } from 'next-auth/client';
 
 import { connectToDatabase } from '../../../lib/db';
@@ -22,9 +23,10 @@ export async function handler (req, res) {
 		return;
 	}
 
-	const { email, password } = session.user;
+	const { password, userId } = session.user;
 	const { poetId } = req.body;
-	console.log("Poet Id: ", poetId);
+
+	const uid = await new ObjectId(userId);
 
 	let client;
 
@@ -41,7 +43,7 @@ export async function handler (req, res) {
 	let result;
 	try {
 		const result = await collection.updateOne(
-			{ email: email },
+			{ _id: uid },
 			{ $push: { "readingList": poetId } }
 		);
 	} catch (error) {
@@ -53,7 +55,7 @@ export async function handler (req, res) {
 	let item;
 	
 	try {
-		item = await collection.findOne({ email: email });
+		item = await collection.findOne({ _id: uid });
 	} catch (error) {
 		res.status(404).json({ message: "User not found!", error });
 		client.close();

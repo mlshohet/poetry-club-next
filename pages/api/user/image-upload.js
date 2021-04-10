@@ -9,10 +9,8 @@ async function handler (req, res) {
 		res.status(400).json({ message: "Invalid request!" });
 		return;
 	}
-	console.log("In handler");
 
 	const session = await getSession({ req: req });
-	console.log("In connect try block");
 
 	if (!session) {
 		res.status(401).json({ message: "Unauthorized!" });
@@ -21,8 +19,6 @@ async function handler (req, res) {
 
 	const { userId, imageUrl } = req.body;
 	const uid = ObjectId(userId);
-
-	console.log("Request: ", req.body);
 
 	let client;
 	
@@ -35,7 +31,6 @@ async function handler (req, res) {
 		client.close();
 		return;
 	};
-	console.log("After connect try block");
 
 	const collection = client.db().collection('poets');
 	console.log("After collection");
@@ -48,7 +43,6 @@ async function handler (req, res) {
 		res.status(401).json({ message: "Could not find profile!", error});
 		return;
 	}
-	console.log("After find try block");
 
 	let result;
 	try	{

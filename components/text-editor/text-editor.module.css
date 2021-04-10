@@ -1,5 +1,5 @@
 .editorContainer {
-  margin: 4rem;
+  margin: 0.5rem;
   display: flex;
   flex-direction: column;
 }
@@ -35,3 +35,14 @@
   margin-top: var(--size-4);
   text-align: right;
 }
+
+@media (min-width: 40rem) {
+  .editorContainer {
+    margin: 4rem;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+
+

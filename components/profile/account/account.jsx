@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { signOut } from 'next-auth/client';
+import { signIn, signOut } from 'next-auth/client';
 
 import { useRouter } from 'next/router';
 
@@ -39,6 +39,11 @@ function Account (props) {
 
 		const userId = user._id;
 		const enteredNewName = newNameRef.current.value;
+
+		if (!enteredNewName || enteredNewName === '' || enteredNewName.length > 40) {
+			alert("Please enter a valid new name");
+			return;
+		}
 	
 		let data;
 		try {
@@ -54,8 +59,6 @@ function Account (props) {
 					'Content-Type': 'application/json'
 				}
 			});
-
-			//
 
 			data = await response.json();
 			console.log(data);
@@ -74,7 +77,18 @@ function Account (props) {
 
 		const userId = user._id;
 		const enteredNewEmail = newEmailRef.current.value.toLowerCase();
+
+		const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	
+		if (
+			!enteredNewEmail || enteredNewEmail === '' ||
+			!regex.test(enteredNewEmail) || email.length > 50
+		) {
+			alert("Please enter a valid email");
+			newEmailRef.current.value = null;
+			return;
+		}
+
 		let data;
 		try {
 			const response = await fetch('/api/user/change-email', {
@@ -100,12 +114,22 @@ function Account (props) {
 		} catch (error) {
 			console.log(error, "Could not update email!");
 		}
+
 		console.log(data);
 	};
 
 	async function changePasswordHandler() {
 		const enteredOldPassword = oldPasswordRef.current.value;
     	const enteredNewPassword = newPasswordRef.current.value;
+
+    	if (
+    		!enteredOldPassword || !enteredNewPassword ||
+    		enteredOldPassword === enteredNewPassword ||
+    		enteredNewPassword < 6 || enteredNewPassword > 16
+    	) {
+    		alert("Please enter a valid new password, no less than 6 and no more than 16 characters long.");
+    		return;
+    	}
 
     	const passwordData = {
       		oldPassword: enteredOldPassword,
@@ -170,8 +194,6 @@ function Account (props) {
 		event.preventDefault();
 		setSelectedFile(event.target.files[0]);
 		setInvisible(true);
-		console.log(event.target.files[0]);
-		console.log("selected file: ", imageRef.current.value);
 	}
 
 	async function imageUploadHandler() {
@@ -232,7 +254,6 @@ function Account (props) {
 		}
 		setInvisible(false);
 		setSelectedFile(null);
-		console.log(data);
 		router.replace('/account');
 		return;
 	}
@@ -280,7 +301,7 @@ function Account (props) {
 				<input 
         			type='email'
         			id='email'
-        			placeholder={session.user.email}
+        			placeholder={user.email}
         			ref={newEmailRef}
         		/>
 				<div className={classes.buttonContainer}>

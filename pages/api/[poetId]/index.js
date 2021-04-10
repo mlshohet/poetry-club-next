@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import { connectToDatabase } from '../../../lib/db';
 
 async function handler(req, res) {
@@ -9,7 +10,13 @@ async function handler(req, res) {
 
 	const id = req.query.poetId;
 	console.log("ID from api: ", id);
-	
+
+	let userId;
+	try {
+		userId = await new ObjectId(id);
+	} catch (error) {
+		userId = null;
+	}
 
 	let client;
 
@@ -31,7 +38,7 @@ async function handler(req, res) {
 			poet = await cursor.toArray();
 		} else {
 			poet = await collection.findOne({ 
-				$or: [{ slug: id }, { email: id }]
+				$or: [{ slug: id }, { email: id }, { _id: userId }]
 			});
 		}
 	} catch (error) {

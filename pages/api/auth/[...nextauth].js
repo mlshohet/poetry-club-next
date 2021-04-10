@@ -34,10 +34,26 @@ export default NextAuth({
 				
 				client.close();
 				return {
-					email: user.email
+					email: user.email,
+					userId: user._id
 				};
 
 			}
 		})
-	]
+	],
+
+	callbacks: {
+		async jwt(token, user, account, profile) {
+			if (user) {
+				token.userId = user.userId;
+			}
+			return token;
+		},
+
+		async session(session, token) {
+			session.user.userId = token.userId;
+			return session;
+		}
+	}
+
 });

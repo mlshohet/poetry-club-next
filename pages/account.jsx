@@ -30,16 +30,13 @@ export async function getServerSideProps(context) {
 		}
 	}
 
-	const email = session.user.email;
-	const userName = email.slice(0, email.indexOf("@"));
-	const user = await getPoet(email);
+	const userId = session.user.userId;
+	const user = await getPoet(userId);
 
 	return {
 		props: { session, user: user.poet }
 	}
 };
-
-
 
 
 export default AccountPage;

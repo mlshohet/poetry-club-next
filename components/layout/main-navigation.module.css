@@ -72,15 +72,14 @@
   border-bottom: 1px solid lightgray;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 .plainTitleContainer {
   margin: 0.5rem;
   display: flex;
-  cursor: pointer;
   color: darkgray;
   flex-direction: column;
   justify-content: center;
@@ -115,16 +114,15 @@
 }
 
 .plainTitleContainer .title {
-  font-size: 2.4rem;
+  font-size: 2.0rem;
 }
 .plainTitleContainer .secondLine {
   margin-top: -0.7rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .login {
   font-size: 1rem;
-  
   padding: 0.3rem 0.9rem;
   border-radius: 25px;
 }
@@ -134,13 +132,36 @@
   background-color: #880808;
 }
 
+.plainLogin {
+  font-size: 1rem;
+  padding: 0.3rem 0.9rem;
+  border-radius: 25px;
+}
+
+.plainLogin:hover,
+.plainLogin:active {
+  background-color: whitesmoke;
+}
+
 @media (min-width: 40rem) {
 
   .mainHeader {
     background-image: radial-gradient(circle 10rem at 80% -2%, rgb(238, 75, 43, 0.3) 99.9%, #880808);
-    justify-content: space-around;
     padding: 1rem;
 
+  }
+
+  .plainHeader {
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-family: 'Fondamento', cursive;
+    color: darkgray;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem;
   }
 
   .titleContainer .title {
@@ -152,12 +173,34 @@
     font-size: 1.2rem;
   }
 
+  .plainTitleContainer {
+    margin: 0.5rem;
+    display: flex;
+    cursor: pointer;
+    color: darkgray;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+  .plainTitleContainer .title {
+    font-size: 2.4rem;
+  }
+  .plainTitleContainer .secondLine {
+    margin-top: -0.7rem;
+    font-size: 1.2rem;
+  }
+
   .profileIcon {
     display: none;
   }
 
   .profile {
     display: block;
+  }
+
+  .login {
+    font-size: 1.2rem;
   }
 
 }

@@ -1,6 +1,12 @@
 import { useState, useEffect, useContext } from 'react';
 
-import { useSession, signOut } from 'next-auth/client';
+import { getSession, signOut } from 'next-auth/client';
+
+import CreateIcon from '@material-ui/icons/Create';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 
 import ProfileDropdownContext from '../../store/profile-dropdown-context';
 
@@ -15,33 +21,31 @@ import classes from './profile-dropdown.module.css';
 function ProfileDropdown (props) {
 
 	const [data, setData] = useState();
-	const [session, loading] = useSession();
 
 	const profileDropdownContext = useContext(ProfileDropdownContext);
 	const hideProfileDropdown = profileDropdownContext.hideProfile;
 
 	const router = useRouter();
 
-	const email = session.user.email;
-
 	useEffect(() => {
-		console.log("useEffect firing");
 		async function getCurrentUser()
 		{
-			const currentUser = await getPoet(email);
+			const session = await getSession();
+			if (session) {
+				const userId = session.user.userId;
+				const currentUser = await getPoet(userId);
 				if (currentUser) {
 					const slug = currentUser.poet.slug;
 					setData(slug);
 				}
+			}
 		}
 		getCurrentUser();
-	}, [email]);
+	}, []);
 
 	if (!data) {
 		return null;
 	}
-
-	console.log("Data: ", data);
 
 	async function logoutHandler() {
 
@@ -56,14 +60,14 @@ function ProfileDropdown (props) {
 					className={classes.profileItem}
 					onClick={hideProfileDropdown}
 				>
-					<Link href='/poems'>
+					<CreateIcon className={classes.icon} /><Link href='/poems'>
 						<a>
 							Poems
 						</a>
 					</Link>
 				</li>
 				<li className={classes.profileItem}>
-					<Link href='/reading-list'>
+					<FavoriteIcon className={classes.icon} /> <Link href='/reading-list'>
 						<a>
 							Reading List
 						</a>
@@ -73,27 +77,27 @@ function ProfileDropdown (props) {
 					className={classes.profileItem}
 					onClick={hideProfileDropdown}
 				>
-					<Link href='/account'>
-						Account
+					<AccountCircleIcon className={classes.icon} /><Link href='/account'>
+						 Account
 					</Link>
 				</li>
 				<li 
 					className={classes.profileItem}
 					onClick={hideProfileDropdown}
 				>
-					<Link href={`/${data}`}>
-						Go to page
+					<AccountBalanceIcon className={classes.icon} /><Link href={`/${data}`}>
+						Go To Page
 					</Link>
 				</li>
 				<div className={classes.horizontalRule} >
 				<hr ></hr>
 				</div>
 				<li className={classes.profileItem} onClick={hideProfileDropdown}>
-					<div 
+					<ExitToAppIcon className={classes.icon} /><div 
 						className={classes.logout}
 						onClick ={logoutHandler}
 					>
-						Sign Out
+						 Sign Out
 					</div>
 				</li>
 			</ul>

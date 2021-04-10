@@ -34,7 +34,6 @@
 
 @media (min-width: 40rem) {
   .image {
-    display: inline;
     color: black;
     cursor: pointer;
     max-height: 5rem;

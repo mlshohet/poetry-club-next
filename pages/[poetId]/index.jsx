@@ -2,6 +2,11 @@ import { Fragment, useEffect, useState } from 'react';
 
 import { getSession } from 'next-auth/client';
 
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import PeopleIcon from '@material-ui/icons/People';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 import PoemItem from '../../components/poems/poem-detail/poem-item';
 import ReadingListItem from '../../components/featured-poets/featured-poets-item';
 import Loading from '../../components/loading';
@@ -28,7 +33,7 @@ function PoetPage({ poet, poemsSorted }) {
 			const session = await getSession();
 			if (session) {
 				setIsLoading(false);
-				const user = await getPoet(session.user.email);
+				const user = await getPoet(session.user.userId);
 				setData(user);
 
 				if (user.poet.email === email) {
@@ -148,7 +153,7 @@ function PoetPage({ poet, poemsSorted }) {
 							classes.inactive
 						}
 					>
-						Poems
+						<MenuBookIcon />
 					</li>
 					<li 
 						onClick={getReadingListPoets}
@@ -158,7 +163,7 @@ function PoetPage({ poet, poemsSorted }) {
 							classes.inactive
 						}
 					>
-						Reading List
+						<PeopleIcon />
 					</li>
 					{
 						
@@ -166,8 +171,8 @@ function PoetPage({ poet, poemsSorted }) {
 						(<li> 
 							{
 								!isInReadingList ?
-									<span onClick={onAddHandler}>Add</span> :
-									<span onClick={onRemoveHandler}>Remove</span>
+									<div onClick={onAddHandler}><FavoriteIcon /></div> :
+									<div onClick={onRemoveHandler}><DeleteIcon /></div>
 							} 
 						</li>)
 					}
@@ -185,11 +190,13 @@ function PoetPage({ poet, poemsSorted }) {
 								 			key={poet._id}
 								 			className={classes.readingListItem}
 								 		>
-									 		<ReadingListItem 	
-										 		imageUrl={poet.imageUrl}
-										 		name={poet.name}
-										 		slug={poet.slug}
-											/>
+									 		<div className={classes.itemImage}>
+										 		<ReadingListItem 	
+											 		imageUrl={poet.imageUrl}
+											 		name={poet.name}
+											 		slug={poet.slug}
+												/>
+											</div>
 											<div className={classes.itemName}>{poet.name}</div>
 										</div>
 									)
@@ -220,6 +227,7 @@ function PoetPage({ poet, poemsSorted }) {
 export async function getStaticProps(context) {
 
 	const { params } = context;
+	console.log("Params: ", params, context);
 
 	const id = params.poetId;
 	

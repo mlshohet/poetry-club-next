@@ -1,18 +1,52 @@
 .poemContainer {
 	margin:  0.5rem auto;
-	padding: 0 1.2rem;
-	width: 75vw;
+	width: 100%;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	box-shadow: 1px 1px 4px gray;
+	box-shadow: 0px 1px 3px gray;
 	border-radius: 3px;
+
+}
+
+.poem {
+	width: 75%;
+	padding: 0 0.5rem;
+}
+
+.poem p {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .buttonContainer {
+	width: 25%;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: flex-end;
 	align-items: center;
 }
+
+.delete {
+	cursor: pointer;
+}
+
+@media (min-width: 40rem) {
+	.poemContainer {
+		width: 75vw;
+		box-shadow: 1px 1px 4px gray;
+	}
+
+	.poem {
+		margin: 0 1.2rem;
+	}
+
+	.buttonContainer {
+		margin: 0 1.2rem;
+	}
+}
+
+
+

@@ -11,8 +11,6 @@ async function handler (req, res) {
 
 	const session = await getSession({ req: req });
 
-	console.log("Session from server: ", session);
-
 	if (!session) {
 		res.status(401).json({
 			message: "Unauthorized!"
@@ -34,8 +32,6 @@ async function handler (req, res) {
 		return;
 	}
 
-	console.log("Connected");
-
 	const usersCollection = client.db().collection('poets');
 
 	let user;
@@ -47,15 +43,11 @@ async function handler (req, res) {
 		return;
 	}
 
-	console.log("Found account");
-
 	try {
-		console.log("In update try");
 		const result = await usersCollection.updateOne(
 			{ _id : uid },
 			{ $set: { email: email }}
 		);
-		console.log("After update try");
 
 	} catch (error) {
 		res.status(404).json({ error: error, message: "Could not update document!"});

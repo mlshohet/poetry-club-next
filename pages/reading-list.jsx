@@ -15,12 +15,11 @@ function ReadingList() {
 		async function getReadingList() {
 			const session = await getSession();
 			if (session) {
-				const email = session.user.email;
-				const currentUser = await getPoet(email);
-				console.log("email from Reading list: ", email, currentUser);
+				const userId = session.user.userId;
+				const currentUser = await getPoet(userId);
+
 				if (currentUser) {
 					const readingList = currentUser.poet.readingList;
-					console.log("Reading list: ", readingList);
 					const readingListPoets = await getReadingListPoets(readingList);
 					if (readingListPoets) {
 						setData(readingListPoets);
@@ -45,12 +44,13 @@ function ReadingList() {
 					 			key={poet._id}
 					 			className={classes.readingListItem}
 					 		>
-								<ReadingListItem 
-									key={poet._id}
-									name={poet.name}
-									imageUrl={poet.imageUrl}
-									slug={poet.slug}
-								/>
+					 			<div className={classes.itemImage}>
+									<ReadingListItem 
+										name={poet.name}
+										imageUrl={poet.imageUrl}
+										slug={poet.slug}
+									/>
+								</div>
 								<div className={classes.itemName}>{poet.name}</div>
 							</div>
 						)
