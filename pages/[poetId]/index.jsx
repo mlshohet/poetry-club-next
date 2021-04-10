@@ -10,6 +10,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import PoemItem from '../../components/poems/poem-detail/poem-item';
 import ReadingListItem from '../../components/featured-poets/featured-poets-item';
 import Loading from '../../components/loading';
+import Empty from '../../components/empty';
 
 import { getPoet } from '../../lib/poets-utils';
 
@@ -171,8 +172,8 @@ function PoetPage({ poet, poemsSorted }) {
 						(<li> 
 							{
 								!isInReadingList ?
-									<div onClick={onAddHandler}><FavoriteIcon /></div> :
-									<div onClick={onRemoveHandler}><DeleteIcon /></div>
+									<div className={classes.delete} onClick={onAddHandler}><FavoriteIcon /></div> :
+									<div className={classes.delete} onClick={onRemoveHandler}><DeleteIcon /></div>
 							} 
 						</li>)
 					}
@@ -181,41 +182,50 @@ function PoetPage({ poet, poemsSorted }) {
 				{
 					showReadingList && <div>
 					{
-						pageReadingList.length > 0 && 
-						<div className={classes.readingList}>
-							{
-								pageReadingListPoets.map(poet =>
-								 	(
-								 		<div 
-								 			key={poet._id}
-								 			className={classes.readingListItem}
-								 		>
-									 		<div className={classes.itemImage}>
-										 		<ReadingListItem 	
-											 		imageUrl={poet.imageUrl}
-											 		name={poet.name}
-											 		slug={poet.slug}
-												/>
+						pageReadingList.length > 0 ? 
+						(
+							<div className={classes.readingList}>
+								{
+									pageReadingListPoets.map(poet =>
+									 	(
+									 		<div 
+									 			key={poet._id}
+									 			className={classes.readingListItem}
+									 		>
+										 		<div className={classes.itemImage}>
+											 		<ReadingListItem 	
+												 		imageUrl={poet.imageUrl}
+												 		name={poet.name}
+												 		slug={poet.slug}
+													/>
+												</div>
+												<div className={classes.itemName}>{poet.name}</div>
 											</div>
-											<div className={classes.itemName}>{poet.name}</div>
-										</div>
+										)
 									)
-								)
-							}
-						</div>
+								}
+							</div>
+						) : <Empty />
 					}
 					</div>
 				}
 				{
 					!showReadingList && <div className={classes.poems}>
 						{ 
-							poemsSorted.map(poem =>
-								<PoemItem 
-									key={poem.text.blocks[0].key}
-									poem={poem.text.blocks}
-									date={poem.date}
-								/>
-							)
+							poemsSorted.length > 0 ?
+							(
+								<div>
+									{
+										poemsSorted.map(poem =>
+											<PoemItem 
+												key={poem.text.blocks[0].key}
+												poem={poem.text.blocks}
+												date={poem.date}
+											/>
+										)
+									}
+								</div> 
+							) : <Empty />
 						}
 					</div>
 				}

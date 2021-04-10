@@ -3,6 +3,7 @@ import { getSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 
 import AuthForm from '../components/auth/auth-form';
+import Loading from '../components/loading';
 
 import classes from './auth.module.css';
 
@@ -23,7 +24,7 @@ function AuthPage(props) {
 	}, [router]);
 
 	if (isLoading) {
-		return null;
+		return <Loading />;
 	}
 
 	return ( 

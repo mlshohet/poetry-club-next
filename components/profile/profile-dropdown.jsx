@@ -16,6 +16,8 @@ import { useRouter } from 'next/router';
 
 import { getPoet } from '../../lib/poets-utils';
 
+import Loading from '../../components/loading';
+
 import classes from './profile-dropdown.module.css';
 
 function ProfileDropdown (props) {
@@ -44,7 +46,7 @@ function ProfileDropdown (props) {
 	}, []);
 
 	if (!data) {
-		return null;
+		return <Loading dropdown />;
 	}
 
 	async function logoutHandler() {

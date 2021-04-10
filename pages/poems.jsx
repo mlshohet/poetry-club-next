@@ -22,8 +22,8 @@ function PoemsPage(props) {
 	    	<Head>
 				<title>Submit a Poem</title>
 				<meta 
-					name="description"
-					content="Submit a poem"
+					name="Poems Dashboard"
+					content="Poems dashboard"
 				/>
 				<meta charset="utf-8" />
 			</Head>

@@ -1,21 +1,41 @@
 .loaderContainer {
-	height: 300vh;
- 	width: 100%;
+  padding: 12rem;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: white;
-  animation: fade 500ms linear;
+  animation: fade 1s linear;
 }
 
+.dropdown {
+  position: absolute;
+  top: 30vh;
+  right: 25vw;
+}
+
+@keyframes fade {
+  0% { opacity: 0; }
+  100% { opacity: 100; }
+}
+
+.loader {
+  position: absolute;
+  border: 5px solid #f3f3f3; /* Light grey */
+  border-top: 5px solid #880808;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  z-index: 10;
+  animation: spin 0.2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
-}
-
-@keyframes fade {
-  0% { opacity: 100; }
-  100% { opacity: 100; }
 }
 

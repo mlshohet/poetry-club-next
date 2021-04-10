@@ -13,25 +13,18 @@ function FeaturedPoetsItem(props) {
 
 	const [screen, setScreen] = useState(false);
 
-	const router = useRouter();
-
-	function handleClick() {
-		event.preventDefault();
-		setScreen(true);
-
-		router.push(href);
-	}
-
 	return (
 		<div className={classes.image}>
-		<Link href={`/${slug}`}><a>
+			<Link href={`/${slug}`}>
+				<a>
 					<Image
 						src={imageUrl}
 						alt={name}
 						width={320}
 						height={320}
 						layout="responsive"
-					/></a>
+					/>
+				</a>
 			</Link>
 		</div>
 	)

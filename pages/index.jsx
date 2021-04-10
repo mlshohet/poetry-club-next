@@ -36,12 +36,14 @@ export async function getStaticProps(context) {
 	const home = true;
 	const featuredPoets = await getFeaturedPoets();
 
+	const sortedFeaturedPoets = featuredPoets.reverse();
+
 	return {
 		props: {
-			poets: featuredPoets,
+			poets: sortedFeaturedPoets,
 			home: home
 		},
-		revalidate: 1000000000
+		revalidate: 6000
 	};
 };
 

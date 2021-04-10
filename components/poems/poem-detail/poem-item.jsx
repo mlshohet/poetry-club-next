@@ -6,12 +6,6 @@ function PoemItem(props) {
 
 	const { poem, date } = props;
 
-	if(!poem) {
-		return (
-			<h1>Loading...</h1>
-		)
-	}
-
 	let poemText = '';
 
 	poem.map(line => {

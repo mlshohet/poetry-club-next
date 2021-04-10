@@ -15,16 +15,6 @@ function FeaturedPoets(props) {
 				<FeaturedPoetsGrid 
 					poets={poets}
 				/>
-				<FeaturedPoetsGrid 
-					poets={poets}
-				/>
-				<FeaturedPoetsGrid 
-					poets={poets}
-				/>
-				<FeaturedPoetsGrid 
-					poets={poets}
-				/>
-
 		</div>
 	)
 }

@@ -1,9 +1,12 @@
 import classes from './loading.module.css';
 
-function Loading() {
+function Loading({ dropdown }) {
+
 	return (
-		<div className={classes.loaderContainer}>
-			<div></div>
+		<div className={
+			dropdown ? classes.dropdown : classes.loaderContainer
+		}>
+			<div className={classes.loader}></div>
 		</div>
 	);
 };

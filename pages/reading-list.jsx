@@ -4,6 +4,9 @@ import { getSession } from 'next-auth/client';
 
 import ReadingListItem from '../components/featured-poets/featured-poets-item';
 
+import Loading from '../components/loading';
+import Empty from '../components/empty';
+
 import { getPoet, getReadingListPoets } from '../lib/poets-utils';
 
 import classes from './reading-list.module.css';
@@ -31,30 +34,31 @@ function ReadingList() {
 	}, []);
 
 	if (!data) {
-		return <h1>Loading</h1>
+		return <Loading />
 	}
 	
 	return (
 		<div className={classes.readingListContainer}>
 			<div className={classes.readingList}>
 				{
-					data.readingList.map(poet =>
-						(
-							<div 
-					 			key={poet._id}
-					 			className={classes.readingListItem}
-					 		>
-					 			<div className={classes.itemImage}>
-									<ReadingListItem 
-										name={poet.name}
-										imageUrl={poet.imageUrl}
-										slug={poet.slug}
-									/>
+					data.readingList.length > 0 ?
+						data.readingList.map(poet =>
+							(
+								<div 
+						 			key={poet._id}
+						 			className={classes.readingListItem}
+						 		>
+						 			<div className={classes.itemImage}>
+										<ReadingListItem 
+											name={poet.name}
+											imageUrl={poet.imageUrl}
+											slug={poet.slug}
+										/>
+									</div>
+									<div className={classes.itemName}>{poet.name}</div>
 								</div>
-								<div className={classes.itemName}>{poet.name}</div>
-							</div>
-						)
-					)
+							)
+						) : <Empty />
 				}
 			</div>
 		</div>
