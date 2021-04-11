@@ -1,4 +1,7 @@
 import { getSession } from 'next-auth/client';
+
+import { ObjectId } from 'mongodb';
+
 import { connectToDatabase } from '../../../../../lib/db';
 
 async function handler(req, res) {
@@ -14,15 +17,11 @@ async function handler(req, res) {
 		return;
 	}
 
-	const { email } = session.user;
+	let uid = new ObjectId(session.user.userId);
+
 	const { text } = req.body;
-	console.log("Text from api: ", text);
+
 	const poemId = req.query.poemId;
-	console.log("Req query: ",poemId);
-	console.log("Type: ", typeof(req.query.poemId));
-
-
-	console.log("Poem Id from api: ", poemId);
 
 	let client;
 
@@ -35,22 +34,21 @@ async function handler(req, res) {
 	}
 
 	const usersCollection = client.db().collection('poets');
-	console.log("In try block", email, poemId);
 
 	let item;
 	let result;
 	try {
 
-		item = await usersCollection.findOne({ email: email });
-		console.log("Item: ", item);
+		item = await usersCollection.findOne({ _id: uid });
+
 		if (!item) {
-			res.status(404).json({ message: "Document not found!", poemId: poemId });
+			res.status(404).json({ message: "User not found." });
 			client.close();
 			return;
 		}
 
 		result = await usersCollection.updateOne(
-			{ email: email },
+			{ _id: uid },
 			{ $set: { "poems.$[element].text": text } },
 			{ arrayFilters: [ { "element.poemId": poemId } ] }
 		);
@@ -62,7 +60,7 @@ async function handler(req, res) {
 		return;
 	}
 
-	res.status(200).json({ message: "Document updated!", poemId: poemId});
+	res.status(200).json({ message: "Document updated!" });
 	client.close();
 }
 

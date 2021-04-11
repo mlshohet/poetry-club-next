@@ -5,7 +5,7 @@ import { getSession } from 'next-auth/client';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import PeopleIcon from '@material-ui/icons/People';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import DeleteIcon from '@material-ui/icons/Delete';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 
 import PoemItem from '../../components/poems/poem-detail/poem-item';
 import ReadingListItem from '../../components/featured-poets/featured-poets-item';
@@ -173,7 +173,7 @@ function PoetPage({ poet, poemsSorted }) {
 							{
 								!isInReadingList ?
 									<div className={classes.delete} onClick={onAddHandler}><FavoriteIcon /></div> :
-									<div className={classes.delete} onClick={onRemoveHandler}><DeleteIcon /></div>
+									<div className={classes.delete} onClick={onRemoveHandler}><RemoveCircleIcon /></div>
 							} 
 						</li>)
 					}

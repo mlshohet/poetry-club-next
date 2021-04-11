@@ -12,10 +12,6 @@ import classes from './account.module.css';
 function Account (props) {
 
 	const { user, session } = props;
-	
-	if (!user) {
-		return<h1>Loading...</h1>
-	}
 
 	if (!user.name) {
 		user.name="Unknown";
@@ -68,9 +64,11 @@ function Account (props) {
 			}
 
 		} catch (error) {
-			console.log(error, "Could not update name!");
+			alert("Could not update name!")
+			return;
 		}
-		console.log(data);
+		alert("Name changed successfully.");
+		return;
 	};
 
 	async function changeEmailHandler() {
@@ -82,9 +80,9 @@ function Account (props) {
 	
 		if (
 			!enteredNewEmail || enteredNewEmail === '' ||
-			!regex.test(enteredNewEmail) || email.length > 50
+			!regex.test(enteredNewEmail) || enteredNewEmail.length > 50
 		) {
-			alert("Please enter a valid email");
+			alert("Please enter a valid email.");
 			newEmailRef.current.value = null;
 			return;
 		}
@@ -112,10 +110,10 @@ function Account (props) {
 			}
 
 		} catch (error) {
-			console.log(error, "Could not update email!");
+			alert("Could not update email. Please make sure your email is valid.");
+			return;
 		}
-
-		console.log(data);
+		alert("Email updated.");
 	};
 
 	async function changePasswordHandler() {
@@ -125,7 +123,7 @@ function Account (props) {
     	if (
     		!enteredOldPassword || !enteredNewPassword ||
     		enteredOldPassword === enteredNewPassword ||
-    		enteredNewPassword < 6 || enteredNewPassword > 16
+    		enteredNewPassword.length < 6 || enteredNewPassword.length > 16
     	) {
     		alert("Please enter a valid new password, no less than 6 and no more than 16 characters long.");
     		return;
@@ -153,10 +151,12 @@ function Account (props) {
 			}
 	
 		} catch (error) {
-			console.log(error, data);
+			console.log(data);
+			alert("Could not change password. Please make sure your password is valid, and no less than 6 characters and no more than 16 characters long.")
 			return;
 		}
-			console.log(data);
+		alert("Password changed.");
+		return;
 	}
 
 	async function deleteAccountHandler() {
@@ -180,26 +180,40 @@ function Account (props) {
 			}
 
 		} catch (error) {
-			console.log(error, data);
+			alert("Could not delete profile.");
+			return;
 		}
-		console.log(data);
 		signOut({ callbackUrl: 'https://localhost:3000/' });
 	};
 
 	const [selectedFile, setSelectedFile] = useState();
-	const [url, setUrl] = useState();
 	const imageRef = useRef();
 
 	function fileSelectedHandler (event) {
 		event.preventDefault();
+
 		setSelectedFile(event.target.files[0]);
+		
+		imageRef.current.value = null;
+		
 		setInvisible(true);
 	}
 
 	async function imageUploadHandler() {
 		
+		if (!selectedFile) {
+			alert("Please select a valid image file.");
+			return;
+		}
+
+		if (selectedFile.size > 1600000) {
+			alert("Image file size is too big.");
+			return;
+		}
+
 		const imageName = user._id+selectedFile.name;
 
+		// Firebase Storage code, not React ref related
 		const storageRef = storage.ref();
 		const file = selectedFile;
 		const thisRef = storageRef.child(imageName);
@@ -212,13 +226,10 @@ function Account (props) {
 			snapshot = await profileImgImagesRef.put(file);
 			imageUrl = await snapshot.ref.getDownloadURL();
 		} catch (error) {
-			console.log(error, "Could not upload file!");
+			alert("Could not upload file.");
+			return;
 		}
 
-		console.log("Image uploaded!");
-		console.log("Image url: ", typeof(imageUrl));
-
-		setUrl(imageUrl);
 		return imageUrl;
 	}
 
@@ -228,7 +239,8 @@ function Account (props) {
 		try {
 			imageUrl = await imageUploadHandler();
 		} catch (error) {
-			console.log("Could not get image url!");
+			alert("Could not upload image.");
+			return;
 		}
 
 		let data;
@@ -249,9 +261,10 @@ function Account (props) {
 				throw new Error("Could not upload image!");
 			}
 		} catch (error) {
-			console.log(error, data);
+			alert("Could not change image.");
 			return;
 		}
+
 		setInvisible(false);
 		setSelectedFile(null);
 		router.replace('/account');
@@ -261,24 +274,32 @@ function Account (props) {
 	return (
 		<div className={classes.accountContainer}>
 		<div className={classes.accountItemContainer}>
-				<div className={classes.image}>
+				
 					{ 
-						invisible ? '' : user.imageUrl && <Image
-							src={user.imageUrl}
-							alt={user.name}
-							width={320}
-							height={320}
+						invisible ? 
+						<div className={classes.fileName}>{selectedFile.name}</div> : 
+						user.imageUrl && 
+						(
+							<div className={classes.image}>
+								<Image
+									src={user.imageUrl}
+									alt={user.name}
+									width={320}
+									height={320}
+								/>	
+							</div>
+						)
+					}
+			
+					<input
+						className={classes.invisible}
+						type="file"
+						accept="image/*"
+						id="file" 
+						name="image"
+						ref={imageRef}
+						onChange={fileSelectedHandler} 
 					/>
-				}
-				</div>
-				<input 
-					className={classes.fileInput}
-					type="file"
-					id="image" 
-					name="image"
-					ref={imageRef}
-					onChange={fileSelectedHandler} 
-				/>
 				<div className={classes.buttonContainer}>
 					<button onClick={() => imageRef.current.click()}>Edit</button>
 					<button onClick={imageHandler}>Save</button>
@@ -286,9 +307,12 @@ function Account (props) {
 			</div>
 			<div className={classes.accountItemContainer}>
         		<input 
-        			type='name'
+        			type='text'
         			id='name'
+        			label='Name'
+        			name='User Name'
         			placeholder={user.name}
+        			maxLength={30}
         			ref={newNameRef}
         		/>
 				<div className={classes.buttonContainer}>
@@ -301,6 +325,8 @@ function Account (props) {
 				<input 
         			type='email'
         			id='email'
+        			name='User Email'
+        			maxLength={16}
         			placeholder={user.email}
         			ref={newEmailRef}
         		/>
@@ -313,13 +339,19 @@ function Account (props) {
 				<input 
         			type='password'
         			id='old-password'
+        			label='Old Password'
+        			name='Old Password'
         			placeholder="old password"
+        			maxLength={16}
         			ref={oldPasswordRef}
         		/>
         		<input 
         			type='password'
         			id='new-password'
+        			label='New Password'
+        			name='New Password'
         			placeholder="new password"
+        			maxLength={16}
         			ref={newPasswordRef}
         		/>
 				<div className={classes.buttonContainer}>

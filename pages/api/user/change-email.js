@@ -6,11 +6,18 @@ import { connectToDatabase } from '../../../lib/db';
 async function handler (req, res) {
 
 	if(req.method !== 'PATCH') {
+		res.status(400).json({ message: "Invalid request!" });
 		return;
 	}
 
-	const session = await getSession({ req: req });
-
+	let session;
+	try {
+		session = await getSession({ req: req });
+	} catch (error) {
+		res.status(400).json({ message: "Invalid credentials." });
+		return;
+	}
+	
 	if (!session) {
 		res.status(401).json({
 			message: "Unauthorized!"
@@ -20,8 +27,19 @@ async function handler (req, res) {
 	}
 
 	const { userId, email } = req.body;
+
+	const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	
+	if (
+		!email || email === '' ||
+		!regex.test(email) || email.length > 30
+	) {
+		res.status(400).json({ message: "Invalid email."});
+		return;
+	}
+
 	const uid = new ObjectId(userId);
-	console.log(" From server: ", userId, email);
+
 
 	let client;
 	try {

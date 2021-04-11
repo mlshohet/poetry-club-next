@@ -1,14 +1,14 @@
 .bookItemContainer {
 	display: flex;
-	width: 31vw;
+	width: 32vw;
 	background-color: white;
 	flex-direction: column;
 	justify-content: center;
 	margin: 0.2rem;
-	padding: 0.2rem;
+	padding: 0.3rem;
 	align-items: center;
 	border-radius: 5px;
-	box-shadow: 1px 2px 6px #CCC;
+	box-shadow: 2px 0px 7px #CCC;
 }
 
 .image {
@@ -23,14 +23,14 @@
 }
 
 .details {
-	font-size: 0.5rem;
+	font-size: 1rem;
 	text-align: center;
 }
 
 .details .detailsItem {
 	text-align: center;
 	height: 1.2rem;
-	margin: 0.4rem;
+	margin: 0.1rem;
 }
 
 .details .price {

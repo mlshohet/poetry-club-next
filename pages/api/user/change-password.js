@@ -1,3 +1,5 @@
+import { ObjectId } from 'mongodb';
+
 import { getSession } from 'next-auth/client';
 import { connectToDatabase } from '../../../lib/db';
 import { verifyPassword, hashPassword } from '../../../lib/auth';
@@ -18,12 +20,10 @@ async function handler(req, res) {
 		return;
 	}
 
-	const userEmail = session.user.email;
-	console.log("userEmail:", userEmail);
+	const userId = session.user.userId;
+	const uid = await new ObjectId(userId);
 
 	const { oldPassword, newPassword } = req.body;
-
-	console.log("Passwords: ", oldPassword, newPassword);
 
 	let client;
 	try {
@@ -34,19 +34,16 @@ async function handler(req, res) {
 		return;
 	}
 	
-
 	const usersCollection = client.db().collection('poets');
 
 	let user;
 	try {
-		user = await usersCollection.findOne({email: userEmail});
-		console.log("user: ", user);
+		user = await usersCollection.findOne({ _id: uid });
 	} catch (error) {
 		res.status(404).json({ message: "User not found in database!"});
 		client.close();
 		return;
 	}
-	
 
 	if (!user) {
 		res.status(404).json({ message: "User not found!"});
@@ -75,7 +72,7 @@ async function handler(req, res) {
 	const hashedPassword = await hashPassword(newPassword);
 
 	const result = await usersCollection.updateOne(
-		{ email: userEmail }, 
+		{ _id: uid }, 
 		{ $set: { password: hashedPassword }}
 	);
 

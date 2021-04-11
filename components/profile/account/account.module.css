@@ -82,8 +82,14 @@
   height: 100%;
 }
 
-.image + input {
-	display: none;
+.fileName {
+	font-family: 'system-ui';
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	height: 8rem;
+	margin: 1.2rem;
 }
 
 @media (min-width: 40rem) {

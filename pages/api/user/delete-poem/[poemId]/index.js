@@ -1,9 +1,13 @@
 import { getSession } from 'next-auth/client';
+
+import { ObjectId } from 'mongodb';
+
 import { connectToDatabase } from '../../../../../lib/db';
 
 async function handler(req, res) {
 
 	if (req.method !== 'PATCH') {
+		res.status(400).json({ message: "Invalid request." });
 		return;
 	}
 
@@ -14,16 +18,13 @@ async function handler(req, res) {
 		return;
 	}
 
-	const { email } = session.user;
+	const uid = new ObjectId(session.user.userId);
 	const poemId = req.query.poemId;
-
-	console.log("Poem Id from api: ", poemId);
 
 	let client;
 
 	try	{
 
-		console.log("In delete try");
 		client = await connectToDatabase();
 	} catch (error) {
 		res.status(400).json({ message: "Could not connect!" });
@@ -37,27 +38,28 @@ async function handler(req, res) {
 	let result;
 	try {
 
-		item = await usersCollection.findOne({ email: email });
-		console.log("Item: ", item);
+		item = await usersCollection.findOne({ _id: uid });
+
 		if (!item) {
-			res.status(404).json({ message: "Document not found!", poemId: poemId });
+			res.status(404).json({ message: "User not found!" });
 			client.close();
 			return;
 		}
 
 		result = await usersCollection.updateOne(
-			{ email: email },
+			{ _id: uid },
 			{ $pull: { poems: { poemId: poemId } } },
 		);
 		
 	} catch (error) {
-		res.status(404).json({ message: "Could not delete document!", error: error.message });
+		res.status(404).json({ message: "Could not delete document." });
 		client.close();
 		return;
 	}
 
-	res.status(200).json({ message: "Document deleted!", poemId: poemId});
+	res.status(200).json({ message: "Document deleted!" });
 	client.close();
+	return;
 }
 
 export default handler;

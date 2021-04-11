@@ -1,7 +1,8 @@
 import { getSession} from 'next-auth/client';
-import { connectToDatabase } from '../../../lib/db'; 
 
 import { ObjectId } from 'mongodb';
+
+import { connectToDatabase } from '../../../lib/db'; 
 
 async function handler (req, res) {
 
@@ -23,24 +24,20 @@ async function handler (req, res) {
 	let client;
 	
 	try {
-
-		console.log("In connect try block");
 		client = await connectToDatabase();
 	} catch (error) {
-		res.status(400).json({ message: "Could not connect", error });
+		res.status(400).json({ message: "Could not connect" });
 		client.close();
 		return;
 	};
 
 	const collection = client.db().collection('poets');
-	console.log("After collection");
 
 	try {
-		console.log("In find try block");
 		const item = await collection.findOne({ _id: uid}); 
 	} catch (error) {
 		client.close();
-		res.status(401).json({ message: "Could not find profile!", error});
+		res.status(401).json({ message: "Could not find profile!" });
 		return;
 	}
 
@@ -51,14 +48,13 @@ async function handler (req, res) {
 			{ $set: { imageUrl, imageUrl } }
 		);
 	} catch (error) {
-		res.status(400).json({ message: "Could not update document!", error });
+		res.status(400).json({ message: "Could not update document!" });
 		client.close();
 		return;
 	}
 
 	res.status(200).json({
 		message: "Upload successful!",
-		userId
 	});
 
 	await client.close();

@@ -40,7 +40,7 @@ function TextEditor(props) {
 		const rawContent = convertToRaw(submission);
 
 		if (!submission.hasText()) {
-			console.log("There's no text");
+			alert("Please don't submit empty documents.");
 			return;
 		}
 
@@ -63,7 +63,7 @@ function TextEditor(props) {
 				throw new Error("No response on edit!");
 			}
 		} catch (error) {
-			console.log(error, data);
+			alert("Could not edit.");
 			return;
 		}
 
@@ -80,7 +80,7 @@ function TextEditor(props) {
 		const submission = editorState.getCurrentContent();
 
 		if (!submission.hasText()) {
-			console.log("There's no text");
+			alert("Please don't submit empty documents.");
 			return;
 		}
 
@@ -108,18 +108,20 @@ function TextEditor(props) {
 				},
 			});
 
-			data = response.json();
+			data = await response.json();
 
 			if (!response.ok) {
-				throw new Error("Could not submit!")
+				throw new Error("Could not submit!");
 			}
 
 		} catch (error) {
-			console.log(error, data);
+			if (response.status === 405) {
+				alert("You have reached the maximum number of documents.");
+			} else {
+				alert("Could not send document.");
+			}
 			return;
 		}
-
-		console.log("Successfully submitted!", data);
 		setEditorState(() => EditorState.createEmpty());
 		router.replace('/poems');
 	};

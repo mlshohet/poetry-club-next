@@ -18,18 +18,17 @@ async function handler(req, res) {
 
 		name = name.trim();
 
-		if (!email || !email.includes('@') || email.length > 50 ||
-			!password || password.trim().length < 7 ||
-			password.trim().length > 56 || name.length > 43 ) {
+		const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+		if (!email || email.length > 40 || !regex.test(email) ||
+			!password || password.trim().length < 6 ||
+			password.trim().length > 16 || name.length > 40 ) {
 
 			res.status(422).json({
 				message: 'Invalid input.'
 			})
 			return;
 		}
-
-		const userName = email.slice(0, email.indexOf("@"));
-		console.log("Username: ", userName);
 	
 		let slug = name.replace(/ /g, "-");
 
@@ -39,7 +38,7 @@ async function handler(req, res) {
 
 		const existingUser = await db.collection('poets').findOne({email : email});
 		if (existingUser) {
-			res.status(422).json({
+			res.status(423).json({
 				message: "User already exists!"
 			})
 
@@ -47,14 +46,16 @@ async function handler(req, res) {
 			return;
 		}
 
-		const existingSlug = await db.collection('poets').findOne({slug: slug});
+		const userWithSlug = await db.collection('poets').findOne({slug: slug});
 
-		if (existingSlug) {
-			const alreadyTakenSlug = existingSlug.slug;
+		if (userWithSlug) {
+			const alreadyTakenSlug = userWithSlug.slug;
 			const lastCharacter = alreadyTakenSlug[alreadyTakenSlug.length-1];
 			if (!isNaN(lastCharacter)) {
 				const suffix = +lastCharacter + 1;
-				slug = slug + suffix;
+				const slugArr = slug.split('');
+				slugArr[slugArr.length-1] = suffix;
+				slug = slugArr.join('');
 			} else {
 				slug = slug + 2;
 			}

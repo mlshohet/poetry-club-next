@@ -43,7 +43,7 @@ export default NextAuth({
 	],
 
 	callbacks: {
-		async jwt(token, user, account, profile) {
+		async jwt(token, user) {
 			if (user) {
 				token.userId = user.userId;
 			}

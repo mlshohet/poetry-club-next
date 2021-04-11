@@ -21,9 +21,13 @@ async function handler (req, res) {
 		return;
 	}
 
-	const { userId, name } = req.body;
+	const userId = session.user.userId;
+	let { name } = req.body;
+
 	const uid = new ObjectId(userId);
-	console.log(" From server: ", userId, name);
+
+	name = name.trim();
+	let slug = name.replace(/ /g, "-");
 
 	let client;
 	try {
@@ -34,28 +38,50 @@ async function handler (req, res) {
 		return;
 	}
 
-	console.log("Connected");
-
 	const usersCollection = client.db().collection('poets');
 
 	let user;
 	try {
 		user = await usersCollection.findOne({ _id: uid });
 	} catch (error) {
-		res.status(401).json({ error: error, message: "Could not find account!", id: uid });
+		res.status(401).json({ message: "Could not find account." });
 		client.close();
 		return;
 	}
 
-	console.log("Found account");
-
 	try {
-		console.log("In update try");
+
 		const result = await usersCollection.updateOne(
 			{ _id : uid },
 			{ $set: { name: name }}, 
 		);
-		console.log("After update try");
+
+	} catch (error) {
+		res.status(404).json({ error: error, message: "Could not update document!"});
+		client.close();
+		return;
+	}
+
+	const userWithSlug = await usersCollection.findOne({ slug: slug });
+
+	if (userWithSlug) {
+		const alreadyTakenSlug = userWithSlug.slug;
+		const lastCharacter = alreadyTakenSlug[alreadyTakenSlug.length-1];
+		if (!isNaN(lastCharacter)) {
+			const suffix = +lastCharacter + 1;
+			const slugArr = slug.split('');
+			slugArr[slugArr.length-1] = suffix;
+			slug = slugArr.join('');
+		} else {
+			slug = slug + 2;
+		}
+	};
+	console.log("At slug part");
+	try {
+		const result = await usersCollection.updateOne(
+			{ _id : uid },
+			{ $set: { slug: slug }},
+		);
 
 	} catch (error) {
 		res.status(404).json({ error: error, message: "Could not update document!"});

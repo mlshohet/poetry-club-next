@@ -1,4 +1,6 @@
 import { getSession } from 'next-auth/client';
+import { ObjectId } from 'mongodb';
+
 import { connectToDatabase } from '../../../lib/db';
 import { verifyPassword } from '../../../lib/auth';
 
@@ -17,15 +19,22 @@ async function handler(req, res) {
 			
 	const { text, date, poemId } = req.body;
 
-	console.log('Data from server: ', session);
+	let uid;
+	try {
+		uid = new ObjectId(session.user.userId);
+	} catch (error) {
+		res.status(400).json({ message: "Could not identify user." });
+		return;
+	}
 
-	if (!text || text === {} || !date || !poemId) {
+	console.log('Text Data from server: ', text);
+
+	if (!text || text === {} || text.blocks.length === 0 || !date || !poemId) {
 		res.status(422).json({ message: 'Invalid input' });
 		return;
 	}
 
 	const poemDocument = { text, date, poemId };
-	console.log()
 
 	let client;
 
@@ -39,15 +48,27 @@ async function handler(req, res) {
 
 	const userCollection = client.db().collection('poets');
 
-	let result;
-	const userEmail = session.user.email;
 
-	console.log("Email from server: ", userEmail);
+
 	const updateDocument = { $push: { "poems": poemDocument } };
+
+	let user;
+	try {
+		user = await userCollection.findOne({ _id: uid });
+		if (user) {
+			if (user.poems.length > 499) {
+				throw new Error('You have reached the maximum number of documents.');
+			}
+		}
+	} catch (error) {
+		res.status(405).json({ message: "You have reached the maximum number of documents." });
+		return;
+	}
 	
+	let result;
 	try {
 		result = await userCollection.updateOne(
-			{ email: userEmail }, 
+			{ _id: uid }, 
 			updateDocument
 		);
 		
