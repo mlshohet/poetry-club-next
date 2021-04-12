@@ -25,7 +25,7 @@ async function handler(req, res) {
 			password.trim().length > 16 || name.length > 40 ) {
 
 			res.status(422).json({
-				message: 'Invalid input.'
+				message: 'Please make sure your email is valid and your password is between 6 and 16 characters long.'
 			})
 			return;
 		}
@@ -46,20 +46,22 @@ async function handler(req, res) {
 			return;
 		}
 
-		const userWithSlug = await db.collection('poets').findOne({slug: slug});
-
-		if (userWithSlug) {
-			const alreadyTakenSlug = userWithSlug.slug;
-			const lastCharacter = alreadyTakenSlug[alreadyTakenSlug.length-1];
-			if (!isNaN(lastCharacter)) {
-				const suffix = +lastCharacter + 1;
-				const slugArr = slug.split('');
-				slugArr[slugArr.length-1] = suffix;
-				slug = slugArr.join('');
-			} else {
-				slug = slug + 2;
+		let userWithSlug = await db.collection('poets').findOne({slug: slug});
+		while (userWithSlug) {
+			userWithSlug = await db.collection('poets').findOne({slug: slug});
+			if (userWithSlug) {
+				const alreadyTakenSlug = userWithSlug.slug;
+				const lastCharacter = alreadyTakenSlug[alreadyTakenSlug.length-1];
+				if (!isNaN(lastCharacter)) {
+					const suffix = +lastCharacter + 1;
+					const slugArr = slug.split('');
+					slugArr[slugArr.length-1] = suffix;
+					slug = slugArr.join('');
+				} else {
+					slug = slug + 2;
+				}
 			}
-		};
+		}
 
 		const hashedPassword = await hashPassword(password);
 
@@ -77,7 +79,7 @@ async function handler(req, res) {
 
 		} catch (error) {
 			res.status(400).json({
-				message: "Could not create profile!"
+				message: "Something went wrong. Could not create profile."
 			})
 			client.close();
 			return;

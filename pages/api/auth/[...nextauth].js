@@ -1,8 +1,6 @@
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 
-import firebase from '../../../firebase/firebase.utils';
-
 import { connectToDatabase } from '../../../lib/db';
 import { verifyPassword } from '../../../lib/auth';
 
@@ -14,13 +12,14 @@ export default NextAuth({
 		Providers.Credentials({
 			async authorize(credentials) {
 				const client = await connectToDatabase();
+				console.log("Trying to sign in server");
 
 				const usersCollection = client.db().collection('poets');
 
 				const user = await usersCollection.findOne({ email: credentials.email })
 				if(!user) {
 					client.close();
-					throw new Error('No profile found!');
+					throw new Error('Profile not found.');
 					return;
 				}
 
@@ -28,7 +27,7 @@ export default NextAuth({
 
 				if (!isValid) {
 					client.close();
-					throw new Error("Wrong credentials!");
+					throw new Error("Invalid email, or password.");
 					return;
 				}
 
@@ -41,15 +40,6 @@ export default NextAuth({
 				};
 
 				console.log("Token: ", token);
-
-				// firebase.auth().signInWithCustomToken(user._id)
-				// 	.then((userCrendential) => {
-				// 		const user = userCrendential.user;
-				// 		console.log("User from firebase: ", user);
-				// 	})
-				// 	.catch((error) => {
-				// 		return(error.code, error.message);
-				// 	})
 
 				return token;
 			}

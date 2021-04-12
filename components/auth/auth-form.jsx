@@ -10,7 +10,6 @@ import classes from './auth-form.module.css';
 
 
 async function createUser(name, email, password) {
-  console.log("in create User function");
 
   const response = await fetch('/api/auth/signup', {
     method: 'POST',
@@ -27,10 +26,8 @@ async function createUser(name, email, password) {
   const data = await response.json();
 
   if(!response.ok) {
-    throw new Error(data.message || "Something went wrong!");
+    throw new Error(data.message || "Error. Something went wrong.");
   }
-
-  console.log("data: ",data);
   return data;
 }
 
@@ -56,28 +53,33 @@ function AuthForm() {
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
 
-    let result;
-    if (isLogin) {
-      result = await signIn('credentials', {
-        redirect: false,
-        email: enteredEmail,
-        password: enteredPassword,
-      });
+    if (isLogin) {      
+      try {
+         const result = await signIn('credentials', {
+            redirect: false,
+            email: enteredEmail,
+            password: enteredPassword,
+          });
 
-      console.log("result: ", result);
+          if (!result.error) {
+            router.back();
+          } else {
+            alert(result.error);
+            return;
+          }
 
-      if (!result.error) {
-
-        router.back();
+      } catch (error) {
+        alert("Error. Something went wrong.");
+        return;
       }
-      
     } else {
       try {
           const result = await createUser(enteredName, enteredEmail, enteredPassword);
-          console.log(result);
       } catch(error) {
-          console.log(error);
+          alert(error.message);
+          return;
       }
+
       const result = await signIn('credentials', {
         redirect: false,
         email: enteredEmail,
@@ -105,7 +107,6 @@ function AuthForm() {
         </div>
         <form
           onSubmit={submitHandler}
-
         > {
             !isLogin && (
                 <div className={classes.control}>
@@ -113,7 +114,6 @@ function AuthForm() {
                     type='name' 
                     id='name'
                     placeholder='Name'
-                    required 
                     ref={nameInputRef}
                   />
                 </div>
@@ -141,6 +141,7 @@ function AuthForm() {
           </div>
           <div className={classes.actions}>
             <button>{isLogin ? 'Login' : 'Create Account'}</button>
+            <div className={classes.toggleContainer}>
             <button
               type='button'
               className={classes.toggle}
@@ -148,6 +149,7 @@ function AuthForm() {
             >
               {isLogin ? 'Create new account' : 'Login with existing account'}
             </button>
+            </div>
           </div>
         </form>
       </section>

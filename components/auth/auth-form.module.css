@@ -10,7 +10,6 @@
 }
 
 .auth {
-  min-width: 30vw;
   background-color: #880808;
   padding: 0.5rem;
 }
@@ -36,7 +35,7 @@
   font: inherit;
   width: 100%;
   font-size: 0.8rem;
-  border-radius: 1px;
+  border-radius: 2px;
   border: 3px solid white;
   text-align: left;
   padding: 0.4rem;
@@ -54,31 +53,39 @@
 }
 
 .actions button {
+  width: 100%;
   cursor: pointer;
   font: inherit;
   color: #ffb3b3;
   background-color: #880808;
   border: none;
   outline: none;
+  border-radius: 3px;
 }
 
 .actions button:hover,
 .actions button:focus,
 .actions button:active,
 .actions button.active {
-
   color:  #ffcccc;
   outline: none;
 }
 
+.toggleContainer {
+  width: 100%;
+  text-align: center;
+}
+
 button.toggle {
+  width: auto;
   font-size: 0.8rem;
+  color: #ffb3b3;
+  background-color: #880808;
 }
 
 .titleContainer {
-  cursor: pointer;
+  margin: 0.2rem;
   font-family: 'Fondamento', cursive;
-  margin: 0.5rem;
   display: flex;
   color: lightyellow;
   flex-direction: column;
@@ -88,19 +95,19 @@ button.toggle {
 }
 
 .titleContainer .title {
-  font-size: 2.4rem;
+  font-size: 2rem;
 }
 
 .titleContainer .secondLine {
   margin-top: -0.7rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .titleContainer a {
   text-align: center;
   cursor: pointer;
   color: lightyellow;
-  font-size: 1.2rem;
+  font-size: 1rem;
   border-radius: 100%;
   user-select: none;
 }
@@ -122,20 +129,52 @@ button.toggle {
     height: 100%;
   }
 
+  .titleContainer {
+    margin: 1rem;
+  }
+
+  .titleContainer .title {
+  font-size: 2.4rem;
+}
+
+.titleContainer .secondLine {
+    margin-top: -0.7rem;
+    font-size: 1.2rem;
+  }
+
   .auth {
     height: 100%;
     min-width: 30vw;
     background-color: #880808;
-    padding: 3rem 1.4rem;
+    padding: 1rem 1.4rem;
+  }
+
+  .toggleContainer {
+    text-align: left;
   }
 
   .actions button {
+    width: auto;
     cursor: pointer;
     font: inherit;
     color: #ffb3b3;
     background-color: #880808;
-    margin-top: 1rem;
     border: none;
+    outline: none;
+  }
+
+  button.toggle {
+    width: auto;
+    font-size: 0.8rem;
+    background-color: #880808;
+    margin: 0;
+  }
+
+  .actions button:hover,
+  .actions button:focus,
+  .actions button:active,
+  .actions button.active {
+    color:  #ffcccc;
     outline: none;
   }
 }
