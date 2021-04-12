@@ -20,24 +20,13 @@
   border: none;
   outline: none;
   padding: 0.5rem;
-  border-radius: 10px;
-  margin: 0 0.3rem;
+  border-radius: 5px;
+  width: 65vw;
+  margin: 0.3rem;
 }
 
 .poemsContainer button:hover {
   background-color: lightgray;
-}
-
-.poemsContainer .newButton {
-	color: white;
-	background-color: #880808;
-	width: 8rem;
-	height: 4rem;
-	margin-bottom: 0.5rem;
-}
-
-.poemsContainer .newButton:hover {
-  background-color: #D70040;
 }
 
 @media (min-width: 40rem) {

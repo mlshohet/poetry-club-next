@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 
 import 'firebase/storage';
+import 'firebase/auth';
 import 'firebase/analytics';
 
 const firebaseConfig = {
@@ -20,5 +21,7 @@ if (!firebase.apps.length) {
 
 export const analytics = firebase.analytics;
 export const storage = firebase.storage();
+
+export const firebaseAuth = firebase.auth();
 
 export default firebase;

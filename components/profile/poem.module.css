@@ -2,48 +2,63 @@
 	margin:  0.5rem auto;
 	width: 100%;
 	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+	flex-direction: column;
+	justify-content: center;
 	align-items: center;
 	box-shadow: 0px 1px 3px gray;
 	border-radius: 3px;
 }
 
 .poem {
-	width: 75%;
+	width: 100%;
 	padding: 0 0.5rem;
 }
 
 .poem p {
+	text-align: left;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
 .buttonContainer {
-	width: 25%;
+	width: 100%;
 	display: flex;
 	flex-direction: row;
-	justify-content: flex-start;
-	align-items: flex-end;
+	justify-content: space around;
+	align-items: center;
 }
 
 .delete {
+	margin: 0 auto;
+	text-align: right;
 	cursor: pointer;
 }
 
+.delete:hover {
+	color: darkgray;
+}
+
 @media (min-width: 40rem) {
+	.poemContainer {
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+}
 	.poemContainer {
 		width: 75vw;
 		box-shadow: 1px 1px 4px gray;
 	}
 
 	.poem {
+		width: 75%;
 		margin: 0 1.2rem;
 	}
 
 	.buttonContainer {
+		width: 25%;
 		margin: 0 1.2rem;
+		flex-direction: row;
 		justify-content: flex-end;
 	}
 }

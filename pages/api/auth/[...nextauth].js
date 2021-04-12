@@ -1,6 +1,8 @@
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 
+import firebase from '../../../firebase/firebase.utils';
+
 import { connectToDatabase } from '../../../lib/db';
 import { verifyPassword } from '../../../lib/auth';
 
@@ -33,11 +35,23 @@ export default NextAuth({
 				// Returns an object for a web token and for the final authorization
 				
 				client.close();
-				return {
+				const token = {
 					email: user.email,
 					userId: user._id
 				};
 
+				console.log("Token: ", token);
+
+				// firebase.auth().signInWithCustomToken(user._id)
+				// 	.then((userCrendential) => {
+				// 		const user = userCrendential.user;
+				// 		console.log("User from firebase: ", user);
+				// 	})
+				// 	.catch((error) => {
+				// 		return(error.code, error.message);
+				// 	})
+
+				return token;
 			}
 		})
 	],
@@ -57,3 +71,5 @@ export default NextAuth({
 	}
 
 });
+
+

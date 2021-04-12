@@ -43,6 +43,7 @@ function Poems({ poems, user }) {
 
 	function handleNew() {
 		setFocused(!focused);
+		setIsEditMode(false);
 		newText();
 		scrollRef.current.scrollIntoView({
 			behavior: 'smooth',
@@ -54,16 +55,18 @@ function Poems({ poems, user }) {
 	return (
 		
 		<Fragment>
+		<div ref={scrollRef}>
+					<TextEditor
+						key={focused}
+						isEditMode={isEditMode}
+						setIsEditMode={setIsEditMode}
+						editorState={editorState}
+						setEditorState={setEditorState}
+						handleNew={handleNew}
+					/>
+				</div>
 		
 			<div className={classes.poemsContainer}>
-				<div className={classes.buttonContainer}>
-					<button
-						className={classes.newButton}
-						onClick={handleNew}
-					>
-						New
-					</button>
-				</div>
 				{
 					poems.map(poem => (
 							<Poem 
@@ -76,15 +79,6 @@ function Poems({ poems, user }) {
 					)
 				}
 				</div>
-				<div ref={scrollRef}>
-				<TextEditor
-					key={focused}
-					isEditMode={isEditMode}
-					setIsEditMode={setIsEditMode}
-					editorState={editorState}
-					setEditorState={setEditorState}
-				/>
-			</div>
 		</Fragment>
 	);
 };

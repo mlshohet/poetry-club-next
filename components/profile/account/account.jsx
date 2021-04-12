@@ -211,7 +211,12 @@ function Account (props) {
 			return;
 		}
 
-		const imageName = user._id+selectedFile.name;
+		const imageName = user._id.slice(0,9)+".profile."+selectedFile.name;
+		const metadata = {
+			customMetadata: {
+				for: "profile"
+			}
+		}
 
 		// Firebase Storage code, not React ref related
 		const storageRef = storage.ref();
@@ -223,10 +228,11 @@ function Account (props) {
 		let snapshot;
 		let imageUrl;
 		try {
-			snapshot = await profileImgImagesRef.put(file);
+			snapshot = await profileImgImagesRef.put(file, metadata);
 			imageUrl = await snapshot.ref.getDownloadURL();
+			console.log(snapshot);
 		} catch (error) {
-			alert("Could not upload file.");
+			alert("Could not upload image. Please make sure your file size is less than 1.6MB and your file name is less than 20 characters long.");
 			return;
 		}
 
@@ -240,7 +246,6 @@ function Account (props) {
 			imageUrl = await imageUploadHandler();
 		} catch (error) {
 			alert("Could not upload image.");
-			return;
 		}
 
 		let data;
@@ -262,7 +267,6 @@ function Account (props) {
 			}
 		} catch (error) {
 			alert("Could not change image.");
-			return;
 		}
 
 		setInvisible(false);
@@ -276,6 +280,8 @@ function Account (props) {
 		<div className={classes.accountItemContainer}>
 				
 					{ 
+						!selectedFile && !user.imageUrl ?
+						<div className={classes.fileName}><span>Error processing file</span></div> :
 						invisible ? 
 						<div className={classes.fileName}>{selectedFile.name}</div> : 
 						user.imageUrl && 

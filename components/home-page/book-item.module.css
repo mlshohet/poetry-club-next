@@ -1,6 +1,6 @@
 .bookItemContainer {
 	display: flex;
-	width: 32vw;
+	width: 31vw;
 	background-color: white;
 	flex-direction: column;
 	justify-content: center;
@@ -23,7 +23,8 @@
 }
 
 .details {
-	font-size: 1rem;
+	color: #282828;
+	font-size: 0.5rem;
 	text-align: center;
 }
 

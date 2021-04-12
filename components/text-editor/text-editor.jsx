@@ -210,6 +210,13 @@ function TextEditor(props) {
 					/>
 				</div>
 				<div className={classes.actions}>
+					<button
+						className={classes.buttonStylePublish}
+						onClick={props.handleNew}
+					>
+						Cancel
+					</button>
+					
 					<button 
 						className={classes.buttonStylePublish}
 						onClick={
@@ -222,7 +229,6 @@ function TextEditor(props) {
 						props.isEditMode ? "Edit" : "Send"
 					}
 					</button>
-					
 				</div>
 			</div>
 			
