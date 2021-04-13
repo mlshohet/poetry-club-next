@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { Provider } from 'next-auth/client';
 
 import { ProfileDropdownContextProvider } from '../store/profile-dropdown-context';
+import { SignUpModeContextProvider } from '../store/sign-up-context';
 
 import useScrollRestoration from '../lib/useScrollRestoration';
 
@@ -21,6 +22,7 @@ function MyApp({ Component, pageProps, router }) {
 
   	return (
 
+  		<SignUpModeContextProvider>
   		<ProfileDropdownContextProvider>
   		<Provider session={pageProps.session}>
 		  	<Layout 
@@ -33,10 +35,6 @@ function MyApp({ Component, pageProps, router }) {
 		  				content="width=device-width, initial-scale=1.0"
 		  			/>
 		  			<title>Noontide Poetry Club</title>
-		  			<link 
-		  				href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      					rel="stylesheet"
-      				/>
 		  		</Head>
 		  		
 		  		<Component {...pageProps} />
@@ -44,6 +42,7 @@ function MyApp({ Component, pageProps, router }) {
 		  	</Layout>
 		  	</Provider>
 		  </ProfileDropdownContextProvider>
+		  </SignUpModeContextProvider>
   	);
 };
 

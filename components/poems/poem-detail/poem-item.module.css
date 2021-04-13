@@ -3,17 +3,17 @@
   flex-direction: column;
   justify-content: flex-start;
   background-color: white;
-  padding: 0.5rem;
   margin-bottom: 4rem;
 }
 
 .output {
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   white-space: pre-line;
   margin: 0.5rem 0.3rem;
 }
 
 .outputDate {
+  color: #888888;
   text-align: right;
   white-space: pre-line;
   font-size: 0.8rem;
@@ -23,19 +23,24 @@
 
 @media (min-width: 40rem) {
   .outputContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    background-color: white;
     padding: 1.7rem;
   }
 
   .output {
     font-size: 1.1rem;
-    white-space: pre-line;
     margin: 1.2rem;
   }
+}
 
+@media (max-width: 20rem) {
+
+  .outputContainer {
+    padding: 0;
+  }
+
+  .output {
+    font-size: 0.8rem;
+  }
 }
 
 

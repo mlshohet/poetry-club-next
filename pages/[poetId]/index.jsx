@@ -33,10 +33,11 @@ function PoetPage({ poet, poemsSorted }) {
 		async function getActiveSession() {
 			const session = await getSession();
 			if (session) {
-				setIsLoading(false);
+		
 				const user = await getPoet(session.user.userId);
-				setData(user);
-
+				if (user) {
+					setData(user);
+				}
 				if (user.poet.email === email) {
 					setIsSelf(true);
 				} else {
@@ -47,8 +48,10 @@ function PoetPage({ poet, poemsSorted }) {
 				const inReadingList = userReadingList.filter(poetId => poetId === _id).length;
 				if (inReadingList > 0 ) {
 					setIsInReadingList(true)
+					setIsLoading(false);
 				} else {
 					setIsInReadingList(false);
+					setIsLoading(false);
 				}
 			} else {
 				setIsLoading(false);

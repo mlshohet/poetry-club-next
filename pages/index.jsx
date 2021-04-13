@@ -1,6 +1,7 @@
 import { Fragment, useEffect } from 'react';
 
 import Head from 'next/head';
+import { useSession } from 'next-auth/client';
 
 import MainNavigation from '../components/layout/main-navigation';
 import Hero from '../components/home-page/hero';
@@ -11,9 +12,7 @@ import { getFeaturedPoets } from '../lib/poets-utils';
 
 function HomePage({ poets }) {
 
-	if (!poets) {
-		return <h1>Loading</h1>
-	};
+	const [session, loading] = useSession();
 
 	return (
 		<Fragment>
@@ -27,7 +26,9 @@ function HomePage({ poets }) {
 			
 			<Hero />
 			<FeaturedPoets poets={poets} />
-			<CTA />
+			{
+				!session && <CTA />
+			}
 		</Fragment>
 	);
 };

@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import TwitterIcon from '@material-ui/icons/Twitter';
@@ -18,16 +20,27 @@ function Footer(props) {
 			<div className={classes.footerText}>
 				<ul className={classes.socialLinks}>
 					<li className={classes.icon}>
-						<FacebookIcon />
+						<a href="https://www.facebook.com/NoontidePoetry">
+							<FacebookIcon />
+						</a>
 					</li>
 					<li className={classes.icon}>
-						<InstagramIcon />
+						<a href="https://www.instagram.com/noontidepoetryclub/">
+							<InstagramIcon />
+						</a>
 					</li>
 					<li className={classes.icon}>
-						<TwitterIcon />
+						<a href="https://twitter.com/NoontideC">
+							<TwitterIcon />
+						</a>
 					</li>
 				</ul>
-				<p>
+				<Link href='/about-terms-contact'>
+					<span className={classes.about}>
+						About / Terms of Use / Contact
+					</span>
+				</Link>
+				<p className={classes.copyright}>
 					© 2021 Noontide Poetry Club. 
 				</p>
 			</div>

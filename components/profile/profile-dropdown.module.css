@@ -9,16 +9,16 @@
 	align-items: center;
 	border: 1px solid darkgray;
 	border-radius: 4px;
-	padding: 0rem 2rem;
 }
 
 .profileContainer ul {
+	margin: 0;
+	padding: 0;
 	list-style: none;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: flex-start;
-	padding: 0;
 }
 
 .profileContainer li {
@@ -29,6 +29,7 @@
 	align-items: center;
 	cursor: pointer;
 	margin: 1rem 0;
+	padding: 0.5rem 1.2rem;
 
 }
 

@@ -1,8 +1,10 @@
-import { Fragment, useState, useRef} from 'react';
+import { Fragment, useState, useRef, useContext } from 'react';
 import { signIn } from 'next-auth/client';
 
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+
+import SignUpModeContext from '../../store/sign-up-context';
 
 import { getPoet } from '../../lib/poets-utils'; 
 
@@ -32,28 +34,34 @@ async function createUser(name, email, password) {
 }
 
 function AuthForm() {
+
+  const signUpContext = useContext(SignUpModeContext);
+
+  const isSignUpMode = signUpContext.isSignUpMode;
+  const setIsSignUpMode = signUpContext.setIsSignUpMode;
+
   const nameInputRef = useRef();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
-  const [isLogin, setIsLogin] = useState(true);
+  //const [isLogin, setIsLogin] = useState(true);
   const router = useRouter();
 
   function switchAuthModeHandler() {
-    setIsLogin((prevState) => !prevState);
+    setIsSignUpMode(!isSignUpMode);
   }
 
   async function submitHandler(event) {
     event.preventDefault();
 
     let enteredName;
-    if (!isLogin) {
+    if (isSignUpMode) {
         enteredName = nameInputRef.current.value;
     }
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
 
-    if (isLogin) {      
+    if (!isSignUpMode) {      
       try {
          const result = await signIn('credentials', {
             redirect: false,
@@ -108,7 +116,7 @@ function AuthForm() {
         <form
           onSubmit={submitHandler}
         > {
-            !isLogin && (
+            isSignUpMode && (
                 <div className={classes.control}>
                   <input 
                     type='name' 
@@ -140,14 +148,14 @@ function AuthForm() {
             />
           </div>
           <div className={classes.actions}>
-            <button>{isLogin ? 'Login' : 'Create Account'}</button>
+            <button>{isSignUpMode ? 'Create Account' : 'Login'}</button>
             <div className={classes.toggleContainer}>
             <button
               type='button'
               className={classes.toggle}
               onClick={switchAuthModeHandler}
             >
-              {isLogin ? 'Create new account' : 'Login with existing account'}
+              {!isSignUpMode ? 'Create new account' : 'Login with existing account'}
             </button>
             </div>
           </div>

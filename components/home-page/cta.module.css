@@ -6,14 +6,23 @@
 }
 
 .cta {
+	cursor: pointer;
+	position: relative;
 	font-size: 1rem;
 	width: 90vw;
 	margin-bottom: 1.2rem;
+	top: 10px;
 	color: whitesmoke;
 	border-radius: 10px 10px 2px 2px;
 	background-color: #880808;
 	padding: 0.7rem;
 	text-align: center;
+}
+
+.cta:hover {
+	background-color: #DC143C;
+	top: 0;
+	transition: all 1s ease;
 }
 
 .noontide {
@@ -23,16 +32,22 @@
 }
 
 @media (min-width: 40rem) {
-
 	.cta {
 		font-size: 1.2rem;
 		width: 70vw;
 		margin-bottom: 1.2rem;
-		padding: 2rem;
+		padding: 1rem;
 	}
-
 }
 
+@media (max-width: 20rem) {
+	.cta {
+		font-size: 0.9rem;
+	}
+	.noontide {
+		font-size: 1rem;
+	}
+}
 
 
 

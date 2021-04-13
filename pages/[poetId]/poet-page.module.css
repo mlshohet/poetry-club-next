@@ -114,9 +114,10 @@
 	}
 
 	.readingList {
+		height: 50vh;
 		margin: 3rem auto;
 		display: flex;
-		justify-content: center;
+		justify-content: flex-start;
 		align-items: flex-start;
 	}
 

@@ -1,22 +1,5 @@
-.layout {
-	display: flex;
-	flex-direction: column;
-}
-
 .auth {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-}
-
-.header {
-	grid-area: header;
-}
-
-.main {
-	grid-area: main;
-}
-
-.footer {
-	grid-area: footer;
 }

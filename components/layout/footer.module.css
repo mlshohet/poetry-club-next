@@ -43,4 +43,16 @@
   	margin: 0.7rem;
 }
 
+.icon a {
+	color: white;
+}
+
+.about {
+	cursor: pointer;
+}
+
+.copyright {
+	font-size: 0.6rem;
+}
+
 

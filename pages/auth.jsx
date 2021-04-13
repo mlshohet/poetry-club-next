@@ -14,7 +14,6 @@ function AuthPage(props) {
 
 	useEffect(() => {
 		getSession().then(session => {
-			console.log("Session: ", session);
 			if (session) {
 				router.replace('/')
 			} else {
@@ -28,7 +27,7 @@ function AuthPage(props) {
 	}
 
 	return ( 
-		<AuthForm /> 
+			<AuthForm /> 
 	);
 }
 

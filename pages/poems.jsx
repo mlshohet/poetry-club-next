@@ -5,15 +5,16 @@ import { getSession } from 'next-auth/client';
 
 import { TextEditorContextProvider } from '../store/text-editor-context';
 import Poems from '../components/profile/poems';
+import Loading from '../components/loading';
 
 import { getPoet } from '../lib/poets-utils';
 
 function PoemsPage(props) {
 	const { user, session, poems } = props;
 
-	if (!user) {
+	if (!poems) {
 		return (
-			<h1> Loading </h1>
+			<Loading />
 		)
 	}
 

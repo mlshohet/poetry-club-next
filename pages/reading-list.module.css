@@ -1,11 +1,12 @@
 .readingListContainer {
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	flex-direction: column;
 	align-items: center;
 }
 
 .readingList {
+	height: 60vh;
 	background-color: white;
 	margin: 1rem auto;
 	display: flex;
@@ -33,8 +34,8 @@
 
 @media (min-width: 40rem) {
 	.readingList {
+		height: 65vh;
 		display: flex;
-		justify-content: center;
 		align-items: flex-start;
 		margin: 3rem auto;
 	}

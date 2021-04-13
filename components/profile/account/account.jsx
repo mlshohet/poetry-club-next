@@ -230,7 +230,6 @@ function Account (props) {
 		try {
 			snapshot = await profileImgImagesRef.put(file, metadata);
 			imageUrl = await snapshot.ref.getDownloadURL();
-			console.log(snapshot);
 		} catch (error) {
 			alert("Could not upload image. Please make sure your file size is less than 1.6MB and your file name is less than 20 characters long.");
 			return;
