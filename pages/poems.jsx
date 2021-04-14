@@ -55,12 +55,11 @@ export async function getServerSideProps(context) {
 	try {
 		user = await getPoet(userId);
 	} catch (error) {
-		console.log(error, "Failed to get user");
+		throw new Error("Could not find poet.");
+		return;
 	}
 
-	console.log(user);
 	const poems = user.poet.poems.reverse();
-
 
 	return {
 		props: { session, user: user.poet, poems: poems }

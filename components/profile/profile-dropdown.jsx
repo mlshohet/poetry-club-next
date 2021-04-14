@@ -60,7 +60,6 @@ function ProfileDropdown (props) {
 			<ul className={classes.profileList}>
 				<li 
 					className={classes.profileItem}
-					onClick={hideProfileDropdown}
 				>
 					<CreateIcon className={classes.icon} /><Link href='/poems'>
 						<a>
@@ -77,7 +76,7 @@ function ProfileDropdown (props) {
 				</li>
 				<li 
 					className={classes.profileItem}
-					onClick={hideProfileDropdown}
+		
 				>
 					<AccountCircleIcon className={classes.icon} /><Link href='/account'>
 						 Account
@@ -85,7 +84,7 @@ function ProfileDropdown (props) {
 				</li>
 				<li 
 					className={classes.profileItem}
-					onClick={hideProfileDropdown}
+			
 				>
 					<AccountBalanceIcon className={classes.icon} /><Link href={`/${data}`}>
 						Go To Page
@@ -94,7 +93,7 @@ function ProfileDropdown (props) {
 				<div className={classes.horizontalRule} >
 				<hr ></hr>
 				</div>
-				<li className={classes.profileItem} onClick={hideProfileDropdown}>
+				<li className={classes.profileItem}>
 					<ExitToAppIcon className={classes.icon} /><div 
 						className={classes.logout}
 						onClick ={logoutHandler}

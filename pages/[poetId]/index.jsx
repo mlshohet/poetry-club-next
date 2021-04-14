@@ -2,6 +2,8 @@ import { Fragment, useEffect, useState } from 'react';
 
 import { getSession } from 'next-auth/client';
 
+import Head from 'next/head';
+
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import PeopleIcon from '@material-ui/icons/People';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -59,11 +61,23 @@ function PoetPage({ poet, poemsSorted }) {
 		}
 		setShowReadingList(false);
 		getActiveSession();
-	}, [email]);
-
+	}, [name]);
 
 	if (isLoading) {
-		return <Loading />
+
+		return (
+			<Fragment>
+				<Head>
+					<title>Noontide Poetry Club - Poet Page</title>
+					<meta 
+						name="description"
+						content="Poet's page"
+					/>
+				</Head>
+				<Loading />
+			</Fragment>
+		) 
+			
 	}
 
 	async function getReadingListPoets() {
@@ -143,6 +157,13 @@ function PoetPage({ poet, poemsSorted }) {
 
 		return (
 		<div className={classes.gridContainer}>
+			<Head>
+				<title>Noontide Poetry Club - {poet.name}</title>
+				<meta 
+					name="description"
+					content={`${poet.name} poetry`}
+				/>
+			</Head>
 			<div className={classes.grid}>
 				<h1 className={classes.name}>
 					{name}
@@ -240,7 +261,6 @@ function PoetPage({ poet, poemsSorted }) {
 export async function getStaticProps(context) {
 
 	const { params } = context;
-	console.log("Params: ", params, context);
 
 	const id = params.poetId;
 	
@@ -277,7 +297,6 @@ export async function getStaticPaths() {
 	const poets = data.poet;
 
 	const poetSlugs = poets.map(poet => poet.slug);
-	console.log("Slugs: ",poetSlugs);
 
 	const pathsWithParams = poetSlugs.map(poetSlug => ({
 		params: {

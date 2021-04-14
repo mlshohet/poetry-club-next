@@ -7,27 +7,28 @@ import MainNavigation from '../components/layout/main-navigation';
 import Hero from '../components/home-page/hero';
 import FeaturedPoets from '../components/home-page/featured-poets';
 import CTA from '../components/home-page/cta';
+import CtaAdd from '../components/home-page/cta-add';
 
 import { getFeaturedPoets } from '../lib/poets-utils';
 
 function HomePage({ poets }) {
 
 	const [session, loading] = useSession();
+	const poetNamesArr = poets.map(poet => poet.name);
+	const poetNames = poetNamesArr.join(); 
 
 	return (
 		<Fragment>
 			<Head>
-				<title>Noontide Poetry Club</title>
 				<meta 
-					name="description"
-					content="Noontide Poetry Club, Poetry Community"
+					name="descritpion"
+					content={`featuring - ${poetNames}`}
 				/>
 			</Head>
-			
 			<Hero />
 			<FeaturedPoets poets={poets} />
 			{
-				!session && <CTA />
+				!session ? <CTA /> : <CtaAdd />
 			}
 		</Fragment>
 	);

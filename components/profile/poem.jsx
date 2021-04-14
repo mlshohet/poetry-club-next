@@ -34,16 +34,15 @@ function Poem (props) {
 			data = await response.json();
 
 			if (!response.ok) {
-				throw new Error("No response on delete!");
+				throw new Error("Could not delete.");
 			}
 		} catch (error) {
-			console.log(error, error.message, "Could not delete!");
+			alert(error.message);
 			return;
 		}
 
 		resetTextEditor();
 		setEditMode(false);
-		console.log("Successfully deleted!", data);
 		router.replace('/poems');
 	}
 

@@ -9,7 +9,6 @@ async function handler(req, res) {
 	}
 
 	const id = req.query.poetId;
-	console.log("ID from api: ", id);
 
 	let userId;
 	try {

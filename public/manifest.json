@@ -1,0 +1,48 @@
+{
+  "name": "Noontide Poetry Club",
+  "short_name": "Noontide Poetry",
+  "theme_color": "#880808",
+  "background_color": "#F5F5F5",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 24x24",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "mstile-150x150.png",
+      "sizes": "150x150",
+      "type": "image/png"
+    },
+    {
+      "src": "android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+    {
+      "src": "android-chrome-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "android-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+  ],
+  "splash_pages": null
+}

@@ -73,3 +73,19 @@
 	}
 }
 
+@media (min-width: 51rem) {
+
+	.profileContainer {
+		top: 12vh;
+		right: 18vw;
+	}
+}
+
+@media (min-width: 100rem) {
+
+	.profileContainer {
+		top: 12vh;
+		right: 20vw;
+	}
+}
+

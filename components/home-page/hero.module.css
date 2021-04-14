@@ -50,6 +50,11 @@
 .noontide {
   font-size: 1.5rem;
   font-family: 'Fondamento', cursive;
+  color: white;
+}
+
+.stevie {
+  cursor: pointer;
   color: lightyellow;
 }
 

@@ -41,12 +41,12 @@
 @media (min-width: 40rem) {
 	.bookItemContainer {
 		display: flex;
-		width: 15rem;
+		width: 14rem;
 		height: 22rem;
 		background-color: white;
 		flex-direction: column;
 		justify-content: center;
-		margin: 1rem;
+		margin: 0.5rem;
 		padding: 0.8rem;
 		align-items: center;
 		border-radius: 5px;

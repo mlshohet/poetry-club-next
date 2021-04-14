@@ -24,8 +24,7 @@ function Layout(props) {
 				/>
 				<main
 					className={
-						auth ? classes.auth :
-						classes.layout
+						auth && classes.auth
 					}
 					onClick={
 					!profileHidden ? hideProfileDropdown : null
