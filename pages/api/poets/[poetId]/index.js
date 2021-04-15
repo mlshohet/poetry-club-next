@@ -27,14 +27,9 @@ async function handler(req, res) {
 	let poet;
 
 	try {
-		if (id === 'all') {
-			const cursor = await collection.find({});
-			poet = await cursor.toArray();
-		} else {
-			poet = await collection.findOne({ 
-				$or: [{ slug: id }, { email: id }, { _id: userId }]
-			});
-		}
+		poet = await collection.findOne({ 
+			$or: [{ slug: id }, { email: id }, { _id: userId }]
+		});
 	} catch (error) {
 		res.status(500).json({
 			message: "Could not find profile!"
@@ -45,7 +40,7 @@ async function handler(req, res) {
 
 	res.status(201).json({
 		poet: poet,
-		message: "Success! Found user!"
+		message: "Success! Found profile."
 	});
 
 	client.close();

@@ -14,7 +14,7 @@ import ReadingListItem from '../../components/featured-poets/featured-poets-item
 import Loading from '../../components/loading';
 import Empty from '../../components/empty';
 
-import { getPoet } from '../../lib/poets-utils';
+import { getPoet, getAllPoets } from '../../lib/poets-utils';
 
 import classes from './poet-page.module.css';
 
@@ -296,12 +296,12 @@ export async function getStaticPaths() {
 	
 	let data;
 	try {
-		data = await getPoet("all");
+		data = await getAllPoets();
 	} catch (error) {
 		throw new Error(error);
 	}
 	
-	const poets = data.poet;
+	const poets = data.poets;
 
 	const poetSlugs = poets.map(poet => poet.slug);
 
