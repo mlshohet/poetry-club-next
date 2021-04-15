@@ -51,7 +51,7 @@ function ProfileDropdown (props) {
 
 	async function logoutHandler() {
 
-		const result = await signOut({ redirect: false, callbackUrl: "localhost:3000/" });
+		const result = await signOut({ redirect: false, callbackUrl: "/" });
 		router.push(result.url);
 	}
 

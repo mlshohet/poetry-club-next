@@ -181,7 +181,7 @@ function Account (props) {
 			alert("Could not delete profile.");
 			return;
 		}
-		signOut({ callbackUrl: 'https://localhost:3000/' });
+		signOut({ callbackUrl: '/' });
 	};
 
 	const [selectedFile, setSelectedFile] = useState();

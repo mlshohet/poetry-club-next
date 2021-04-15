@@ -24,7 +24,7 @@ function Poem (props) {
 		let response;
 		let data;
 		try {
-				response = await fetch(`http://localhost:3000/api/user/delete-poem/${poem.poemId}`, {
+				response = await fetch(`/api/user/delete-poem/${poem.poemId}`, {
 				method: 'PATCH',
 				headers: {
 					'Content-Type': 'application/json'
