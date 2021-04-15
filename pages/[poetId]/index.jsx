@@ -298,7 +298,7 @@ export async function getStaticPaths() {
 	try {
 		data = await getPoet("all");
 	} catch (error) {
-		console.log(error, "Could not get data!");
+		throw new Error(error);
 	}
 	
 	const poets = data.poet;

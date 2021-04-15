@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 import Head from 'next/head';
 import { useSession } from 'next-auth/client';
@@ -8,10 +8,12 @@ import Hero from '../components/home-page/hero';
 import FeaturedPoets from '../components/home-page/featured-poets';
 import CTA from '../components/home-page/cta';
 import CtaAdd from '../components/home-page/cta-add';
+import Loading from '../components/loading';
 
 import { getFeaturedPoets } from '../lib/poets-utils';
 
-function HomePage({ poets }) {
+function HomePage(props) {
+	const { poets, home } = props;
 
 	const [session, loading] = useSession();
 	const poetNamesArr = poets.map(poet => poet.name);
@@ -36,7 +38,10 @@ function HomePage({ poets }) {
 
 export async function getStaticProps() {
 	const home = true;
-	const featuredPoets = await getFeaturedPoets();
+
+	let featuredPoets;
+	featuredPoets = await getFeaturedPoets();
+
 
 	const sortedFeaturedPoets = featuredPoets.reverse();
 

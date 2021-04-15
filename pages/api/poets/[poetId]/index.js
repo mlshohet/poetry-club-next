@@ -1,12 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { connectToDatabase } from '../../../../lib/db';
 
-async function handler(req, res) {
-
-	if (req.method !== "GET") {
-		res.status(400).json({ message: "Invalid request" });
-		return;
-	}
+async function handler(req, res) {	
 
 	const id = req.query.poetId;
 
