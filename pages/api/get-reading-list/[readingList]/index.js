@@ -9,6 +9,12 @@ export async function handler (req, res) {
 	};
 
 	const { readingList } = req.query;
+
+	if (!readingList || readingList.length === 0) {
+		res.status(400).json({ message: "List is empty", list: [] });
+		return;
+	}
+
 	const list = readingList.split(',');
 
 	let client;

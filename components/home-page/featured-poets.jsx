@@ -5,7 +5,6 @@ import classes from './featured-poets.module.css';
 function FeaturedPoets(props) {
 	const {poets} = props;
 
-
 	return (
 		<div className={classes.featuredContainer}>
 	

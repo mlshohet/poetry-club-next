@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { connectToDatabase } from '../../../lib/db';
+import { connectToDatabase } from '../../../../lib/db';
 
 async function handler(req, res) {
 

@@ -81,6 +81,11 @@ function PoetPage({ poet, poemsSorted }) {
 	}
 
 	async function getReadingListPoets() {
+		if (!pageReadingList || pageReadingList.length === 0) {
+			setPageReadingListPoets(null);
+			setShowReadingList(true)
+			return;
+		}
 
 		let data;
 		try {
@@ -98,6 +103,7 @@ function PoetPage({ poet, poemsSorted }) {
 		}
 
 		setPageReadingListPoets(data.readingList);
+
 		setShowReadingList(true)
 		return;
 	}
@@ -206,7 +212,8 @@ function PoetPage({ poet, poemsSorted }) {
 				{
 					showReadingList && <div>
 					{
-						pageReadingList.length > 0 ? 
+						!pageReadingListPoets || pageReadingListPoets.length === 0 ? 
+						<Empty /> :
 						(
 							<div className={classes.readingList}>
 								{
@@ -229,7 +236,7 @@ function PoetPage({ poet, poemsSorted }) {
 									)
 								}
 							</div>
-						) : <Empty />
+						)
 					}
 					</div>
 				}

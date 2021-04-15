@@ -34,7 +34,7 @@ function HomePage({ poets }) {
 	);
 };
 
-export async function getStaticProps(context) {
+export async function getStaticProps() {
 	const home = true;
 	const featuredPoets = await getFeaturedPoets();
 
@@ -45,7 +45,7 @@ export async function getStaticProps(context) {
 			poets: sortedFeaturedPoets,
 			home: home
 		},
-		revalidate: 6000
+		revalidate: 600
 	};
 };
 
