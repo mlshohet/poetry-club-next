@@ -5,24 +5,22 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "export": "next export"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
-    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "draft-js": "^0.11.7",
     "firebase": "^8.3.2",
-    "gray-matter": "^4.0.2",
-    "mongodb": "^3.6.4",
+    "mongodb": "^3.6.6",
     "next": "10.0.6",
     "next-auth": "^3.13.3",
     "next-pwa": "^5.2.9",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-markdown": "^5.0.3",
-    "swr": "^0.5.4",
     "terser-webpack-plugin": "^5.1.1"
   },
   "devDependencies": {

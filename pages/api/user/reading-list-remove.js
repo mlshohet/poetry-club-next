@@ -46,7 +46,6 @@ export async function handler (req, res) {
 			{ _id: uid },
 			{ $pull: { "readingList": poetId } }
 		);
-		console.log()
 	} catch (error) {
 		res.status(401).json({ message: "Could not remove from list!", error });
 		client.close();

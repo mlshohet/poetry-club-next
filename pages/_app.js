@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import Head from 'next/head';
 import { Provider } from 'next-auth/client';
 
+import { analytics } from '../firebase/firebase.utils';
+
 import { ProfileDropdownContextProvider } from '../store/profile-dropdown-context';
 import { SignUpModeContextProvider } from '../store/sign-up-context';
 

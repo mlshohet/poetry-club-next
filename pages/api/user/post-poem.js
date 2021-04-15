@@ -27,8 +27,6 @@ async function handler(req, res) {
 		return;
 	}
 
-	console.log('Text Data from server: ', text);
-
 	if (!text || text === {} || text.blocks.length === 0 || !date || !poemId) {
 		res.status(422).json({ message: 'Invalid input' });
 		return;

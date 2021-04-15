@@ -93,7 +93,7 @@ function PoetPage({ poet, poemsSorted }) {
 
 			}
 		} catch(error) {
-			console.log(error, data);
+			alert(error.message);
 			return;
 		}
 
@@ -121,7 +121,7 @@ function PoetPage({ poet, poemsSorted }) {
 				throw new Error ("Could not add to list!");
 			}
 		} catch (error) {
-			console.log(error, data);
+			alert(error.message);
 			return;
 		}
 
@@ -147,7 +147,7 @@ function PoetPage({ poet, poemsSorted }) {
 				throw new Error ("Could not remove from list!");
 			}
 		} catch (error) {
-			console.log(error, data);
+			alert(error.message);
 			return;
 		}
 

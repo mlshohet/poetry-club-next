@@ -75,8 +75,6 @@ function Account (props) {
 
 		const userId = user._id;
 		const enteredNewEmail = newEmailRef.current.value.toLowerCase();
-
-		const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	
 		if (
 			!enteredNewEmail || enteredNewEmail === '' ||

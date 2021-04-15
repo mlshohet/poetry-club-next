@@ -11,8 +11,6 @@ async function handler (req, res) {
 
 	const session = await getSession({ req: req });
 
-	console.log("Session from server: ", session);
-
 	if (!session) {
 		res.status(401).json({
 			message: "Unauthorized!"
@@ -76,7 +74,7 @@ async function handler (req, res) {
 			slug = slug + 2;
 		}
 	};
-	console.log("At slug part");
+	
 	try {
 		const result = await usersCollection.updateOne(
 			{ _id : uid },

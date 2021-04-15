@@ -12,7 +12,6 @@ export default NextAuth({
 		Providers.Credentials({
 			async authorize(credentials) {
 				const client = await connectToDatabase();
-				console.log("Trying to sign in server");
 
 				const usersCollection = client.db().collection('poets');
 
@@ -38,8 +37,6 @@ export default NextAuth({
 					email: user.email,
 					userId: user._id
 				};
-
-				console.log("Token: ", token);
 
 				return token;
 			}
