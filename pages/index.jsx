@@ -10,7 +10,7 @@ import CTA from '../components/home-page/cta';
 import CtaAdd from '../components/home-page/cta-add';
 import Loading from '../components/loading';
 
-import { getFeaturedPoets } from '../lib/poets-utils';
+import { connectToDatabase } from '../lib/db';
 
 function HomePage(props) {
 	const { poets, home } = props;
@@ -39,11 +39,47 @@ function HomePage(props) {
 export async function getStaticProps() {
 	const home = true;
 
-	let featuredPoets;
-	featuredPoets = await getFeaturedPoets();
+	let client;
 
+	try {
+		client = await connectToDatabase();
+	} catch (err) {
+		throw new Error("Could not connect to database");
+		client.close();
+		return;
+	}
 
-	const sortedFeaturedPoets = featuredPoets.reverse();
+	const collection = client.db().collection('poets');
+	
+	let data;
+
+	try {
+		const cursor = await collection.find({ isFeatured: true });
+		data = await cursor.toArray();
+		} catch (error) {
+			throw new Error('Could not return featured');
+			client.close();
+			return;
+		}
+
+		client.close();
+
+		let poets = [];
+		data.map(poet => {
+			poets.push(
+			{ 
+				_id: poet._id.toString(),
+				slug: poet.slug,
+				name: poet.name,
+				email: poet.email,
+				poems: poet.poems,
+				isFeatured: poet.isFeatured,
+				readingList: poet.readingList,
+				imageUrl: poet.imageUrl,
+			})
+		});
+
+	const sortedFeaturedPoets = poets.reverse();
 
 	return {
 		props: {
@@ -55,7 +91,3 @@ export async function getStaticProps() {
 };
 
 export default HomePage;
-
-//1) hero section => present yourself
-//2) featured posts
-//3) lean homepages, no styles, use other components for that

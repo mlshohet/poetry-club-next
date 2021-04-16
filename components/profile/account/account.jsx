@@ -14,7 +14,7 @@ function Account (props) {
 	const { user, session } = props;
 
 	if (!user.name) {
-		user.name="Unknown";
+		user.name = "Unknown";
 	}
 
 	const router = useRouter();
@@ -77,8 +77,7 @@ function Account (props) {
 		const enteredNewEmail = newEmailRef.current.value.toLowerCase();
 	
 		if (
-			!enteredNewEmail || enteredNewEmail === '' ||
-			!regex.test(enteredNewEmail) || enteredNewEmail.length > 50
+			!enteredNewEmail || enteredNewEmail === '' || enteredNewEmail.length > 50
 		) {
 			alert("Please enter a valid email.");
 			newEmailRef.current.value = null;

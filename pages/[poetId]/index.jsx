@@ -14,7 +14,8 @@ import ReadingListItem from '../../components/featured-poets/featured-poets-item
 import Loading from '../../components/loading';
 import Empty from '../../components/empty';
 
-import { getPoet, getAllPoets } from '../../lib/poets-utils';
+import { connectToDatabase } from '../../lib/db';
+import { getPoet } from '../../lib/poets-utils';
 
 import classes from './poet-page.module.css';
 
@@ -271,16 +272,42 @@ export async function getStaticProps(context) {
 
 	const id = params.poetId;
 	
+	let client;
+
+	try {
+		client = await connectToDatabase();
+	} catch (err) {
+		throw new Error("Could not connect");
+		client.close();
+		return;
+	}
+
+	const collection = client.db().collection('poets');
+	
 	let data;
 
 	try {
-		data = await getPoet(id);
+		data = await collection.findOne({ slug: id });
 	} catch (error) {
-		console.log(error);
+		throw new Error("Could not find profile.");
+		client.close();
 		return;
 	}
+
+	client.close();
+
+	const poet = { 
+		_id: data._id.toString(),
+		slug: data.slug,
+		name: data.name,
+		email: data.email,
+		poems: data.poems,
+		isFeatured: data.isFeatured,
+		readingList: data.readingList,
+		imageUrl: data.imageUrl,
+	}
 	
-	const poet = data.poet;
+	
 	const poems = poet.poems;
 	const poemsSorted = poems.reverse();
 
@@ -294,16 +321,32 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
 	
-	let data;
-	try {
-		data = await getAllPoets();
-	} catch (error) {
-		throw new Error(error);
-	}
-	
-	const poets = data.poets;
+	let client;
 
-	const poetSlugs = poets.map(poet => poet.slug);
+	try {
+		client = await connectToDatabase();
+	} catch (err) {
+		throw new Error("Could not connect");
+		client.close();
+		return;
+	}
+
+	const collection = client.db().collection('poets');
+	
+	let data;
+
+	try {
+		const cursor = await collection.find({});
+		data = await cursor.toArray();
+	} catch (error) {
+		throw new Error("Could not find profile.");
+		client.close();
+		return;
+	}
+
+	client.close();
+
+	const poetSlugs = data.map(poet => poet.slug);
 
 	const pathsWithParams = poetSlugs.map(poetSlug => ({
 		params: {
