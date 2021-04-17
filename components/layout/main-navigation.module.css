@@ -133,6 +133,7 @@
 }
 
 .plainLogin {
+  color: darkgray;
   font-size: 1rem;
   padding: 0.3rem 0.9rem;
   border-radius: 25px;

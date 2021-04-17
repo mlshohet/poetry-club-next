@@ -315,7 +315,9 @@ export async function getStaticProps(context) {
 		props: {
 			poet,
 			poemsSorted,
-		},	
+		},
+
+		revalidate: 1,	
 	};
 };
 
@@ -356,7 +358,7 @@ export async function getStaticPaths() {
 
 	return {
 		paths: pathsWithParams,
-		fallback: false
+		fallback: 'blocking',
 	};
 };
 
