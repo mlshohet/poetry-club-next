@@ -1,14 +1,16 @@
 .loaderContainer {
+  height: 85vh;
   position: relative;
   padding: 12rem;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: white;
-  animation: fade 1s linear;
+  animation: fade 1.5s linear;
 }
 
 .dropdown {
+  height: auto;
   position: absolute;
   top: 30vh;
   right: 27vw;

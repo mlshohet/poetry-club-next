@@ -157,7 +157,16 @@ function AuthForm() {
             >
               {!isSignUpMode ? 'Create new account' : 'Login with existing account'}
             </button>
+            <button
+              type='button'
+              className={classes.toggle}
+              onClick={null}
+            >
+              {!isSignUpMode && 'Forgot password'}
+            </button>
+             
             </div>
+            
           </div>
         </form>
       </section>

@@ -74,6 +74,10 @@
 .toggleContainer {
   width: 100%;
   text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
 }
 
 button.toggle {

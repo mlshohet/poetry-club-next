@@ -36,45 +36,6 @@
 
 @media (min-width: 40rem) {
 	.cta {
-		text-align: center;
-		font-size: 1.5rem;
-		font-weight: bold;
-		width: 65vw;
-		margin-bottom: 1.2rem;
-		padding: 1rem;
-	}
-
-	.noontide {
-		font-size: 2rem;
-		font-family: 'Fondamento', cursive;
-		color: lightyellow;
-	}
-
-	@keyframes down {
-		from { top: 15px; }
-		to { top: 25px;  }
-	}
-}
-
-@media (max-width: 20rem) {
-	.cta {
-		text-align: center;
-		font-size: 0.9rem;
-		padding: 0.6rem;
-	}
-	.noontide {
-		font-size: 0.9rem;
-	}
-}
-
-@media (min-width: 100rem) {
-	.cta {
-		width: 55vw;
-		text-align: center;
-		font-size: 1.5rem;
-		padding: 0.6rem;
-	}
-	.noontide {
-		font-size: 2rem;
+		display: none;
 	}
 }

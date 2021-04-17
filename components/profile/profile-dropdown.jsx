@@ -62,16 +62,13 @@ function ProfileDropdown (props) {
 					className={classes.profileItem}
 				>
 					<CreateIcon className={classes.icon} /><Link href='/poems'>
-						<a>
 							Poems
-						</a>
 					</Link>
 				</li>
 				<li className={classes.profileItem}>
 					<FavoriteIcon className={classes.icon} /> <Link href='/reading-list'>
-						<a>
+	
 							Reading List
-						</a>
 					</Link>
 				</li>
 				<li 

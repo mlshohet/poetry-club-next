@@ -18,14 +18,14 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		padding-top: 3rem;
-		padding-bottom: 10rem;
+		padding-top: 4rem;
+		padding-bottom: 13rem;
 	}
 }
 
 @media (min-width: 40rem) {
 	.emptyContainer img {
-		width: 350px;
-		height: 350px;
+		width: 300px;
+		height: 300px;
 	}
 }

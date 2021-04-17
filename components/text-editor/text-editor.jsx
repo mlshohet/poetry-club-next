@@ -47,7 +47,7 @@ function TextEditor(props) {
 		let response;
 		let data;
 		try {
-				response = await fetch(`http://localhost:3000/api/user/edit-poem/${poemId}`, {
+				response = await fetch(`/api/user/edit-poem/${poemId}`, {
 				method: 'PATCH',
 				body: JSON.stringify({
 					text: rawContent,
@@ -96,7 +96,7 @@ function TextEditor(props) {
 		let response;
 		let data;
 		try {
-			response = await fetch(`http://localhost:3000/api/user/post-poem`, {
+			response = await fetch(`/api/user/post-poem`, {
 				method: 'POST',
 				body: JSON.stringify({
 					text: rawJS,
