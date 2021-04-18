@@ -86,7 +86,7 @@ export async function getStaticProps() {
 			poets: sortedFeaturedPoets,
 			home: home
 		},
-		revalidate: 600
+		revalidate: 1
 	};
 };
 
