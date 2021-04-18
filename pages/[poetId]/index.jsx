@@ -70,7 +70,7 @@ function PoetPage({ poet, poemsSorted }) {
 		}
 		setShowReadingList(false);
 		getActiveSession();
-	}, [poemsSorted, pageReadingList]);
+	}, []);
 
 	if (isLoading) {
 

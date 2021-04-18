@@ -55,6 +55,10 @@ function ProfileDropdown (props) {
 		router.push(result.url);
 	}
 
+	function handleGoToPage() {
+		router.replace(`/${data}`);
+	}
+
 	return (
 		<div className={classes.profileContainer}>
 			<ul className={classes.profileList}>
@@ -81,12 +85,12 @@ function ProfileDropdown (props) {
 				</li>
 				<li 
 					className={classes.profileItem}
+					onClick={handleGoToPage}
 			
 				>
-					<AccountBalanceIcon className={classes.icon} /><Link href={`/${data}`}>
+					<AccountBalanceIcon className={classes.icon} /><a>
 						Go To Page
-					</Link>
-				</li>
+				</a></li>
 				<div className={classes.horizontalRule} >
 				<hr ></hr>
 				</div>
