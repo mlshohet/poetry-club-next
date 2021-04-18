@@ -6,9 +6,9 @@
 }
 
 .readingList {
-	height: 60vh;
 	background-color: white;
 	margin: 1rem auto;
+	margin-bottom: 5rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
@@ -34,10 +34,10 @@
 
 @media (min-width: 40rem) {
 	.readingList {
-		height: 65vh;
 		display: flex;
 		align-items: flex-start;
 		margin: 3rem auto;
+		margin-bottom: 12rem;
 	}
 
 	.readingListItem {

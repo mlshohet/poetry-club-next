@@ -30,7 +30,7 @@ function PoetPage({ poet, poemsSorted }) {
 		name = poet.name;
 	};
 
-	const pageReadingList = readingList;
+	let pageReadingList = readingList;
 
 	const [data, setData] = useState();
 	const [pageReadingListPoets, setPageReadingListPoets] = useState();
@@ -87,6 +87,13 @@ function PoetPage({ poet, poemsSorted }) {
 			</Fragment>
 		) 
 			
+	}
+
+	let selfPoems;
+	if (data && isSelf) {
+		pageReadingList = data.poet.readingList;
+		console.log("Data: ", data);
+		selfPoems = data.poet.poems.reverse();
 	}
 
 	async function getReadingListPoets() {
@@ -252,6 +259,23 @@ function PoetPage({ poet, poemsSorted }) {
 				{
 					!showReadingList && <div className={classes.poems}>
 						{ 
+							isSelf ? (
+								selfPoems.length > 0 ? 
+								(
+									<div>
+									{
+										selfPoems.map(poem =>
+											<PoemItem 
+												key={poem.text.blocks[0].key}
+												poem={poem.text.blocks}
+												date={poem.date}
+											/>
+										)
+									}
+									</div> 
+								) : <Empty />
+							) :
+
 							poemsSorted.length > 0 ?
 							(
 								<div>
