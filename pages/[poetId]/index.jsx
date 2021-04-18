@@ -37,6 +37,7 @@ function PoetPage({ poet, poemsSorted }) {
 	const [isInReadingList, setIsInReadingList] = useState(false);
 	const [showReadingList, setShowReadingList] = useState(false);
 	const [isSelf, setIsSelf] = useState(false);
+	const [selfPoems, setSelfPoems] = useState();
 
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -51,6 +52,8 @@ function PoetPage({ poet, poemsSorted }) {
 				}
 				if (user.poet.email === email) {
 					setIsSelf(true);
+					setSelfPoems(user.poet.poems.reverse());
+
 				} else {
 					setIsSelf(false);
 				}
@@ -70,7 +73,7 @@ function PoetPage({ poet, poemsSorted }) {
 		}
 		setShowReadingList(false);
 		getActiveSession();
-	}, []);
+	}, [email]);
 
 	if (isLoading) {
 
@@ -89,11 +92,8 @@ function PoetPage({ poet, poemsSorted }) {
 			
 	}
 
-	let selfPoems;
 	if (data && isSelf) {
 		pageReadingList = data.poet.readingList;
-		console.log("Data: ", data);
-		selfPoems = data.poet.poems.reverse();
 	}
 
 	async function getReadingListPoets() {
