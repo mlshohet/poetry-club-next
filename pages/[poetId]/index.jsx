@@ -21,7 +21,15 @@ import classes from './poet-page.module.css';
 
 function PoetPage({ poet, poemsSorted }) {
 
-	const { name, _id, readingList, email } = poet;
+	const { _id, readingList, email } = poet;
+
+	let name;
+	if (!poet.name || poet.name === '') {
+		name = "Unknown"
+	} else {
+		name = poet.name;
+	};
+
 	const pageReadingList = readingList;
 
 	const [data, setData] = useState();
@@ -62,7 +70,7 @@ function PoetPage({ poet, poemsSorted }) {
 		}
 		setShowReadingList(false);
 		getActiveSession();
-	}, [name]);
+	}, [poemsSorted, pageReadingList]);
 
 	if (isLoading) {
 
@@ -165,10 +173,10 @@ function PoetPage({ poet, poemsSorted }) {
 		return (
 		<div className={classes.gridContainer}>
 			<Head>
-				<title>Noontide Poetry Club - {poet.name}</title>
+				<title>Noontide Poetry Club - {name}</title>
 				<meta 
 					name="description"
-					content={`${poet.name} poetry`}
+					content={`${name} poetry`}
 				/>
 			</Head>
 			<div className={classes.grid}>
