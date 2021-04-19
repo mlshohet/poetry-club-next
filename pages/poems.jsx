@@ -39,17 +39,22 @@ function PoemsPage(props) {
 
 export async function getServerSideProps(context) {
 
-	const session = await getSession({
-		req: context.req
-	});
+	let session;
+	try {
+		session = await getSession({
+			req: context.req
+		});
 
-	if (!session) {
-		return {
-			redirect: {
-				destination: '/',
-				permanent: false
-			}
-		};
+		if (!session) {
+			return {
+				redirect: {
+					destination: '/',
+					permanent: false
+				}
+			};
+		}
+	} catch (error) {
+		throw new Error('Could not find user.')
 	}
 
 	const userId = await new ObjectId(session.user.userId);

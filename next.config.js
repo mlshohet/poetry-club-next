@@ -6,16 +6,12 @@ module.exports = withPWA({
 		dest: 'public',
 		runtimeCaching,
 	},
+	future: { 
+		webpack5: true,
+	},
+	images: {
+	    domains: [
+	    	'firebasestorage.googleapis.com'
+	    ],
+	  },
 });
-
-module.exports = {
-	future: { webpack5: true }
-}
-
-module.exports = {
-  images: {
-    domains: [
-    	'firebasestorage.googleapis.com'
-    ],
-  },
-}

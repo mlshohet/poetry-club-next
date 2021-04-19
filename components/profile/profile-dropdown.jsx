@@ -23,6 +23,7 @@ import classes from './profile-dropdown.module.css';
 function ProfileDropdown (props) {
 
 	const [data, setData] = useState();
+	const [isLoading, setIsLoading] = useState(true);
 
 	const profileDropdownContext = useContext(ProfileDropdownContext);
 	const hideProfileDropdown = profileDropdownContext.hideProfile;
@@ -36,16 +37,17 @@ function ProfileDropdown (props) {
 			if (session) {
 				const userId = session.user.userId;
 				const currentUser = await getPoet(userId);
-				if (currentUser) {
+				if (currentUser.poet) {
 					const slug = currentUser.poet.slug;
 					setData(slug);
+					setIsLoading(false);
 				}
 			}
 		}
 		getCurrentUser();
 	}, []);
 
-	if (!data) {
+	if (isLoading) {
 		return <Loading dropdown />;
 	}
 
