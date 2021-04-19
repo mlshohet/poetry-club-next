@@ -1,4 +1,4 @@
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowDownward';
 
 import classes from './cta-add.module.css';
 
@@ -9,7 +9,7 @@ function CtaAdd() {
 			<div className={classes.ctaContainer}>
 				<h1 className={classes.cta}>
 					Add <span className={classes.noontide}>noontide</span> to your homepage
-					<ArrowDownwardIcon className={classes.arrow}/>
+					<ArrowUpwardIcon className={classes.arrow}/>
 				</h1>
 			</div>
 	);
