@@ -8,7 +8,7 @@ function CtaAdd() {
 	return (
 			<div className={classes.ctaContainer}>
 				<h1 className={classes.cta}>
-					Add <span className={classes.noontide}>noontide</span> to your homepage
+					Install <span className={classes.noontide}>noontide</span> on your device
 					<ArrowUpwardIcon className={classes.arrow}/>
 				</h1>
 			</div>
