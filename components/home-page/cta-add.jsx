@@ -1,4 +1,4 @@
-import ArrowUpwardIcon from '@material-ui/icons/ArrowDownward';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
 import classes from './cta-add.module.css';
 
