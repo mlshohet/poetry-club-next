@@ -45,7 +45,7 @@ function ForgotPasswordForm() {
 				className={classes.auth}
 				onSubmit={onSubmitHandler}
 			>
-				<h1>Enter your email</h1>
+				<h3>Enter your email</h3>
 				<div className={classes.control}>
 	            <input 
 	              type='email'

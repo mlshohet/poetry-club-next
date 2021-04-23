@@ -14,8 +14,9 @@
   padding: 0.5rem;
 }
 
-.auth h1 {
+.auth h3 {
   color: white;
+  text-align: center;
   margin-bottom: 0.5rem;
 }
 
@@ -151,6 +152,12 @@ button.toggle {
     min-width: 30vw;
     background-color: #880808;
     padding: 1rem 1.4rem;
+  }
+
+  .auth h3 {
+    color: white;
+    text-align: left;
+    margin-bottom: 0.5rem;
   }
 
   .toggleContainer {
