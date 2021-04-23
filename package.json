@@ -17,6 +17,7 @@
     "next": "10.0.6",
     "next-auth": "^3.13.3",
     "next-pwa": "^5.2.9",
+    "nodemailer": "^6.5.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-markdown": "^5.0.3",

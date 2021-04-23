@@ -43,6 +43,7 @@ function PoetPage({ poet, poemsSorted }) {
 
 	useEffect(() => { 
 		async function getActiveSession() {
+			setIsLoading(true);
 			const session = await getSession();
 			if (session) {
 		

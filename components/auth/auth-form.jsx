@@ -44,7 +44,6 @@ function AuthForm() {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
-  //const [isLogin, setIsLogin] = useState(true);
   const router = useRouter();
 
   function switchAuthModeHandler() {
@@ -157,14 +156,16 @@ function AuthForm() {
             >
               {!isSignUpMode ? 'Create new account' : 'Login with existing account'}
             </button>
-            <button
-              type='button'
-              className={classes.toggle}
-              onClick={null}
-            >
-              {!isSignUpMode && 'Forgot password'}
-            </button>
-             
+            <Link href='/forgot-password'>
+              <a>
+                <button
+                  type='button'
+                  className={classes.toggle}
+                >
+                  {!isSignUpMode && 'Forgot password?'}
+                </button>
+              </a>
+             </Link>
             </div>
             
           </div>

@@ -55,7 +55,6 @@ async function handler(req, res) {
 	let passwordsAreEqual;
 
 	try {
-		console.log("Current Passwords: ", oldPassword, currentPassword);
 		passwordsAreEqual = await verifyPassword(oldPassword, currentPassword);
 	} catch (error) {
 		res.status(403).json({ message: "Password not valid!"});
